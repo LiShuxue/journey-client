@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <router-link to="/"><sapn class="logo"></sapn></router-link>
+    <router-link to="/"><span class="logo"></span></router-link>
     <router-link to="/"><span class="title">身体和灵魂，总有一个要在路上</span></router-link>
   </div>
 </template>
