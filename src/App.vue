@@ -7,8 +7,10 @@
         <nav-bar></nav-bar>
       </div>
       <div class="center">
-        center
-        <router-view/>
+        <keep-alive>
+            <router-view v-if="$route.meta.keepAlive"></router-view>
+        </keep-alive>
+        <router-view v-if="!$route.meta.keepAlive"></router-view>
       </div>
       <div class="right">right</div>
     </div>
