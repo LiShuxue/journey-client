@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <div class="header">header</div>
+    <main-header></main-header>
 
     <div class="content">
       <div class="left">
@@ -15,30 +15,27 @@
     </div>
 
     <div class="footer">footer</div>
-    
   </div>
 </template>
 
 <script>
 import NavBar from '@/components/NavBar.vue'
+import MainHeader from '@/components/header.vue'
 
 export default {
   name: 'app',
   components: {
-    NavBar
+    NavBar,
+    MainHeader
   }
 }
 </script>
 
 <style scoped>
-@import "./assets/style/base.css"; 
+@import "./assets/style/base.css";
+
 .app{
   background-color: #EEEEEE;
-}
-
-.header{
-  background-color: #F8F8F8;
-  height: 10vh;
 }
 
 .content{
