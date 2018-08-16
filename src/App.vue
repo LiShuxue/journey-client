@@ -59,7 +59,6 @@ export default {
 .center{
   order: 1;
   width: 60vw;
-  background-color: #b6b6b6;
 }
 
 .right{
