@@ -4,7 +4,6 @@
 
     <div class="content">
       <div class="left">
-        left
         <nav-bar></nav-bar>
       </div>
       <div class="center">
@@ -42,6 +41,7 @@ export default {
   display: flex;
   flex-direction: row;
   height: 80vh;
+  padding-top: 10px;
 }
 
 .footer{
