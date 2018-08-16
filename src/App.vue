@@ -31,6 +31,7 @@ export default {
 </script>
 
 <style scoped>
+@import "./assets/style/base.css"; 
 .app{
   background-color: #EEEEEE;
 }
