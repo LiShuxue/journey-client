@@ -37,7 +37,6 @@ export default{
 }
 
 .nav-item{
-  font-family: 'Courier New', Courier, monospace;
   color: #6D6D6D;
   padding: 10px 0 10px 10px;
   margin: 0 10px 10px 0;

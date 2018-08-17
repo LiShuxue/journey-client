@@ -47,6 +47,11 @@ export default {
 <style scoped>
 .banner{
   width: 60vw;
-  height: 25vh;
+}
+img{
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;	
 }
 </style>

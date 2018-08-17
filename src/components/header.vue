@@ -25,7 +25,6 @@
   position: absolute;
   top: 4vh;
   left: 20vw;
-  font-family: 'Courier New', Courier, monospace;
   color: #2192F5;
 }
 </style>
