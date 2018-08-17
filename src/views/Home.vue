@@ -22,7 +22,7 @@
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 export default {
-  data() {
+  data () {
     return {
       swiperOption: {
         spaceBetween: 20, // 切换图片时中间的白条
