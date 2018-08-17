@@ -1,23 +1,31 @@
 <template>
   <div class="blog-item">
     <div class="blog-image">
-      <img src="../assets/img/slide.png">
+      <img :src="blog.image">
     </div>
     <div class="blog-intro">
-      <div class="title">我是标题我是标题</div>
-      <div class="sub-title">我是子标题我是子标题</div>
+      <div class="title">{{blog.title}}</div>
+      <div class="sub-title">{{blog.subTitle}}</div>
       <div class="tool">
-        <span class="iconfont icon-clock"></span><span class="content">2018-8-17</span>
-        <span class="iconfont icon-eye"></span><span class="content">500</span>
-        <span class="iconfont icon-comment"></span><span class="content">20</span>
-        <span class="iconfont icon-like"></span><span class="content">33</span>
+        <span class="iconfont icon-clock"></span><span class="content">{{blog.time}}</span>
+        <span class="iconfont icon-eye"></span><span class="content">{{blog.eye}}</span>
+        <span class="iconfont icon-comment"></span><span class="content">{{blog.comment.count}}</span>
+        <span class="iconfont icon-like"></span><span class="content">{{blog.like}}</span>
         <router-link to="/">
-          <span class="iconfont icon-list"></span><span class="content">NodeJS</span>
+          <span class="iconfont icon-list"></span><span class="content">{{blog.category}}</span>
         </router-link>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    blog: Object
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .blog-item{
