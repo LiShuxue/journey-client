@@ -44,6 +44,7 @@ export default {
   flex-direction: row;
   padding-top: 10px;
   margin-top: 60px;
+  min-height: 80vh;
 }
 
 .footer{
@@ -52,17 +53,20 @@ export default {
 }
 
 .left{
-  order: 0;
+  position: fixed;
+  top: 70px;
+  left: 0;
   width: 20vw;
 }
 
 .center{
-  order: 1;
+  order: 0;
   width: 60vw;
+  margin-left: 20vw;
 }
 
 .right{
-  order: 2;
+  order: 1;
   width: 20vw;
 }
 </style>
