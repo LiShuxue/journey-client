@@ -42,8 +42,8 @@ export default {
 .content{
   display: flex;
   flex-direction: row;
-  height: 80vh;
   padding-top: 10px;
+  margin-top: 60px;
 }
 
 .footer{

@@ -7,10 +7,15 @@
 
 <style scoped>
 .header{
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
   box-sizing: border-box;
-  height: 10vh;
+  width: 100%;
+  height: 60px;
   background-color: #F8F8F8;
+  z-index: 10;
+  opacity: 0.8;
 }
 .logo{
   position: absolute;
