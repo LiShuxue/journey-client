@@ -14,6 +14,9 @@
       </div>
       <aside class="right">
         <search-box></search-box>
+        <keep-alive>
+          <category-box></category-box>
+        </keep-alive>
       </aside>
     </div>
 
@@ -25,13 +28,15 @@
 import NavBar from '@/components/NavBar.vue'
 import MainHeader from '@/components/header.vue'
 import SearchBox from '@/components/search.vue'
+import CategoryBox from '@/components/category.vue'
 
 export default {
   name: 'app',
   components: {
     NavBar,
     MainHeader,
-    SearchBox
+    SearchBox,
+    CategoryBox
   }
 }
 </script>
