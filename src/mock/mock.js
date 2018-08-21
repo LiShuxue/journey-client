@@ -18,7 +18,8 @@ const mockdata = Mock.mock({
       }]
     }
   }],
-  'slideImage': Mock.Random.dataImage('600x210')
+  'slideImage': Mock.Random.dataImage('600x210'),
+  'categoryList': ['NodeJS', 'ES6', 'Vue', 'CSS', 'Webpack', 'NodeJS', 'ES6', 'Vue', 'CSS', 'Webpack', 'NodeJS', 'ES6', 'Vue', 'CSS', 'Webpack', 'NodeJS', 'ES6', 'Vue', 'CSS', 'Webpack', 'NodeJS', 'ES6', 'Vue', 'CSS', 'Webpack']
 })
 
 export default mockdata
