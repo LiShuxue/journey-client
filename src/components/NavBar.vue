@@ -33,20 +33,24 @@ export default{
 @import "../assets/iconfont/iconfont.css";
 
 .nav{
-  margin-left: 8vw;
+  position: fixed;
+  top: 70px;
+  width: 160px;
+  box-sizing: border-box;
+  padding: 10px 10px 0 10px;
 }
 
 .nav-item{
   color: #6D6D6D;
-  padding: 10px 0 10px 10px;
-  margin: 0 10px 10px 0;
+  padding: 10px 10px 10px 10px;
+  margin-bottom: 10px;
   border-radius: 20%;
 }
 .nav-icon{
   margin-right: 15px;
 }
 .nav-title{
-  font-weight: 600;
+  font-weight: bold;
 }
 
 .router-link-exact-active{

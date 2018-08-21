@@ -31,28 +31,27 @@ export default {
 .blog-item{
   display: flex;
   box-sizing: border-box;
-  width: 60vw;
-  height: 150px;
+  height: 135px;
   margin-top: 10px;
-  padding: 8px;
+  padding: 7px;
   background: #F8F8F8;
 }
 
 .blog-image{
-  flex-basis: 22vw;
-  height: 130px;
+  flex-basis: 175px;
+  height: 120px;
   margin-right: 15px;
   img{
-    width: 22vw;
-    height: 130px;
+    width: 100%;
+    height: 100%;
     object-fit: cover;    // 通过这个属性实现background-size:cover的效果
   }
 }
 
 .blog-intro{
   position: relative;
-  flex-grow: 1;
-  height: 130px;
+  flex-basis: 410px;
+  height: 120px;
   color: #6D6D6D;
 
   .title{

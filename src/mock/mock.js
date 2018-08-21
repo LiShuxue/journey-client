@@ -4,7 +4,7 @@ const mockdata = Mock.mock({
   'blogList|1-10': [{
     'title|1-5': '标题',
     'subTitle|1-5': '子标题',
-    image: Mock.Random.dataImage('770x250'),
+    image: Mock.Random.dataImage('600x210'),
     time: Mock.Random.date(),
     'eye|1-500': 500,
     'like|1-100': 30,
@@ -17,7 +17,8 @@ const mockdata = Mock.mock({
         'arthur|1': ['张三', '李四', '王五', '赵六']
       }]
     }
-  }]
+  }],
+  'slideImage': Mock.Random.dataImage('600x210')
 })
 
 export default mockdata
