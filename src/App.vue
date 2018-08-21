@@ -42,6 +42,8 @@ export default {
 .content{
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  box-sizing: border-box;
   padding-top: 10px;
   margin-top: 60px;
   min-height: 80vh;
@@ -49,24 +51,24 @@ export default {
 
 .footer{
   background-color: #F8F8F8;
-  height: 10vh;
 }
 
 .left{
-  position: fixed;
-  top: 70px;
-  left: 0;
-  width: 20vw;
+  order: 0;
+  flex-basis: 160px;
+  box-sizing: border-box;
 }
 
 .center{
-  order: 0;
-  width: 60vw;
-  margin-left: 20vw;
+  order: 1;
+  flex-basis: 600px;
+  box-sizing: border-box;
+  margin: 0 10px;
 }
 
 .right{
-  order: 1;
-  width: 20vw;
+  order: 2;
+  flex-basis: 220px;
+  box-sizing: border-box;
 }
 </style>
