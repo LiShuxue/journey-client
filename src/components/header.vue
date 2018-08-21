@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <header class="header">
     <!-- 为了解决在fixed定位下，flex不生效的问题，得在flex上面再包裹一层dom，并设置其宽高-->
     <div class="fix-flex-issue">
       <div class="content">
@@ -8,7 +8,7 @@
         <div class="other"></div>
       </div>
     </div>
-  </div>
+  </header>
 </template>
 
 <style scoped>
