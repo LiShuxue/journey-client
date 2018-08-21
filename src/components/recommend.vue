@@ -1,14 +1,14 @@
 <template>
-  <div class="category-wrapper">
+  <div class="recommend-wrapper">
     <p class="title">
-      <span class="iconfont icon-list"></span>
-      <span>分类</span>
+      <span class="iconfont icon-top-ten"></span>
+      <span>阅读排行</span>
     </p>
-    <p class="category">
-      <span class="category-item" v-for="(item, index) in categoryList" :key="index">
-        {{item}}
-      </span>
-    </p>
+    <div class="article">
+      <p class="article-item" v-for="(item, index) in blogList" :key="index">
+        {{item.title}}
+      </p>
+    </div>
   </div>
 </template>
 
@@ -17,14 +17,14 @@ import mockdata from '@/mock/mock'
 export default {
   data () {
     return {
-      categoryList: mockdata.categoryList
+      blogList: mockdata.blogList
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.category-wrapper{
+.recommend-wrapper{
   display: flex;
   flex-direction: column;
   margin-top: 15px;
@@ -42,13 +42,14 @@ export default {
     margin-right: 5px;
   }
 }
-.category{
+.article{
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   margin-top: 10px;
 }
-.category-item{
-  background: #DADADA;
+.article-item{
+  background: #EEEEEE;
   padding: 5px;
   margin: 0 10px 10px 0;
   border-radius: 10%;

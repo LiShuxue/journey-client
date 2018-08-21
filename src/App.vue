@@ -17,6 +17,9 @@
         <keep-alive>
           <category-box></category-box>
         </keep-alive>
+        <keep-alive>
+          <recommend-box></recommend-box>
+        </keep-alive>
       </aside>
     </div>
 
@@ -29,6 +32,7 @@ import NavBar from '@/components/NavBar.vue'
 import MainHeader from '@/components/header.vue'
 import SearchBox from '@/components/search.vue'
 import CategoryBox from '@/components/category.vue'
+import RecommendBox from '@/components/recommend.vue'
 
 export default {
   name: 'app',
@@ -36,7 +40,8 @@ export default {
     NavBar,
     MainHeader,
     SearchBox,
-    CategoryBox
+    CategoryBox,
+    RecommendBox
   }
 }
 </script>
