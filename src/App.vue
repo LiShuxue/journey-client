@@ -12,7 +12,9 @@
         </keep-alive>
         <router-view v-if="!$route.meta.keepAlive"></router-view>
       </div>
-      <div class="right">right</div>
+      <aside class="right">
+        <search-box></search-box>
+      </aside>
     </div>
 
     <div class="footer">footer</div>
@@ -22,12 +24,14 @@
 <script>
 import NavBar from '@/components/NavBar.vue'
 import MainHeader from '@/components/header.vue'
+import SearchBox from '@/components/search.vue'
 
 export default {
   name: 'app',
   components: {
     NavBar,
-    MainHeader
+    MainHeader,
+    SearchBox
   }
 }
 </script>
