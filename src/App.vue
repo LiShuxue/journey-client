@@ -23,7 +23,7 @@
       </aside>
     </div>
 
-    <div class="footer">footer</div>
+    <main-footer></main-footer>
   </div>
 </template>
 
@@ -33,6 +33,7 @@ import MainHeader from '@/components/header.vue'
 import SearchBox from '@/components/search.vue'
 import CategoryBox from '@/components/category.vue'
 import RecommendBox from '@/components/recommend.vue'
+import MainFooter from '@/components/footer.vue'
 
 export default {
   name: 'app',
@@ -41,7 +42,8 @@ export default {
     MainHeader,
     SearchBox,
     CategoryBox,
-    RecommendBox
+    RecommendBox,
+    MainFooter
   }
 }
 </script>
@@ -61,10 +63,6 @@ export default {
   padding-top: 10px;
   margin-top: 60px;
   min-height: 80vh;
-}
-
-.footer{
-  background-color: #F8F8F8;
 }
 
 .left{
