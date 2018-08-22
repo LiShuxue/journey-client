@@ -54,5 +54,6 @@ export default {
   margin: 0 10px 10px 0;
   border-radius: 10%;
   cursor: pointer;
+  font-size: 13px;
 }
 </style>

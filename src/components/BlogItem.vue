@@ -57,11 +57,12 @@ export default {
   .title{
     margin-top: 5px;
     font-weight: bold;
+    font-size: 15px;
   }
 
   .sub-title{
     margin-top: 10px;
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .tool{
@@ -71,6 +72,7 @@ export default {
     span{
       display: inline-block;
       margin-right: 5px;
+      font-size: 14px;
     }
 
     .content{
