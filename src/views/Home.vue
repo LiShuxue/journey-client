@@ -4,6 +4,7 @@
     <div class="blog-list" v-for="(item, index) in blogList" :key="index">
       <blog-item :blog="item"></blog-item>
     </div>
+    <div class="more" @click="getMore" :style="cursor">{{msg}}</div>
   </div>
 </template>
 
@@ -14,13 +15,34 @@ import BlogItem from '@/components/BlogItem.vue'
 export default {
   data () {
     return {
-      blogList: mockdata.blogList
+      msg: '点击加载更多',
+      blogList: mockdata.blogList,
+      isLoading: false,
+      cursor: 'cursor: pointer;'
     }
   },
 
   components: {
     SwipeBanner,
     BlogItem
+  },
+
+  methods: {
+    getMore () {
+      // 通过函数节流原理，设置一个标志位，防止多次点击多次请求
+      if (!this.isLoading) {
+        this.isLoading = true
+        this.msg = 'loading...'
+        this.cursor = ''
+        setTimeout(() => {
+          let newList = [...this.blogList, ...mockdata.blogList]
+          this.blogList = newList
+          this.msg = '点击加载更多'
+          this.cursor = 'cursor: pointer;'
+          this.isLoading = false
+        }, 2000)
+      }
+    }
   }
 }
 </script>
@@ -28,5 +50,11 @@ export default {
 <style lang="scss" scoped>
 .home{
   box-sizing: border-box;
+}
+.more{
+  font-size: 14px;
+  color: #6D6D6D;
+  width: 100px;
+  margin: 15px auto 5px auto;
 }
 </style>
