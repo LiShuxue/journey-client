@@ -7,10 +7,14 @@
         <nav-bar></nav-bar>
       </div>
       <div class="center">
-        <keep-alive>
-            <router-view v-if="$route.meta.keepAlive"></router-view>
-        </keep-alive>
-        <router-view v-if="!$route.meta.keepAlive"></router-view>
+        <transition name="router-fade" mode="out-in">
+          <keep-alive>
+              <router-view v-if="$route.meta.keepAlive"></router-view>
+          </keep-alive>
+        </transition>
+        <transition name="router-fade" mode="out-in">
+          <router-view v-if="!$route.meta.keepAlive"></router-view>
+        </transition>
       </div>
       <aside class="right">
         <search-box></search-box>
@@ -82,5 +86,20 @@ export default {
   order: 2;
   flex-basis: 220px;
   box-sizing: border-box;
+}
+
+.router-fade-enter{
+    opacity: 0;
+}
+.router-fade-enter-active{
+    transition-property: opacity;
+    transition-duration: 0.5s;
+}
+.router-fade-leave-active{
+    transition-property: opacity;
+    transition-duration: 0.5s;
+}
+.router-fade-leave-to{
+    opacity: 0;
 }
 </style>
