@@ -78,6 +78,13 @@ export default {
     .content{
       margin-right: 20px;
     }
+
+    a{
+      text-decoration: none;
+      color: $hui-hei;
+      cursor: pointer;
+      outline: none;
+    }
   }
 }
 </style>
