@@ -17,7 +17,7 @@ export default {
 .search{
   display: flex;
   padding: 5px 10px;
-  background: #F8F8F8;
+  background: $hui-bai;
   border-radius: 5%;
 }
 input, button{
@@ -30,7 +30,7 @@ input, button{
 .search-box{
   flex-basis: 175px;
   height: 25px;
-  background: #EEEEEE;
+  background: $qian-hui;
 }
 .search-icon{
   flex-basis: 25px;

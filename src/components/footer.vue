@@ -10,7 +10,7 @@
   </footer>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .footer{
   display: flex;
   flex-direction: row;
@@ -18,8 +18,8 @@
   margin-top: 15px;
   height: 60px;
   font-size: 13px;
-  color: #6D6D6D;
-  background-color: #F8F8F8;
+  color: $hui-hei;
+  background-color: $hui-bai;
 }
 .ft{
   order: 0;
@@ -40,11 +40,11 @@
   box-sizing: border-box;
 }
 .copyright{
-  border-right: 1px dashed #DADADA;
+  border-right: 1px dashed $shen-hui;
   padding: 0 20px
 }
 .power{
-  border-right: 1px dashed #DADADA;
+  border-right: 1px dashed $shen-hui;
   padding: 0 20px
 }
 .other{

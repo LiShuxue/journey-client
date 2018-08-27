@@ -53,7 +53,7 @@ export default {
 }
 .more{
   font-size: 14px;
-  color: #6D6D6D;
+  color: $hui-hei;
   width: 100px;
   margin: 15px auto 5px auto;
 }

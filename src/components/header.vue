@@ -11,12 +11,12 @@
   </header>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .header{
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #F8F8F8;
+  background-color: $hui-bai;
   z-index: 10;
   opacity: 0.8;
   width: 100%;
@@ -47,7 +47,7 @@
   flex-basis: 600px;
   box-sizing: border-box;
   margin: 17px 10px 0px 10px;
-  color: #2192F5;
+  color: $qian-lan;
   font-weight: bold;
   font-size: 17px;
 }

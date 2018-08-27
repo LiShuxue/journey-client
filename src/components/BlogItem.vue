@@ -34,7 +34,7 @@ export default {
   height: 135px;
   margin-top: 10px;
   padding: 7px;
-  background: #F8F8F8;
+  background: $hui-bai;
 }
 
 .blog-image{
@@ -52,7 +52,7 @@ export default {
   position: relative;
   flex-basis: 410px;
   height: 120px;
-  color: #6D6D6D;
+  color: $hui-hei;
 
   .title{
     margin-top: 5px;
