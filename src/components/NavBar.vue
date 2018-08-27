@@ -36,6 +36,10 @@ export default{
   position: fixed;
   top: 70px;
   width: 160px;
+  height: calc(100% - 70px - 60px - 55px);
+  color: #6D6D6D;
+  background: #F8F8F8;
+  border-radius: 10px;
   box-sizing: border-box;
   padding: 10px 10px 0 10px;
 }
@@ -55,7 +59,7 @@ export default{
 
 .router-link-exact-active{
   & .nav-item{
-    background-color: #F8F8F8;
+    background: #EEEEEE;
     color: #2192F5;
   }
 }
