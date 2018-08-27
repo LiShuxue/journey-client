@@ -37,15 +37,15 @@ export default{
   top: 70px;
   width: 160px;
   height: calc(100% - 70px - 60px - 55px);
-  color: #6D6D6D;
-  background: #F8F8F8;
+  color: $hui-hei;
+  background: $hui-bai;
   border-radius: 10px;
   box-sizing: border-box;
   padding: 10px 10px 0 10px;
 }
 
 .nav-item{
-  color: #6D6D6D;
+  color: $hui-hei;
   padding: 10px 10px 10px 10px;
   margin-bottom: 10px;
   border-radius: 20%;
@@ -59,8 +59,8 @@ export default{
 
 .router-link-exact-active{
   & .nav-item{
-    background: #EEEEEE;
-    color: #2192F5;
+    background: $qian-hui;
+    color: $qian-lan;
   }
 }
 </style>

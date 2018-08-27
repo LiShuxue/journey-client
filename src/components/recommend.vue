@@ -29,14 +29,14 @@ export default {
   flex-direction: column;
   margin-top: 15px;
   padding: 10px 10px 0 10px;
-  background: #F8F8F8;
+  background: $hui-bai;
   border-radius: 5%;
-  color: #6D6D6D;
+  color: $hui-hei;
 }
 
 .title{
   padding: 5px 10px 6px 0;
-  border-bottom: 1px dashed #DADADA;
+  border-bottom: 1px dashed $shen-hui;
 
   span{
     margin-right: 5px;
@@ -49,7 +49,7 @@ export default {
   margin-top: 10px;
 }
 .article-item{
-  background: #EEEEEE;
+  background: $qian-hui;
   padding: 5px;
   margin: 0 10px 10px 0;
   border-radius: 10%;
