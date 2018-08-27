@@ -53,8 +53,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "./assets/style/base.css";
-
 .app{
   background-color: $qian-hui;
 }
