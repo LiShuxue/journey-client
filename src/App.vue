@@ -53,8 +53,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "./assets/fonts/font.css";
+
 .app{
   background-color: $qian-hui;
+  font-family: 'DINRegular';
 }
 
 .content{

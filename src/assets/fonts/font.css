@@ -1,0 +1,7 @@
+@font-face {
+  font-family: "DINRegular";
+  src: url("DIN-Regular.ttf"),
+       url("DIN-Regular.otf");
+  font-weight: normal;
+  font-style: normal;
+}
