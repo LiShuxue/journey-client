@@ -57,7 +57,6 @@ export default {
 
 .app{
   background-color: $qian-hui;
-  font-family: 'DINRegular';
 }
 
 .content{
