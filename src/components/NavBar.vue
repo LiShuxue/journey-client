@@ -22,7 +22,7 @@ export default{
         {path: '/test2', name: '关于', style: 'icon-user'},
         {path: '/test3', name: '关于', style: 'icon-user'},
         {path: '/test4', name: '关于', style: 'icon-user'},
-        {path: '/test5', name: '关于', style: 'icon-user'}
+        {path: '/admin', name: '管理员入口', style: 'icon-user'}
       ]
     }
   }
@@ -36,7 +36,7 @@ export default{
   position: fixed;
   top: 70px;
   width: 160px;
-  height: calc(100% - 70px - 60px - 55px);
+  height: calc(100% - 70px - 60px - 51px);
   color: $hui-hei;
   background: $hui-bai;
   border-radius: 10px;
