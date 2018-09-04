@@ -1,6 +1,6 @@
 <template>
-  <div class="login" 
-    v-loading="loading" 
+  <div class="login"
+    v-loading="loading"
     element-loading-text="正在登录..."
     element-loading-spinner="el-icon-loading"
     element-loading-background="rgba(0, 0, 0, 0.5)">
@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       username: '',
       password: '',
@@ -30,14 +30,14 @@ export default {
     }
   },
   methods: {
-    clearData() {
-      this.username = '',
+    clearData () {
+      this.username = ''
       this.password = ''
     },
-    login() {
-      this.loading = true;
-      setTimeout(()=>{
-        this.loading = false;
+    login () {
+      this.loading = true
+      setTimeout(() => {
+        this.loading = false
       }, 2000)
     }
   }
