@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import API from '@/ajax/api.js'
 export default {
   data () {
     return {
@@ -36,9 +37,15 @@ export default {
     },
     login () {
       this.loading = true
-      setTimeout(() => {
+      this.axios.post(API.admin.login, {
+        username: this.username,
+        password: this.password
+      }).then(response => {
         this.loading = false
-      }, 2000)
+      }).catch(err => {
+        console.log(err)
+        this.loading = false
+      })
     }
   }
 }
