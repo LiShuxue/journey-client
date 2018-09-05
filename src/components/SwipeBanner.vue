@@ -19,7 +19,7 @@
 <script>
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import mockdata from '@/mock/mock'
+import mockdata from '../../mock/mock'
 export default {
   data () {
     return {

@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import mockdata from '@/mock/mock'
+import mockdata from '../../mock/mock'
 export default {
   data () {
     return {
