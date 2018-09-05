@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import mockdata from '@/mock/mock'
+import mockdata from '../../../mock/mock'
 import SwipeBanner from '@/components/SwipeBanner.vue'
 import BlogItem from '@/components/BlogItem.vue'
 export default {
