@@ -9,22 +9,22 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: () => import('./views/Main.vue'),
+      component: () => import('./views/visitor/Main.vue'),
       redirect: '/home',
       children: [
         { path: 'home',
-          component: () => import('./views/Home.vue'),
+          component: () => import('./views/visitor/Home.vue'),
           meta: { keepAlive: true }
         },
-        { path: 'about', component: () => import('./views/About.vue') }
+        { path: 'about', component: () => import('./views/visitor/About.vue') }
       ]
     },
     {
       path: '/admin',
-      component: () => import('./sever/Admin.vue'),
+      component: () => import('./views/admin/Admin.vue'),
       redirect: '/admin/login',
       children: [
-        { path: 'login', component: () => import('./sever/login.vue') }
+        { path: 'login', component: () => import('./views/admin/login.vue') }
       ]
     }
   ]
