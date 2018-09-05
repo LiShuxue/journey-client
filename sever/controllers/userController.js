@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const crypto = require('crypto');
 const secret = 'secret-key';
+const tokenUtil = require('../utils/tokenUtil');
 
 const createUser = (user) => {
     return User.create(user);
@@ -35,10 +36,14 @@ const login = async ( ctx ) => {
             errMsg: '密码错误!'
         }
     }else{
+        let token = tokenUtil.createToken({
+            username
+        });
         ctx.status = 200;
         ctx.body = { 
             successMsg: '登录成功!',
-            username
+            username,
+            token
         };
     }
 }

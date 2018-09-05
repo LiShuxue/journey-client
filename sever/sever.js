@@ -1,7 +1,7 @@
 const Koa = require('koa');
 const app = new Koa();
 
-const db = require("./db/mongodb");
+const db = require('./db/mongodb');
 
 // bodyparser:该中间件用于处理post请求的数据
 const bodyParser = require('koa-bodyparser');
