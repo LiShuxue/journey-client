@@ -1,4 +1,6 @@
 const User = require('../models/User');
+const crypto = require('crypto');
+const secret = 'secret-key';
 
 const createUser = (user) => {
     return User.create(user);
@@ -17,7 +19,9 @@ const getUser = (username) => {
 
 const login = async ( ctx ) => {
     let username = ctx.request.body.username;
-    let password = ctx.request.body.password;
+    let hashPass = crypto.createHmac('sha256', secret)
+        .update(ctx.request.body.password)
+        .digest('hex');
     let doc = await getUser(username);
 
     if(!doc){
@@ -25,7 +29,7 @@ const login = async ( ctx ) => {
         ctx.body = {
             errMsg: '用户名不存在!'
         }
-    }else if(doc.password !== password){
+    }else if(doc.password !== hashPass){
         ctx.status = 200;
         ctx.body = {
             errMsg: '密码错误!'
@@ -40,11 +44,14 @@ const login = async ( ctx ) => {
 }
 
 const register = async ( ctx ) => {
+    let hashPass = crypto.createHmac('sha256', secret)
+        .update(ctx.request.body.password)
+        .digest('hex');
     let user = {
         username: ctx.request.body.username,
-        password: ctx.request.body.password
+        password: hashPass
     };
-
+    
     let doc = await getUser(user.username);
     if(doc){
         ctx.status = 200;

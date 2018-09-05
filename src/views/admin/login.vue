@@ -13,7 +13,7 @@
       </el-input>
 
       <div class="button-wrapper">
-        <el-button type="info" class="button-clear" @click="clearData">清除</el-button>
+        <el-button type="info" class="button-clear" @click="register">注册</el-button>
         <el-button type="info" class="button-login" @click="login">登录</el-button>
       </div>
     </div>
@@ -22,6 +22,7 @@
 
 <script>
 import API from '@/ajax/api.js'
+import SHA256 from 'crypto-js/sha256'
 export default {
   data () {
     return {
@@ -31,16 +32,25 @@ export default {
     }
   },
   methods: {
-    clearData () {
-      this.username = ''
-      this.password = ''
+    register () {
+      this.axios.post(API.admin.register, {
+        username: this.username,
+        password: SHA256(this.password).toString()
+      }).then(response => {
+        console.log(response.data)
+        this.loading = false
+      }).catch(err => {
+        console.log(err)
+        this.loading = false
+      })
     },
     login () {
       this.loading = true
       this.axios.post(API.admin.login, {
         username: this.username,
-        password: this.password
+        password: SHA256(this.password).toString()
       }).then(response => {
+        console.log(response.data)
         this.loading = false
       }).catch(err => {
         console.log(err)
