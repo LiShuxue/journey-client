@@ -5,8 +5,10 @@ import store from './store'
 import 'normalize.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import axios from './ajax/config'
 
 Vue.config.productionTip = false
+Vue.prototype.axios = axios
 
 Vue.use(ElementUI)
 
