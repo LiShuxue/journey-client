@@ -16,13 +16,13 @@ export default{
   data () {
     return {
       navList: [
-        {path: '/', name: '主页', style: 'icon-home'},
-        {path: '/about', name: '关于', style: 'icon-user'},
-        {path: '/test1', name: '关于', style: 'icon-user'},
-        {path: '/test2', name: '关于', style: 'icon-user'},
-        {path: '/test3', name: '关于', style: 'icon-user'},
-        {path: '/test4', name: '关于', style: 'icon-user'},
-        {path: '/admin', name: '管理员入口', style: 'icon-user'}
+        { path: '/', name: '主页', style: 'icon-home' },
+        { path: '/about', name: '关于', style: 'icon-user' },
+        { path: '/test1', name: '关于', style: 'icon-user' },
+        { path: '/test2', name: '关于', style: 'icon-user' },
+        { path: '/test3', name: '关于', style: 'icon-user' },
+        { path: '/test4', name: '关于', style: 'icon-user' },
+        { path: '/admin', name: '管理员入口', style: 'icon-user' }
       ]
     }
   }
