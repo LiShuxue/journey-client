@@ -18,6 +18,21 @@ const getUser = (username) => {
     })
 }
 
+const saveToken = (user, token) => {
+    return new Promise((resolve, reject)=>{
+        User.updateOne( { _id: user.id }, {
+            $set: {
+                token: token
+            }
+        }, (err, doc)=>{
+            if(err){
+                reject(err);
+            }
+            resolve(doc);
+        });
+    });
+}
+
 const login = async ( ctx ) => {
     let username = ctx.request.body.username;
     let hashPass = crypto.createHmac('sha256', secret)
@@ -36,15 +51,21 @@ const login = async ( ctx ) => {
             errMsg: '密码错误!'
         }
     }else{
-        let token = tokenUtil.createToken({
-            username
-        });
+        let token = tokenUtil.createToken({username});
         ctx.status = 200;
         ctx.body = { 
             successMsg: '登录成功!',
             username,
             token
         };
+        try{
+            await saveToken(token);
+        }catch(err){
+            ctx.status = 200;
+            ctx.body = { 
+                errMsg: 'token保存出错!'
+            };
+        }
     }
 }
 
@@ -52,9 +73,11 @@ const register = async ( ctx ) => {
     let hashPass = crypto.createHmac('sha256', secret)
         .update(ctx.request.body.password)
         .digest('hex');
+    let username = ctx.request.body.username;
     let user = {
-        username: ctx.request.body.username,
-        password: hashPass
+        username: username,
+        password: hashPass,
+        token: tokenUtil.createToken({username})
     };
     
     let doc = await getUser(user.username);
