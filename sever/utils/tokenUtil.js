@@ -2,11 +2,11 @@ const secret = 'secret-key';
 const jwt = require('jsonwebtoken');
 
 const initPayload = {
-    iss: "Journey", //(Issuer)    jwt签发者
-    sub: "test@example.com", //(Subject)   该jwt所面向的用户
-    aud: "www.example.com", //(Audience)  接收jwt的一方
+    iss: "Journey", //(Issuer) jwt签发者
+    sub: "test@example.com", //(Subject) 该jwt所面向的用户
+    aud: "www.example.com", //(Audience) 接收jwt的一方
     iat: Date.now()/1000, //(Issued At) jwt的签发时间，单位秒s
-    exp: Date.now()/1000 + 10 //(Expiration Time) jwt的过期时间，单位秒s
+    exp: Date.now()/1000 + 60*60 //(Expiration Time) jwt的过期时间，单位秒s
 };
 
 const createToken = (payload)=>{
