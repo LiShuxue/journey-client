@@ -22,9 +22,10 @@ export default new Router({
     {
       path: '/admin',
       component: () => import('./views/admin/Admin.vue'),
-      redirect: '/admin/login',
+      redirect: '/admin/home',
       children: [
-        { path: 'login', component: () => import('./views/admin/login.vue') }
+        { path: 'login', component: () => import('./views/admin/login.vue') },
+        { path: 'home', component: () => import('./views/admin/home.vue') }
       ]
     }
   ]
