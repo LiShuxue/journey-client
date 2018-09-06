@@ -54,6 +54,9 @@ export default {
         this.loading = false
         this.$store.dispatch('saveTokenAction', response.data.token)
         this.$store.dispatch('saveUsernameAction', response.data.username)
+        // 根据传过来的参数，跳到不同的页面
+        let redirect = decodeURIComponent(this.$route.query.redirect || '/')
+        this.$router.push(redirect)
       }).catch(err => {
         console.log(err)
         this.loading = false
