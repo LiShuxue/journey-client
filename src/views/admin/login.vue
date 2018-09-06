@@ -52,6 +52,8 @@ export default {
       }).then(response => {
         console.log(response.data)
         this.loading = false
+        this.$store.dispatch('saveTokenAction', response.data.token)
+        this.$store.dispatch('saveUsernameAction', response.data.username)
       }).catch(err => {
         console.log(err)
         this.loading = false
