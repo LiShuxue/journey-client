@@ -18,9 +18,11 @@ export default new Vuex.Store({
   },
   actions: {
     saveTokenAction ({ commit }, payload) {
+      sessionStorage.setItem('access_token', payload)
       commit('saveTokenMutation', payload)
     },
     saveUsernameAction ({ commit }, payload) {
+      sessionStorage.setItem('username', payload)
       commit('saveUsernameMutation', payload)
     }
   }
