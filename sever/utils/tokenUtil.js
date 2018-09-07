@@ -22,24 +22,24 @@ const createRefreshToken = ()=>{
     })
 }
 
-const verifyToken = ( ctx, next ) => {
-    const authorization = ctx.get('Authorization');
-    if (authorization === '') {
-        ctx.throw(401, `no token detected in http header 'Authorization'`);
-    }
-    const token = authorization.split(' ')[1];
-    let payload;
-    try {
-        payload = jwt.verify(token, secret);
-    } catch (err) {
-        console.log(err);
-        ctx.throw(401, 'invalid token');
-    }
-    next();
+const verifyAccessToken = ( ctx ) => {
+    return new Promise((resolve, reject)=>{
+        const authorization = ctx.get('Authorization');
+        if (authorization === '') {
+            reject(`no token detected in http header 'Authorization'`);
+        }
+        try {
+            const token = authorization.split(' ')[1];
+            let payload = jwt.verify(token, secret);
+            resolve();
+        } catch (err) {
+            reject(err);
+        }
+    });
 }
 
 module.exports = {
     createAccessToken,
     createRefreshToken,
-    verifyToken
+    verifyAccessToken
 }
