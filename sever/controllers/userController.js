@@ -18,11 +18,26 @@ const getUser = (username) => {
     })
 }
 
-const saveToken = (user, token) => {
+const saveAccessToken = (user, access_token) => {
     return new Promise((resolve, reject)=>{
         User.updateOne( { _id: user.id }, {
             $set: {
-                token: token
+                access_token: access_token
+            }
+        }, (err, doc)=>{
+            if(err){
+                reject(err);
+            }
+            resolve(doc);
+        });
+    });
+}
+
+const saveRefreshToken = (user, refresh_token) => {
+    return new Promise((resolve, reject)=>{
+        User.updateOne( { _id: user.id }, {
+            $set: {
+                refresh_token: refresh_token
             }
         }, (err, doc)=>{
             if(err){
@@ -51,21 +66,26 @@ const login = async ( ctx ) => {
             errMsg: '密码错误!'
         }
     }else{
-        let token = tokenUtil.createToken({username});
-        ctx.status = 200;
-        ctx.body = { 
-            successMsg: '登录成功!',
-            username,
-            token
-        };
-        try{
-            await saveToken(token);
-        }catch(err){
+        let access_token = tokenUtil.createAccessToken({username});
+        let refresh_token = tokenUtil.createRefreshToken();
+
+        await Promise.all([
+            saveAccessToken(access_token),
+            saveRefreshToken(refresh_token)
+        ]).then(()=>{
+            ctx.status = 200;
+            ctx.body = { 
+                successMsg: '登录成功!',
+                username,
+                access_token,
+                refresh_token
+            };
+        }).catch(()=>{
             ctx.status = 200;
             ctx.body = { 
                 errMsg: 'token保存出错!'
             };
-        }
+        })
     }
 }
 
@@ -74,10 +94,13 @@ const register = async ( ctx ) => {
         .update(ctx.request.body.password)
         .digest('hex');
     let username = ctx.request.body.username;
+    let access_token = tokenUtil.createAccessToken({username});
+    let refresh_token = tokenUtil.createRefreshToken();
     let user = {
         username: username,
         password: hashPass,
-        token: tokenUtil.createToken({username})
+        access_token: access_token,
+        refresh_token: refresh_token
     };
     
     let doc = await getUser(user.username);
@@ -92,7 +115,9 @@ const register = async ( ctx ) => {
             ctx.status = 200;
             ctx.body = {
                 successMsg: '注册成功!',
-                username: result.username
+                username: result.username,
+                access_token,
+                refresh_token
             }
         }else{
             ctx.status = 200;
@@ -108,4 +133,3 @@ module.exports = {
     login,
     register
 };
-
