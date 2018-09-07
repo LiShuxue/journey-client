@@ -4,9 +4,18 @@ import store from './store'
 
 Vue.use(Router)
 
+// 页面刷新时，重新赋值token 和 username
+if (window.sessionStorage) {
+  if (window.sessionStorage.getItem('access_token')) {
+    store.commit('saveTokenMutation', window.sessionStorage.getItem('access_token'))
+  }
+  if (window.sessionStorage.getItem('username')) {
+    store.commit('saveUsernameMutation', window.sessionStorage.getItem('username'))
+  }
+}
+
 const router = new Router({
-  mode: 'history',
-  base: process.env.BASE_URL,
+  mode: 'hash',
   routes: [
     {
       path: '/',
@@ -37,13 +46,13 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requireAuth)) {
-    if (!store.state.token) {
+    if (store.state.token || sessionStorage.getItem('access_token')) {
+      next()
+    } else {
       next({
         path: 'admin/login',
         query: { redirect: to.fullPath } // 把要跳转的地址作为参数传到下一步
       })
-    } else {
-      next()
     }
   } else {
     next()
