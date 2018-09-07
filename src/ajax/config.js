@@ -8,8 +8,8 @@ axios.defaults.baseURL = 'http://localhost:8080'
 axios.interceptors.request.use(config => {
   for (let key in API.admin) {
     if (config.url.includes(API.admin[key]) && config.url !== 'http://localhost:8080/api/admin/login') {
-      if (store.state.token) {
-        config.headers.Authorization = `Bearer ${store.state.token}`
+      if (store.state.access_token) {
+        config.headers.Authorization = `Bearer ${store.state.access_token}`
       }
     }
   }
