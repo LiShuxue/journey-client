@@ -31,7 +31,7 @@ const verifyAccessToken = ( ctx ) => {
         try {
             const token = authorization.split(' ')[1];
             let payload = jwt.verify(token, secret);
-            resolve();
+            resolve(payload);
         } catch (err) {
             reject(err);
         }

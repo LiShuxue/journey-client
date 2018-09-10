@@ -53,8 +53,17 @@ const login = async ( ctx ) => {
     let hashPass = crypto.createHmac('sha256', secret)
         .update(ctx.request.body.password)
         .digest('hex');
-    let doc = await getUser(username);
 
+    let doc;
+    try{
+        doc = await getUser(username);
+    }catch(err){
+        ctx.status = 500;
+        ctx.body = {
+            errMsg: '数据库查找用户名出错!',
+            err
+        }
+    }
     if(!doc){
         ctx.status = 200;
         ctx.body = {
@@ -80,10 +89,11 @@ const login = async ( ctx ) => {
                 access_token,
                 refresh_token
             };
-        }).catch(()=>{
-            ctx.status = 200;
+        }).catch((err)=>{
+            ctx.status = 500;
             ctx.body = { 
-                errMsg: 'token保存出错!'
+                errMsg: '数据库保存token出错!',
+                err
             };
         })
     }
@@ -103,41 +113,59 @@ const register = async ( ctx ) => {
         refresh_token: refresh_token
     };
     
-    let doc = await getUser(user.username);
+    let doc;
+    try{
+        doc = await getUser(username);
+    }catch(err){
+        ctx.status = 500;
+        ctx.body = {
+            errMsg: '数据库查找用户名出错!',
+            err
+        }
+    }
     if(doc){
         ctx.status = 200;
         ctx.body = {
             errMsg: '用户名已存在!'
         };
     }else{
-        let result = await createUser(user);
-        if(result){
-            ctx.status = 200;
-            ctx.body = {
-                successMsg: '注册成功!',
-                username: result.username,
-                access_token,
-                refresh_token
+        await createUser(user).then((result)=>{
+            if(result && result._id){
+                ctx.status = 200;
+                ctx.body = {
+                    successMsg: '注册成功!',
+                    username: result.username,
+                    access_token: result.access_token,
+                    refresh_token: result.refresh_token
+                }
+            }else{
+                ctx.status = 200;
+                ctx.body = {
+                    errMsg: '注册失败!'
+                }
             }
-        }else{
-            ctx.status = 200;
+        }).catch((err)=>{
+            ctx.status = 500;
             ctx.body = {
                 errMsg: '注册失败!',
                 err
             }
-        }
+        });
     }
 }
 
 const test = async ( ctx ) => {
-    await tokenUtil.verifyAccessToken(ctx).then(()=>{
+    await tokenUtil.verifyAccessToken(ctx).then((payload)=>{
         ctx.status = 200;
         ctx.body = {
             successMsg: '验证成功!'
         }
     }).catch((err)=>{
-        console.log(err)
         ctx.status = 401;
+        ctx.body = {
+            errMsg: '验证失败!',
+            err
+        }
     });
 }
 
