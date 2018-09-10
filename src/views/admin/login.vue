@@ -33,14 +33,15 @@ export default {
   },
   methods: {
     register () {
+      this.loading = true
       this.axios.post(API.admin.register, {
         username: this.username,
         password: SHA256(this.password).toString()
       }).then(response => {
-        console.log(response.data)
         this.loading = false
+        this.$message.success(response.data.successMsg)
       }).catch(err => {
-        console.log(err)
+        this.$message.error(err.data.errMsg)
         this.loading = false
       })
     },
@@ -50,19 +51,24 @@ export default {
         username: this.username,
         password: SHA256(this.password).toString()
       }).then(response => {
-        console.log(response.data)
         this.loading = false
+        this.$message.success(response.data.successMsg)
         if (response.data.access_token && response.data.refresh_token && response.data.username) {
           this.$store.dispatch('saveAccessTokenAction', response.data.access_token)
           this.$store.dispatch('saveRefreshTokenAction', response.data.refresh_token)
           this.$store.dispatch('saveUsernameAction', response.data.username)
         }
+
         // 根据传过来的参数，跳到不同的页面
-        let redirect = decodeURIComponent(this.$route.query.redirect || '/')
-        this.$router.push(redirect)
+        let redirect = decodeURIComponent(this.$route.query.redirect)
+        if (redirect !== 'undefined') {
+          this.$router.push(redirect)
+        } else {
+          this.$router.push('home')
+        }
       }).catch(err => {
-        console.log(err)
         this.loading = false
+        this.$message.error(err.data.errMsg)
       })
     }
   }

@@ -12,8 +12,9 @@ export default {
     test () {
       this.axios.get(API.admin.test).then(response => {
         console.log(response.data)
+        this.$message.success(response.data.successMsg)
       }).catch(err => {
-        console.log(err)
+        this.$message.error(err.data.errMsg)
       })
     }
   }
