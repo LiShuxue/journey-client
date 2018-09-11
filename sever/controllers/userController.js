@@ -155,18 +155,10 @@ const register = async ( ctx ) => {
 }
 
 const test = async ( ctx ) => {
-    await tokenUtil.verifyAccessToken(ctx).then((payload)=>{
-        ctx.status = 200;
-        ctx.body = {
-            successMsg: '验证成功!'
-        }
-    }).catch((err)=>{
-        ctx.status = 401;
-        ctx.body = {
-            errMsg: '验证失败!',
-            err
-        }
-    });
+    ctx.status = 200;
+    ctx.body = {
+        successMsg: '验证成功!'
+    }
 }
 
 module.exports = {
