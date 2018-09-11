@@ -11,10 +11,9 @@ export default {
   methods: {
     test () {
       this.axios.get(API.admin.test).then(response => {
-        console.log(response.data)
         this.$message.success(response.data.successMsg)
       }).catch(err => {
-        this.$message.error(err.data.errMsg)
+        this.$message.error(err.data.errMsg || err.data)
       })
     }
   }
