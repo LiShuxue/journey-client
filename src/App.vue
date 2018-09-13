@@ -11,7 +11,10 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+.app{
+    background-color: $qian-hui;
+}
 .router-fade-enter{
     opacity: 0;
 }

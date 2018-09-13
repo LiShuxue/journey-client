@@ -12,9 +12,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.admin{
-  background-color: $qian-hui;
-}
 .router-fade-enter{
     opacity: 0;
 }
