@@ -5,7 +5,10 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "db-start": "sudo mongod",
+    "ws-start": "node server/server.js",
+    "dev": "npm run db-start & npm run ws-start & yarn serve"
   },
   "dependencies": {
     "axios": "^0.18.0",
