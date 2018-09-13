@@ -7,7 +7,8 @@ axios.defaults.baseURL = 'http://localhost:8080'
 
 axios.interceptors.request.use(config => {
   for (let key in API.admin) {
-    if (config.url.includes(API.admin[key]) && config.url !== 'http://localhost:8080/api/admin/login') {
+    // 除了登录注册之外的管理员相关请求，需要携带token
+    if (config.url.includes(API.admin[key]) && config.url !== 'http://localhost:8080/api/admin/login' && config.url !== 'http://localhost:8080/api/admin/register') {
       if (store.state.access_token) {
         config.headers.Authorization = `Bearer ${store.state.access_token}`
       }

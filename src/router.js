@@ -32,12 +32,12 @@ const router = new Router({
         { path: 'about', component: () => import('./views/visitor/About.vue') }
       ]
     },
+    { path: '/login', component: () => import('./views/admin/login.vue') },
     {
       path: '/admin',
       component: () => import('./views/admin/Admin.vue'),
       redirect: '/admin/home',
       children: [
-        { path: 'login', component: () => import('./views/admin/login.vue') },
         { path: 'home',
           component: () => import('./views/admin/home.vue'),
           meta: { requireAuth: true } // 添加该字段，表示进入这个路由是需要登录的
@@ -53,7 +53,7 @@ router.beforeEach((to, from, next) => {
       next()
     } else {
       next({
-        path: 'admin/login',
+        path: '/login',
         query: { redirect: to.fullPath } // 把要跳转的地址作为参数传到下一步
       })
     }

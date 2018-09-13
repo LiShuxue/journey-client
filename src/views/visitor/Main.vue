@@ -52,10 +52,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.wrapper{
-  background-color: $qian-hui;
-}
-
 .content{
   display: flex;
   flex-direction: row;

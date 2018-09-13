@@ -41,7 +41,7 @@ export default {
         this.loading = false
         this.$message.success(response.data.successMsg)
       }).catch(err => {
-        this.$message.error(err.data.errMsg)
+        this.$message.error(err.data.errMsg || err.data)
         this.loading = false
       })
     },
@@ -64,11 +64,11 @@ export default {
         if (redirect !== 'undefined') {
           this.$router.push(redirect)
         } else {
-          this.$router.push('home')
+          this.$router.push('/admin')
         }
       }).catch(err => {
         this.loading = false
-        this.$message.error(err.data.errMsg)
+        this.$message.error(err.data.errMsg || err.data)
       })
     }
   }
