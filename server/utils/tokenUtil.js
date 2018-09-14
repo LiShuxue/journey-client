@@ -10,7 +10,7 @@ const initPayload = {
 };
 
 const createAccessToken = (payload)=>{
-    let t_payload = Object.assign(initPayload, payload); //Object.assign(target, ...sources)
+    let t_payload = Object.assign({}, initPayload, payload); //Object.assign(target, ...sources)
     let token = jwt.sign(t_payload, secret);
     return token;
 }
