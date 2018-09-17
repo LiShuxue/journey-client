@@ -1,52 +1,7 @@
-const User = require('../models/User');
+const UserModel = require('../models/User');
 const crypto = require('crypto');
 const secret = 'secret-key';
 const tokenUtil = require('../utils/tokenUtil');
-
-const createUser = (user) => {
-    return User.create(user);
-}
-
-const getUser = (username) => {
-    return new Promise((resolve, reject)=>{
-        User.findOne({ username }, (err, doc)=>{
-            if(err){
-                reject(err);
-            }
-            resolve(doc);
-        });
-    })
-}
-
-const saveAccessToken = (user, access_token) => {
-    return new Promise((resolve, reject)=>{
-        User.updateOne( { _id: user.id }, {
-            $set: {
-                access_token: access_token
-            }
-        }, (err, doc)=>{
-            if(err){
-                reject(err);
-            }
-            resolve(doc);
-        });
-    });
-}
-
-const saveRefreshToken = (user, refresh_token) => {
-    return new Promise((resolve, reject)=>{
-        User.updateOne( { _id: user.id }, {
-            $set: {
-                refresh_token: refresh_token
-            }
-        }, (err, doc)=>{
-            if(err){
-                reject(err);
-            }
-            resolve(doc);
-        });
-    });
-}
 
 const login = async ( ctx ) => {
     let username = ctx.request.body.username;
@@ -56,7 +11,7 @@ const login = async ( ctx ) => {
 
     let doc;
     try{
-        doc = await getUser(username);
+        doc = await UserModel.getUser(username);
     }catch(err){
         ctx.status = 500;
         ctx.body = {
@@ -115,7 +70,7 @@ const register = async ( ctx ) => {
     
     let doc;
     try{
-        doc = await getUser(username);
+        doc = await UserModel.getUser(username);
     }catch(err){
         ctx.status = 500;
         ctx.body = {
@@ -123,6 +78,7 @@ const register = async ( ctx ) => {
             err
         }
     }
+
     if(doc){
         ctx.status = 200;
         ctx.body = {

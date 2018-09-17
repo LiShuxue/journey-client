@@ -12,4 +12,55 @@ const userSchema = new Schema({
 
 const User = mongoose.model('User', userSchema);
 
-module.exports = User;
+
+const createUser = (user) => {
+    return User.create(user);
+}
+
+const getUser = (username) => {
+    return new Promise((resolve, reject)=>{
+        User.findOne({ username }, (err, doc)=>{
+            if(err){
+                reject(err);
+            }
+            resolve(doc);
+        });
+    })
+}
+
+const saveAccessToken = (user, access_token) => {
+    return new Promise((resolve, reject)=>{
+        User.updateOne( { _id: user.id }, {
+            $set: {
+                access_token: access_token
+            }
+        }, (err, doc)=>{
+            if(err){
+                reject(err);
+            }
+            resolve(doc);
+        });
+    });
+}
+
+const saveRefreshToken = (user, refresh_token) => {
+    return new Promise((resolve, reject)=>{
+        User.updateOne( { _id: user.id }, {
+            $set: {
+                refresh_token: refresh_token
+            }
+        }, (err, doc)=>{
+            if(err){
+                reject(err);
+            }
+            resolve(doc);
+        });
+    });
+}
+
+module.exports = {
+    createUser,
+    getUser,
+    saveAccessToken,
+    saveRefreshToken
+};
