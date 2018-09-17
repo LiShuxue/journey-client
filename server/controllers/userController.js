@@ -111,12 +111,21 @@ const register = async ( ctx ) => {
     }
 }
 
-const test = async ( ctx ) => {
+const test = ( ctx ) => {
+    if(ctx.token && ctx.token.new_access_token && ctx.token.new_refresh_token){
+        ctx.status = 200;
+        ctx.body = {
+            successMsg: '验证成功!',
+            new_access_token: ctx.token.new_access_token,
+            new_refresh_token: ctx.token.new_refresh_token
+        }
+    }else{
         ctx.status = 200;
         ctx.body = {
             successMsg: '验证成功!'
         }
     }
+}
 
 module.exports = {
     login,
