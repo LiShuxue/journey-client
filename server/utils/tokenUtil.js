@@ -2,25 +2,28 @@ const secret = 'secret-key';
 const jwt = require('jsonwebtoken');
 const UserModel = require('../models/User');
 
-let initPayload = {
+const initPayload = {
     iss: "Journey", //(Issuer) jwt签发者
     sub: "test@example.com", //(Subject) 该jwt所面向的用户
-    aud: "www.example.com", //(Audience) 接收jwt的一方
-    iat: Math.floor(Date.now()/1000), //(Issued At) jwt的签发时间，单位秒s
-    exp: Math.floor(Date.now()/1000) + 5*60 //(Expiration Time) jwt的过期时间，单位秒s
+    aud: "www.example.com" //(Audience) 接收jwt的一方
 };
 
 const createAccessToken = (payload)=>{
     let t_payload = Object.assign({}, initPayload, payload); //Object.assign(target, ...sources)
+    t_payload.iat = Math.floor(Date.now()/1000); // jwt的签发时间，单位秒s
+    t_payload.exp = Math.floor(Date.now()/1000) + 5*60; // jwt的过期时间，单位秒s
     let token = jwt.sign(t_payload, secret);
     return token;
 }
 
 const createRefreshToken = ()=>{
-    return createAccessToken({
-        target: 'refresh',
-        exp: Math.floor(Date.now()/1000) + 5*60*60
-    })
+    let t_payload = {
+        target: 'refresh'
+    }
+    t_payload.iat = Math.floor(Date.now()/1000);
+    t_payload.exp = Math.floor(Date.now()/1000) + 5*60*60;
+    let token = jwt.sign(t_payload, secret);
+    return token;
 }
 
 const verifyRefreshToken = async (refresh_token, access_token) => {
