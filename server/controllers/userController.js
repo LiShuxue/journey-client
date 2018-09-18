@@ -9,16 +9,14 @@ const login = async ( ctx ) => {
         .update(ctx.request.body.password)
         .digest('hex');
 
-    let doc;
-    try{
-        doc = await UserModel.getUser(username);
-    }catch(err){
+    let doc = await UserModel.getUser(username).catch((err)=>{
         ctx.status = 500;
         ctx.body = {
             errMsg: '数据库查找用户名出错!',
             err
         }
-    }
+    });
+
     if(!doc){
         ctx.status = 200;
         ctx.body = {
@@ -32,19 +30,16 @@ const login = async ( ctx ) => {
     }else{
         let access_token = tokenUtil.createAccessToken({username});
         let refresh_token = tokenUtil.createRefreshToken();
-        let result;
-        try{
-            result = await Promise.all([
-                UserModel.saveAccessToken(doc, access_token),
-                UserModel.saveRefreshToken(doc, refresh_token)
-            ]);
-        }catch(err){
+        let result = await Promise.all([
+            UserModel.saveAccessToken(doc, access_token),
+            UserModel.saveRefreshToken(doc, refresh_token)
+        ]).catch((err)=>{
             ctx.status = 500;
             ctx.body = { 
                 errMsg: '数据库保存token出错!',
                 err
             };
-        }
+        });
         ctx.status = 200;
         ctx.body = { 
             successMsg: '登录成功!',
@@ -69,16 +64,13 @@ const register = async ( ctx ) => {
         refresh_token: refresh_token
     };
     
-    let doc;
-    try{
-        doc = await UserModel.getUser(username);
-    }catch(err){
+    let doc = await UserModel.getUser(username).catch((err)=>{
         ctx.status = 500;
         ctx.body = {
             errMsg: '数据库查找用户名出错!',
             err
         }
-    }
+    });
 
     if(doc){
         ctx.status = 200;
