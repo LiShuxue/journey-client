@@ -41,7 +41,8 @@ const router = new Router({
         { path: 'home',
           component: () => import('./views/admin/home.vue'),
           meta: { requireAuth: true } // 添加该字段，表示进入这个路由是需要登录的
-        }
+        },
+        { path: 'edit', component: () => import('./views/admin/edit.vue') }
       ]
     }
   ]

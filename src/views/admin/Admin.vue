@@ -13,9 +13,9 @@
             <i class="el-icon-menu"></i>
             <span slot="title">导航一</span>
           </el-menu-item>
-          <el-menu-item index="test">
+          <el-menu-item index="edit">
             <i class="el-icon-menu"></i>
-            <span slot="title">导航二</span>
+            <span slot="title">写博客</span>
           </el-menu-item>
         </el-menu>
       </el-col>
@@ -48,7 +48,7 @@ export default {
 }
 
 .content-wrapper{
-  margin: 10px 0 0 20px;
+  padding: 10px 20px 10px 20px;
 }
 
 .router-fade-enter{
