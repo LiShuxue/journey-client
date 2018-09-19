@@ -1,6 +1,6 @@
 const BlogModel = require('../models/Blog');
 
-const publishNewBlog = async ( ctx ) => {
+const publishNewBlog = async ( ctx, next ) => {
     let blog = ctx.request.body.blog;
     blog.publishTime = Date.now();
     blog.see = 0;
@@ -27,10 +27,7 @@ const publishNewBlog = async ( ctx ) => {
         }
     }
 
-    if(ctx.token && ctx.token.new_access_token && ctx.token.new_refresh_token){
-        ctx.body.new_access_token = ctx.token.new_access_token;
-        ctx.body.new_refresh_token = ctx.token.new_refresh_token;
-    }
+    next();
 }
 
 module.exports = {
