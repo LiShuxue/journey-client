@@ -2,7 +2,7 @@ import axios from 'axios'
 import API from './api'
 import store from '../store'
 
-axios.defaults.timeout = 5000
+axios.defaults.timeout = 60 * 1000
 axios.defaults.baseURL = 'http://localhost:8080'
 
 axios.interceptors.request.use(config => {
