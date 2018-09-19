@@ -77,8 +77,16 @@ const verifyAccessToken = async ( ctx, next ) => {
     await next();
 }
 
+const returnNewToken = (ctx) => {
+    if(ctx.token && ctx.token.new_access_token && ctx.token.new_refresh_token){
+        ctx.body.new_access_token = ctx.token.new_access_token;
+        ctx.body.new_refresh_token = ctx.token.new_refresh_token;
+    }
+}
+
 module.exports = {
     createAccessToken,
     createRefreshToken,
-    verifyAccessToken
+    verifyAccessToken,
+    returnNewToken
 }

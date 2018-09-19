@@ -4,6 +4,6 @@ const tokenUtil = require('../utils/tokenUtil');
 
 const blogRoute = new Router();
 
-blogRoute.post('/publish', tokenUtil.verifyAccessToken, BlogController.publishNewBlog);
+blogRoute.post('/publish', tokenUtil.verifyAccessToken, BlogController.publishNewBlog, tokenUtil.returnNewToken);
 
 module.exports = blogRoute;
