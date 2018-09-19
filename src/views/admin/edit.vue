@@ -55,7 +55,7 @@
       </el-radio-group>
     </div>
 
-    <el-button type="info" class="confirm-button" @click="getContent">查看内容</el-button>
+    <el-button type="info" class="confirm-button" @click="publishBlog">发布文章</el-button>
   </div>
 </template>
 
@@ -63,14 +63,15 @@
 import WangEditor from 'wangeditor'
 import { mavonEditor } from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
+import API from '@/ajax/api.js'
 export default {
   data () {
     return {
       title: '',
       subTitle: '',
       isOriginal: true,
-      category: 'JavaScript',
-      categorys: ['JavaScript', 'Node', 'CSS'],
+      category: '',
+      categorys: [],
       tags: [],
       inputVisible: false,
       inputValue: '',
@@ -113,13 +114,6 @@ export default {
     markdownContentSave (markdown, html) {
       this.markdownContent = html
     },
-    getContent () {
-      if (this.isMarkdown) {
-        alert(this.markdownContent)
-      } else {
-        alert(this.wangeditorContent)
-      }
-    },
     handleClose (tag) {
       this.tags.splice(this.tags.indexOf(tag), 1)
     },
@@ -136,6 +130,22 @@ export default {
       }
       this.inputVisible = false
       this.inputValue = ''
+    },
+    publishBlog () {
+      this.axios.post(API.requireAuth.publish, {
+        blog: {
+          title: this.title,
+          subTitle: this.subTitle,
+          content: this.isMarkdown ? this.markdownContent : this.wangeditorContent,
+          isOriginal: this.isOriginal,
+          category: this.category,
+          tags: this.tags
+        }
+      }).then(response => {
+        this.$message.success(response.data.successMsg)
+      }).catch(err => {
+        this.$message.error(err.data.errMsg || err.data)
+      })
     }
   }
 }
