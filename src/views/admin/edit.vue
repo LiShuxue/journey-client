@@ -1,8 +1,15 @@
 <template>
   <div class="edit">
+    <el-input placeholder="文章标题" v-model="title" class="input-box">
+      <template slot="prepend">文章标题：</template>
+    </el-input>
+    <el-input placeholder="文章摘要" v-model="subTitle" class="input-box">
+      <template slot="prepend">文章摘要：</template>
+    </el-input>
+
     <div class="choose-editor">
-      <el-button type="info" @click="chooseMarkdown">Mardown编辑器</el-button>
-      <el-button type="info" @click="chooseEdit">富文本编辑器</el-button>
+      <el-button type="info" @click="chooseMarkdown" size="small">Mardown编辑器</el-button>
+      <el-button type="info" @click="chooseEdit" size="small">富文本编辑器</el-button>
     </div>
 
     <div :class="isMarkdown ? 'show' : 'not-show'">
@@ -10,6 +17,42 @@
     </div>
     <div :class="isMarkdown ? 'not-show' : 'show'">
       <div ref="wangeditor"></div>
+    </div>
+
+    <div class="category-radio-box">
+      <span class="box-title">分类：</span>
+      <el-radio-group v-model="category" size="small">
+        <el-radio v-for="category in categorys" :key="category" :label="category" border>{{category}}</el-radio>
+      </el-radio-group>
+    </div>
+
+    <div class="tags-box">
+      <span class="box-title">标签：</span>
+      <el-tag
+        v-for="tag in tags"
+        :key="tag"
+        closable
+        :disable-transitions="false"
+        @close="handleClose(tag)">
+        {{tag}}
+      </el-tag>
+      <el-input
+        class="input-new-tag"
+        v-if="inputVisible"
+        v-model="inputValue"
+        ref="saveTagInput"
+        size="small"
+        @keyup.enter.native="handleInputConfirm"
+        @blur="handleInputConfirm">
+      </el-input>
+      <el-button v-else class="button-new-tag" size="small" @click="showInput">+ 添加新标签</el-button>
+    </div>
+
+    <div class="radio-box">
+      <el-radio-group v-model="isOriginal">
+        <el-radio :label=true>原创</el-radio>
+        <el-radio :label=false>转载</el-radio>
+      </el-radio-group>
     </div>
 
     <el-button type="info" class="confirm-button" @click="getContent">查看内容</el-button>
@@ -23,6 +66,14 @@ import 'mavon-editor/dist/css/index.css'
 export default {
   data () {
     return {
+      title: '',
+      subTitle: '',
+      isOriginal: true,
+      category: 'JavaScript',
+      categorys: ['JavaScript', 'Node', 'CSS'],
+      tags: [],
+      inputVisible: false,
+      inputValue: '',
       isMarkdown: true,
       wangeditor: null,
       wangeditorContent: '',
@@ -68,12 +119,32 @@ export default {
       } else {
         alert(this.wangeditorContent)
       }
+    },
+    handleClose (tag) {
+      this.tags.splice(this.tags.indexOf(tag), 1)
+    },
+    showInput () {
+      this.inputVisible = true
+      this.$nextTick(() => {
+        this.$refs.saveTagInput.$refs.input.focus()
+      })
+    },
+    handleInputConfirm () {
+      let inputValue = this.inputValue
+      if (inputValue) {
+        this.tags.push(inputValue)
+      }
+      this.inputVisible = false
+      this.inputValue = ''
     }
   }
 }
 </script>
 
-<style>
+<style lang="scss">
+.input-box{
+  margin-bottom: 10px;
+}
 .choose-editor{
   margin-bottom: 10px;
 }
@@ -102,6 +173,35 @@ export default {
 }
 .not-show{
   display: none;
+}
+.box-title{
+  color: $hui-hei;
+  line-height: 32px;
+}
+.tags-box{
+  margin-top: 10px;
+  .el-tag {
+    margin-right: 10px;
+  }
+  .button-new-tag {
+    height: 32px;
+    line-height: 30px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .input-new-tag {
+    width: 90px;
+    vertical-align: bottom;
+  }
+}
+.category-radio-box{
+  label {
+    background: white;
+  }
+  margin-top: 10px;
+}
+.radio-box{
+  margin-top: 10px;
 }
 .confirm-button{
   margin-top: 10px;
