@@ -74,7 +74,7 @@ const verifyAccessToken = async ( ctx, next ) => {
             ctx.throw(401, err);
         }
     }
-    next();
+    await next();
 }
 
 module.exports = {
