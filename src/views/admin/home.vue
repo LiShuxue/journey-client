@@ -9,13 +9,7 @@
 import API from '@/ajax/api.js'
 export default {
   methods: {
-    test () {
-      this.axios.get(API.admin.test).then(response => {
-        this.$message.success(response.data.successMsg)
-      }).catch(err => {
-        this.$message.error(err.data.errMsg || err.data)
-      })
-    }
+    test () {}
   }
 }
 </script>

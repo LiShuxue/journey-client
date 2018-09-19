@@ -34,7 +34,7 @@ export default {
   methods: {
     register () {
       this.loading = true
-      this.axios.post(API.admin.register, {
+      this.axios.post(API.notRequireAuth.register, {
         username: this.username,
         password: SHA256(this.password).toString()
       }).then(response => {
@@ -47,7 +47,7 @@ export default {
     },
     login () {
       this.loading = true
-      this.axios.post(API.admin.login, {
+      this.axios.post(API.notRequireAuth.login, {
         username: this.username,
         password: SHA256(this.password).toString()
       }).then(response => {
