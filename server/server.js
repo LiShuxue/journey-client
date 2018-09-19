@@ -12,8 +12,10 @@ const router = new Router();
 
 // 引入子路由
 const userRoute = require('./routes/userRoute');
+const blogRoute = require('./routes/blogRoute');
 // 路由中间件加载子路由
 router.use('/api/admin', userRoute.routes(), userRoute.allowedMethods());
+router.use('/api/blog', blogRoute.routes(), blogRoute.allowedMethods());
 // app加载路由中间件
 app.use(router.routes()).use(router.allowedMethods());
 
