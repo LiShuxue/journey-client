@@ -87,6 +87,9 @@ export default {
   components: {
     mavonEditor
   },
+  created () {
+    this.getAllCategory()
+  },
   mounted () {
     this.wangeditor = new WangEditor(this.$refs.wangeditor)
     this.initWangEditorConfig()
@@ -122,6 +125,7 @@ export default {
             name: value
           }
         }).then(response => {
+          this.categorys.push(value)
           this.$message.success(response.data.successMsg)
         }).catch(err => {
           this.$message.error(err.data.errMsg || err.data)
@@ -159,6 +163,18 @@ export default {
         }
       }).then(response => {
         this.$message.success(response.data.successMsg)
+      }).catch(err => {
+        this.$message.error(err.data.errMsg || err.data)
+      })
+    },
+    getAllCategory () {
+      this.axios.get(API.notRequireAuth.categoryList).then(response => {
+        if (response.data.categoryList && response.data.categoryList.length > 0) {
+          let _categoryList = response.data.categoryList
+          _categoryList.forEach(element => {
+            this.categorys.push(element.name)
+          })
+        }
       }).catch(err => {
         this.$message.error(err.data.errMsg || err.data)
       })
@@ -219,6 +235,13 @@ export default {
     width: 90px;
     vertical-align: bottom;
   }
+}
+.el-radio.is-bordered {
+  margin-right: 10px;
+}
+.el-radio.is-bordered+.el-radio.is-bordered {
+  margin-right: 10px;
+  margin-left: 0px;
 }
 .category-radio-box{
   label {
