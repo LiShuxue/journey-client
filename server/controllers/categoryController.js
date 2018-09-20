@@ -24,6 +24,22 @@ const addCategory = async (ctx, next) => {
     await next();
 }
 
+const getAllCategory = async (ctx) => {
+    let categorys = await CategoryModel.getAllCategory().catch((err)=>{
+        ctx.status = 500;
+        ctx.body = {
+            errMsg: '查找类别失败!',
+            err
+        }
+    });
+    ctx.status = 200;
+    ctx.body = {
+        successMsg: '查找类别成功!',
+        categoryList: categorys
+    }
+}
+
 module.exports = {
-    addCategory
+    addCategory,
+    getAllCategory
 }
