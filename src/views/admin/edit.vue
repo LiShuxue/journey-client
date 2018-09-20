@@ -7,6 +7,17 @@
       <template slot="prepend">文章摘要：</template>
     </el-input>
 
+    <div class="upload-box">
+      <el-upload
+        class="upload-box-content"
+        action=""
+        :file-list="imageList"
+        :http-request="myUpload"
+        list-type="picture">
+        <el-button size="small">点击上传文章插图</el-button>
+      </el-upload>
+    </div>
+
     <div class="choose-editor">
       <el-button type="info" @click="chooseMarkdown" size="small">Mardown编辑器</el-button>
       <el-button type="info" @click="chooseEdit" size="small">富文本编辑器</el-button>
@@ -74,6 +85,7 @@ export default {
       category: '',
       categorys: [],
       tags: [],
+      imageList: [],
       inputVisible: false,
       inputValue: '',
       isMarkdown: true,
@@ -96,6 +108,18 @@ export default {
     this.wangeditor.create()
   },
   methods: {
+    myUpload (content) {
+      let param = new FormData()
+      param.append('file', content.file)
+      let config = {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      }
+      this.axios.post(API.requireAuth.uploadImage, param, config).then((response) => {
+        this.$message.success(response.data.successMsg)
+      }).catch((err) => {
+        this.$message.error(err.data.errMsg || err.data)
+      })
+    },
     chooseMarkdown () {
       this.isMarkdown = true
     },
@@ -185,6 +209,9 @@ export default {
 
 <style lang="scss">
 .input-box{
+  margin-bottom: 10px;
+}
+.upload-box{
   margin-bottom: 10px;
 }
 .choose-editor{
