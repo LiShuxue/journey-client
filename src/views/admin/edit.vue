@@ -24,6 +24,7 @@
       <el-radio-group v-model="category" size="small">
         <el-radio v-for="category in categorys" :key="category" :label="category" border>{{category}}</el-radio>
       </el-radio-group>
+      <el-button @click="addCategory" size="small">+ 创建新分类</el-button>
     </div>
 
     <div class="tags-box">
@@ -113,6 +114,21 @@ export default {
     },
     markdownContentSave (markdown, html) {
       this.markdownContent = html
+    },
+    addCategory () {
+      this.$prompt('请输入要添加的类别：').then(({ value }) => {
+        this.axios.post(API.requireAuth.addCategory, {
+          category: {
+            name: value
+          }
+        }).then(response => {
+          this.$message.success(response.data.successMsg)
+        }).catch(err => {
+          this.$message.error(err.data.errMsg || err.data)
+        })
+      }).catch(() => {
+        console.log('cancle input ...')
+      })
     },
     handleClose (tag) {
       this.tags.splice(this.tags.indexOf(tag), 1)
