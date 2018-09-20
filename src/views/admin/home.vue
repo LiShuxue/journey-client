@@ -6,7 +6,6 @@
 </template>
 
 <script>
-import API from '@/ajax/api.js'
 export default {
   methods: {
     test () {}

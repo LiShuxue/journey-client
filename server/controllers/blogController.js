@@ -27,7 +27,7 @@ const publishNewBlog = async ( ctx, next ) => {
         }
     }
 
-    next();
+    await next();
 }
 
 module.exports = {
