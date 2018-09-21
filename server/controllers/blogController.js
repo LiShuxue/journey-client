@@ -56,10 +56,11 @@ const saveImage = async ( ctx, next ) => {
             err
         }
     });
+    let imagePath = ctx.req.headers['x-forwarded-proto'] + '://' + ctx.req.headers['host'] + '/' + filename + '.' + type;
     ctx.status = 200;
     ctx.body = {
         successMsg: '图片上传成功!',
-        imgPath: 'http://localhost:4000/' + filename + '.' + type
+        imagePath
     }
     await next();
 }
