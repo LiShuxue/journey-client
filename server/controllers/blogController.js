@@ -68,15 +68,14 @@ const saveImage = async ( ctx, next ) => {
 }
 
 const removeImage = async (ctx, next) => {
-    let path = 'server/static/' + ctx.request.body.filename;
-    let isExist = fs.existsSync(path);
+    let isExist;
+    let path;
+    if (ctx.request.body.filename){
+        path = 'server/static/' + ctx.request.body.filename;
+        isExist = fs.existsSync(path);
+    }
 
-    if(!isExist){
-        ctx.status = 200;
-        ctx.body = {
-            errMsg: '图片不存在!'
-        }
-    }else{
+    if(path && isExist){
         await new Promise((resolve, reject)=>{
             fs.unlink(path, (err)=>{
                 if(err){
@@ -94,6 +93,11 @@ const removeImage = async (ctx, next) => {
         ctx.status = 200;
         ctx.body = {
             successMsg: '图片删除成功!',
+        }
+    }else{
+        ctx.status = 200;
+        ctx.body = {
+            errMsg: '图片不存在!'
         }
     }
     
