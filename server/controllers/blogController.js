@@ -32,7 +32,7 @@ const publishNewBlog = async ( ctx, next ) => {
 }
 
 const saveImage = async ( ctx, next ) => {
-    let { path, mimetype } = ctx.req.file;
+    let { path, mimetype, filename } = ctx.req.file;
     let tmp_path = path;
     let type = mimetype.substring(6);
     let target_path = path + '.' + type;
@@ -58,7 +58,8 @@ const saveImage = async ( ctx, next ) => {
     });
     ctx.status = 200;
     ctx.body = {
-        successMsg: '图片上传成功!'
+        successMsg: '图片上传成功!',
+        imgPath: 'http://localhost:4000/' + filename + '.' + type
     }
     await next();
 }
