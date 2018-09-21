@@ -13,5 +13,6 @@ blogRoute.post('/category/add', tokenUtil.verifyAccessToken, CategoryController.
 blogRoute.get('/category/list', CategoryController.getAllCategory)
 // upload.single('file')，接受一个以 file 命名的文件（我发请求的时候用这个命名的图片），然后保存在req.file中
 blogRoute.post('/uploadImage', tokenUtil.verifyAccessToken, upload.single('file'), BlogController.saveImage, tokenUtil.returnNewToken)
+blogRoute.post('/removeImage', tokenUtil.verifyAccessToken, BlogController.removeImage, tokenUtil.returnNewToken)
 
 module.exports = blogRoute;

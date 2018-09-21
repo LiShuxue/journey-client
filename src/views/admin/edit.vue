@@ -11,7 +11,10 @@
       <el-upload
         class="upload-box-content"
         action=""
+        :file-list="uploadImageList"
         :http-request="myUpload"
+        :before-remove="beforeRemove"
+        :limit="1"
         list-type="picture">
         <el-button size="small">点击上传文章插图</el-button>
       </el-upload>
@@ -85,6 +88,8 @@ export default {
       categorys: [],
       tags: [],
       image: '',
+      uploadImageList: [],
+      fileNameInServer: '',
       inputVisible: false,
       inputValue: '',
       isMarkdown: true,
@@ -116,9 +121,28 @@ export default {
       this.axios.post(API.requireAuth.uploadImage, param, config).then((response) => {
         this.$message.success(response.data.successMsg)
         this.image = response.data.imagePath
+        this.uploadImageList.push({ name: response.data.originalName, url: response.data.imagePath })
+        this.fileNameInServer = response.data.serverFileName
       }).catch((err) => {
         this.$message.error(err.data.errMsg || err.data)
       })
+    },
+    async beforeRemove (file, fileList) {
+      await this.$confirm(`确定移除 ${file.name}？`).catch(_ => {
+        return Promise.reject(_)
+      })
+      return this.removeFileFromServer()
+    },
+    async removeFileFromServer () {
+      let response = await this.axios.post(API.requireAuth.removeImage, {
+        filename: this.fileNameInServer
+      }).catch(err => {
+        this.$message.error(err.data.errMsg || err.data)
+        return Promise.reject(err)
+      })
+      this.$message.success(response.data.successMsg)
+      this.uploadImageList.pop()
+      return Promise.resolve()
     },
     chooseMarkdown () {
       this.isMarkdown = true
