@@ -104,8 +104,24 @@ const removeImage = async (ctx, next) => {
     await next();
 }
 
+const getAllBlog = async (ctx) => {
+    let blogList = await BlogModel.getAllBlog().catch(err=>{
+        ctx.status = 500;
+        ctx.body = {
+            errMsg: '获取博客列表失败!',
+            err
+        }
+    });
+    ctx.status = 200;
+    ctx.body = {
+        successMsg: '获取博客列表成功!',
+        blogList
+    }
+}
+
 module.exports = {
     publishNewBlog,
     saveImage,
-    removeImage
+    removeImage,
+    getAllBlog
 };

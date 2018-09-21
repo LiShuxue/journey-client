@@ -24,6 +24,16 @@ const publishBlog = (blog) => {
     return Blog.create(blog);
 }
 
+const getAllBlog = () => {
+    return new Promise((resolve, reject)=>{
+        Blog.find({}, (err,doc)=>{
+            if(err) reject(err);
+            resolve(doc);
+        });
+    })
+}
+
 module.exports = {
-    publishBlog
+    publishBlog,
+    getAllBlog
 };

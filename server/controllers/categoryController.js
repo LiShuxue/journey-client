@@ -25,7 +25,7 @@ const addCategory = async (ctx, next) => {
 }
 
 const getAllCategory = async (ctx) => {
-    let categorys = await CategoryModel.getAllCategory().catch((err)=>{
+    let categoryList = await CategoryModel.getAllCategory().catch((err)=>{
         ctx.status = 500;
         ctx.body = {
             errMsg: '查找类别失败!',
@@ -35,7 +35,7 @@ const getAllCategory = async (ctx) => {
     ctx.status = 200;
     ctx.body = {
         successMsg: '查找类别成功!',
-        categoryList: categorys
+        categoryList
     }
 }
 
