@@ -32,7 +32,7 @@ const publishNewBlog = async ( ctx, next ) => {
 }
 
 const saveImage = async ( ctx, next ) => {
-    let { path, mimetype, filename } = ctx.req.file;
+    let { path, mimetype, filename, originalname } = ctx.req.file;
     let tmp_path = path;
     let type = mimetype.substring(6);
     let target_path = path + '.' + type;
@@ -60,12 +60,48 @@ const saveImage = async ( ctx, next ) => {
     ctx.status = 200;
     ctx.body = {
         successMsg: '图片上传成功!',
+        originalName: originalname,
+        serverFileName: filename + '.' + type,
         imagePath
     }
     await next();
 }
 
+const removeImage = async (ctx, next) => {
+    let path = 'server/static/' + ctx.request.body.filename;
+    let isExist = fs.existsSync(path);
+
+    if(!isExist){
+        ctx.status = 200;
+        ctx.body = {
+            errMsg: '图片不存在!'
+        }
+    }else{
+        await new Promise((resolve, reject)=>{
+            fs.unlink(path, (err)=>{
+                if(err){
+                    reject(err)
+                }
+                resolve()
+            });
+        }).catch(err=>{
+            ctx.status = 500;
+            ctx.body = {
+                errMsg: '图片删除失败!',
+                err
+            }
+        });
+        ctx.status = 200;
+        ctx.body = {
+            successMsg: '图片删除成功!',
+        }
+    }
+    
+    await next();
+}
+
 module.exports = {
     publishNewBlog,
-    saveImage
+    saveImage,
+    removeImage
 };

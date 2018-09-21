@@ -2,6 +2,7 @@
 const publish = `api/blog/publish`
 const addCategory = `api/blog/category/add`
 const uploadImage = `api/blog/uploadImage`
+const removeImage = `api/blog/removeImage`
 
 // not require auth api call
 const login = `api/admin/login`
@@ -12,7 +13,8 @@ export default {
   requireAuth: {
     publish,
     addCategory,
-    uploadImage
+    uploadImage,
+    removeImage
   },
   notRequireAuth: {
     login,
