@@ -8,6 +8,7 @@ const removeImage = `api/blog/removeImage`
 const login = `api/admin/login`
 const register = `api/admin/register`
 const categoryList = `api/blog/category/list`
+const blogList = `api/blog/list`
 
 export default {
   requireAuth: {
@@ -19,6 +20,7 @@ export default {
   notRequireAuth: {
     login,
     register,
-    categoryList
+    categoryList,
+    blogList
   }
 }

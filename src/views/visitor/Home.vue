@@ -12,14 +12,28 @@
 import mockdata from '../../../mock/mock'
 import SwipeBanner from '@/components/SwipeBanner.vue'
 import BlogItem from '@/components/BlogItem.vue'
+import API from '@/ajax/api.js'
 export default {
   data () {
     return {
       msg: '点击加载更多',
-      blogList: mockdata.blogList,
+      blogList: [],
       isLoading: false,
       cursor: 'cursor: pointer;'
     }
+  },
+
+  created () {
+    this.axios.get(API.notRequireAuth.blogList).then(response => {
+      if (response.data.blogList && response.data.blogList.length > 0) {
+        this.blogList = response.data.blogList
+        this.blogList.forEach(item => {
+          item.publishTime = item.publishTime.substring(0, 10)
+        })
+      }
+    }).catch(err => {
+      this.$message.error(err.data.errMsg || err.data)
+    })
   },
 
   components: {
