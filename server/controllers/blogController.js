@@ -1,4 +1,5 @@
 const BlogModel = require('../models/Blog');
+const fs = require('fs');
 
 const publishNewBlog = async ( ctx, next ) => {
     let blog = ctx.request.body.blog;
@@ -30,6 +31,39 @@ const publishNewBlog = async ( ctx, next ) => {
     await next();
 }
 
+const saveImage = async ( ctx, next ) => {
+    let { path, mimetype } = ctx.req.file;
+    let tmp_path = path;
+    let type = mimetype.substring(6);
+    let target_path = path + '.' + type;
+    let src = fs.createReadStream(tmp_path);
+    let dest = fs.createWriteStream(target_path);
+    await new Promise((resolve, reject)=>{
+        src.pipe(dest);
+        src.on('end', ()=>{
+            fs.unlinkSync(tmp_path);
+            resolve();
+        });
+        src.on('error', (err)=>{ 
+            src.close();
+            dest.close();
+            reject(err);
+        });
+    }).catch(err=>{
+        ctx.status = 200;
+        ctx.body = {
+            errMsg: '图片上传失败!',
+            err
+        }
+    });
+    ctx.status = 200;
+    ctx.body = {
+        successMsg: '图片上传成功!'
+    }
+    await next();
+}
+
 module.exports = {
-    publishNewBlog
+    publishNewBlog,
+    saveImage
 };
