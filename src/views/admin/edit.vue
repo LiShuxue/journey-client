@@ -15,6 +15,7 @@
         :http-request="myUpload"
         :before-remove="beforeRemove"
         :limit="1"
+        :accept="acceptFileType"
         list-type="picture">
         <el-button size="small">点击上传文章插图</el-button>
       </el-upload>
@@ -89,6 +90,7 @@ export default {
       tags: [],
       image: '',
       uploadImageList: [],
+      acceptFileType: 'image/*',
       fileNameInServer: '',
       inputVisible: false,
       inputValue: '',
