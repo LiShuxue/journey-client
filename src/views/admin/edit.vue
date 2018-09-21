@@ -11,7 +11,6 @@
       <el-upload
         class="upload-box-content"
         action=""
-        :file-list="imageList"
         :http-request="myUpload"
         list-type="picture">
         <el-button size="small">点击上传文章插图</el-button>
@@ -85,7 +84,7 @@ export default {
       category: '',
       categorys: [],
       tags: [],
-      imageList: [],
+      image: '',
       inputVisible: false,
       inputValue: '',
       isMarkdown: true,
@@ -116,6 +115,7 @@ export default {
       }
       this.axios.post(API.requireAuth.uploadImage, param, config).then((response) => {
         this.$message.success(response.data.successMsg)
+        this.image = response.data.imagePath
       }).catch((err) => {
         this.$message.error(err.data.errMsg || err.data)
       })
@@ -180,6 +180,7 @@ export default {
         blog: {
           title: this.title,
           subTitle: this.subTitle,
+          image: this.image,
           content: this.isMarkdown ? this.markdownContent : this.wangeditorContent,
           isOriginal: this.isOriginal,
           category: this.category,
