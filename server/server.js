@@ -19,6 +19,10 @@ router.use('/api/blog', blogRoute.routes(), blogRoute.allowedMethods());
 // app加载路由中间件
 app.use(router.routes()).use(router.allowedMethods());
 
+// 该中间件用来提供静态文件服务
+const static = require('koa-static');
+app.use(static(__dirname + '/static'));
+
 app.listen(4000, ()=>{
   console.log('server starting...')
 });

@@ -4,7 +4,7 @@ const Router = require('koa-router');
 const tokenUtil = require('../utils/tokenUtil');
 // multer：该中间件用于处理multipart/form-data类型的数据
 const multer = require('koa-multer');
-const upload = multer({ dest: 'server/uploads/' });
+const upload = multer({ dest: 'server/static/' });
 
 const blogRoute = new Router();
 
