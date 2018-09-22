@@ -176,6 +176,7 @@ export default {
           }
         }).then(response => {
           this.categorys.push(value)
+          this.category = value
           this.$message.success(response.data.successMsg)
         }).catch(err => {
           this.$message.error(err.data.errMsg || err.data)
