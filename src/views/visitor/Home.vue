@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import mockdata from '../../../mock/mock'
 import SwipeBanner from '@/components/SwipeBanner.vue'
 import BlogItem from '@/components/BlogItem.vue'
 import API from '@/ajax/api.js'
@@ -18,6 +17,11 @@ export default {
     return {
       msg: '点击加载更多',
       blogList: [],
+      allBlogList: [],
+      startArrIndex: 0,
+      endArrIndex: 6,
+      getMoreList: 6,
+      canGetMore: true,
       isLoading: false,
       cursor: 'cursor: pointer;'
     }
@@ -26,10 +30,11 @@ export default {
   created () {
     this.axios.get(API.notRequireAuth.blogList).then(response => {
       if (response.data.blogList && response.data.blogList.length > 0) {
-        this.blogList = response.data.blogList
-        this.blogList.forEach(item => {
+        this.allBlogList = response.data.blogList
+        this.allBlogList.forEach(item => {
           item.publishTime = item.publishTime.substring(0, 10)
         })
+        this.blogList = this.allBlogList.slice(this.startArrIndex, this.endArrIndex)
       }
     }).catch(err => {
       this.$message.error(err.data.errMsg || err.data)
@@ -44,17 +49,25 @@ export default {
   methods: {
     getMore () {
       // 通过函数节流原理，设置一个标志位，防止多次点击多次请求
-      if (!this.isLoading) {
+      if (this.canGetMore && !this.isLoading) {
         this.isLoading = true
         this.msg = 'loading...'
         this.cursor = ''
         setTimeout(() => {
-          let newList = [...this.blogList, ...mockdata.blogList]
+          this.startArrIndex = this.startArrIndex + this.getMoreList
+          this.endArrIndex = this.endArrIndex + this.getMoreList
+          let moreList = this.allBlogList.slice(this.startArrIndex, this.endArrIndex)
+          let newList = [...this.blogList, ...moreList]
           this.blogList = newList
           this.msg = '点击加载更多'
           this.cursor = 'cursor: pointer;'
           this.isLoading = false
-        }, 2000)
+          if (this.endArrIndex >= this.allBlogList.length - 1) {
+            this.msg = '没有更多了'
+            this.cursor = ''
+            this.canGetMore = false
+          }
+        }, 1000)
       }
     }
   }
