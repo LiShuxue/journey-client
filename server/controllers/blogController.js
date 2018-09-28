@@ -119,9 +119,30 @@ const getAllBlog = async (ctx) => {
     }
 }
 
+const getAllTags = async (ctx) => {
+    let result = await BlogModel.getAllTags().catch(err=>{
+        ctx.status = 500;
+        ctx.body = {
+            errMsg: '获取标签失败!',
+            err
+        }
+    })
+    let tagList=[];
+    result.forEach((value)=>{
+        // 用Set数组去重
+        tagList = [...new Set([...tagList, ...value.tags])];
+    })
+    ctx.status = 200;
+    ctx.body = {
+        successMsg: '获取标签成功!',
+        tagList
+    }
+}
+
 module.exports = {
     publishNewBlog,
     saveImage,
     removeImage,
-    getAllBlog
+    getAllBlog,
+    getAllTags
 };

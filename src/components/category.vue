@@ -2,7 +2,7 @@
   <div class="category-wrapper">
     <p class="title">
       <span class="iconfont icon-list"></span>
-      <span>分类</span>
+      <span>标签</span>
     </p>
     <p class="category">
       <span class="category-item" v-for="(item, index) in categoryList" :key="index">
@@ -13,12 +13,21 @@
 </template>
 
 <script>
-import mockdata from '../../mock/mock'
+import API from '@/ajax/api.js'
 export default {
   data () {
     return {
-      categoryList: mockdata.categoryList
+      categoryList: []
     }
+  },
+  created () {
+    this.axios.get(API.notRequireAuth.tagList).then(response => {
+      if (response.data.tagList && response.data.tagList.length > 0) {
+        this.categoryList = response.data.tagList
+      }
+    }).catch(err => {
+      this.$message.error(err.data.errMsg || err.data)
+    })
   }
 }
 </script>

@@ -33,7 +33,18 @@ const getAllBlog = () => {
     })
 }
 
+const getAllTags = () =>{
+    return new Promise((resolve, reject)=>{
+        // 查找某一列
+        Blog.find({}, {tags: 1, _id: 0}, (err, doc)=>{
+            if(err) reject(err);
+            resolve(doc);
+        })
+    });
+}
+
 module.exports = {
     publishBlog,
-    getAllBlog
+    getAllBlog,
+    getAllTags
 };
