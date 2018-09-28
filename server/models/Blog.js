@@ -32,6 +32,14 @@ const getAllBlog = () => {
         });
     })
 }
+const getAllBlogSortBySee = () => {
+    return new Promise((resolve, reject)=>{
+        Blog.find({}, (err,doc)=>{
+            if(err) reject(err);
+            resolve(doc);
+        }).sort({see: -1}).limit(10); // see字段降序排序，取前10条
+    })
+}
 
 const getAllTags = () =>{
     return new Promise((resolve, reject)=>{
@@ -46,5 +54,6 @@ const getAllTags = () =>{
 module.exports = {
     publishBlog,
     getAllBlog,
-    getAllTags
+    getAllTags,
+    getAllBlogSortBySee
 };

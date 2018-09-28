@@ -119,6 +119,21 @@ const getAllBlog = async (ctx) => {
     }
 }
 
+const getHotBlog = async (ctx) => {
+    let blogList = await BlogModel.getAllBlogSortBySee().catch(err=>{
+        ctx.status = 500;
+        ctx.body = {
+            errMsg: '获取博客列表失败!',
+            err
+        }
+    });
+    ctx.status = 200;
+    ctx.body = {
+        successMsg: '获取博客列表成功!',
+        blogList
+    }
+}
+
 const getAllTags = async (ctx) => {
     let result = await BlogModel.getAllTags().catch(err=>{
         ctx.status = 500;
@@ -144,5 +159,6 @@ module.exports = {
     saveImage,
     removeImage,
     getAllBlog,
+    getHotBlog,
     getAllTags
 };
