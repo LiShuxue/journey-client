@@ -16,6 +16,7 @@ blogRoute.post('/uploadImage', tokenUtil.verifyAccessToken, upload.single('file'
 blogRoute.post('/removeImage', tokenUtil.verifyAccessToken, BlogController.removeImage, tokenUtil.returnNewToken);
 
 blogRoute.get('/list', BlogController.getAllBlog);
+blogRoute.get('/hot', BlogController.getHotBlog);
 blogRoute.get('/tag/list', BlogController.getAllTags);
 
 module.exports = blogRoute;

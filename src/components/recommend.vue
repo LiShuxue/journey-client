@@ -13,12 +13,21 @@
 </template>
 
 <script>
-import mockdata from '../../mock/mock'
+import API from '@/ajax/api.js'
 export default {
   data () {
     return {
-      blogList: mockdata.blogList
+      blogList: []
     }
+  },
+  created () {
+    this.axios.get(API.notRequireAuth.hotBlogList).then(response => {
+      if (response.data.blogList && response.data.blogList.length > 0) {
+        this.blogList = response.data.blogList
+      }
+    }).catch(err => {
+      this.$message.error(err.data.errMsg || err.data)
+    })
   }
 }
 </script>
