@@ -7,7 +7,7 @@
       <div class="title">{{blog.title}}</div>
       <div class="sub-title">{{blog.subTitle}}</div>
       <div class="tool">
-        <span class="iconfont icon-clock"></span><span class="content">{{blog.publishTime}}</span>
+        <span class="iconfont icon-clock"></span><span class="content">{{blog.publishTime.substring(0, 10)}}</span>
         <span class="iconfont icon-eye"></span><span class="content">{{blog.see}}</span>
         <div @click.stop="clickComments" style="display: inline"><span class="iconfont icon-comment"></span><span class="content">{{blog.comments.length}}</span></div>
         <div @click.stop="clickLike" style="display: inline"><span class="iconfont icon-like"></span><span class="content">{{blog.like}}</span></div>
