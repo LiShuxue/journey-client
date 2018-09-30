@@ -24,12 +24,10 @@ export default {
   },
   methods: {
     showBlogDetail (blog) {
-      this.$router.push({
-        name: 'blog', // 这里必须用name才能使用params传参
-        params: {
-          blog
-        }
-      })
+      this.$store.commit('chooseBlog', blog)
+      if (this.$route.name !== 'blog') {
+        this.$router.push('/blog')
+      }
     },
     clickComments () {
       console.log('comments')
