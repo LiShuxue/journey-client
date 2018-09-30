@@ -10,14 +10,12 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
-  data () {
-    return {
-      blog: {}
-    }
-  },
-  created () {
-    this.blog = this.$route.params.blog
+  computed: {
+    ...mapState({
+      blog: 'chooseBlog'
+    })
   }
 }
 </script>

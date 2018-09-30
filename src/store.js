@@ -8,7 +8,8 @@ export default new Vuex.Store({
     username: '',
     access_token: '',
     refresh_token: '',
-    blogList: []
+    blogList: [],
+    chooseBlog: {}
   },
   getters: {
     hotBlogList: state => {
@@ -39,6 +40,9 @@ export default new Vuex.Store({
     },
     saveBlogListMutation (state, blogList) {
       state.blogList = blogList
+    },
+    chooseBlog (state, blog) {
+      state.chooseBlog = blog
     }
   },
   actions: {

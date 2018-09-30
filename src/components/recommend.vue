@@ -5,7 +5,7 @@
       <span>阅读排行</span>
     </p>
     <div class="article">
-      <p class="article-item" v-for="(item, index) in hotBlogList" :key="index">
+      <p class="article-item" v-for="(item, index) in hotBlogList" :key="index" @click="showBlogDetail(item)">
         {{item.title}}
       </p>
     </div>
@@ -19,6 +19,14 @@ export default {
     ...mapGetters([
       'hotBlogList'
     ])
+  },
+  methods: {
+    showBlogDetail (blog) {
+      this.$store.commit('chooseBlog', blog)
+      if (this.$route.name !== 'blog') {
+        this.$router.push('/blog')
+      }
+    }
   }
 }
 </script>
