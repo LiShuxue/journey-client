@@ -1,5 +1,5 @@
 <template>
-  <div class="blog-item">
+  <div class="blog-item" @click="showBlogDetail(blog)">
     <div class="blog-image">
       <img :src="blog.image">
     </div>
@@ -9,11 +9,9 @@
       <div class="tool">
         <span class="iconfont icon-clock"></span><span class="content">{{blog.publishTime}}</span>
         <span class="iconfont icon-eye"></span><span class="content">{{blog.see}}</span>
-        <span class="iconfont icon-comment"></span><span class="content">{{blog.comments.length}}</span>
-        <span class="iconfont icon-like"></span><span class="content">{{blog.like}}</span>
-        <router-link to="/">
-          <span class="iconfont icon-list"></span><span class="content">{{blog.category}}</span>
-        </router-link>
+        <div @click.stop="clickComments" style="display: inline"><span class="iconfont icon-comment"></span><span class="content">{{blog.comments.length}}</span></div>
+        <div @click.stop="clickLike" style="display: inline"><span class="iconfont icon-like"></span><span class="content">{{blog.like}}</span></div>
+        <div @click.stop="clickCategory" style="display: inline"><span class="iconfont icon-list"></span><span class="content">{{blog.category}}</span></div>
       </div>
     </div>
   </div>
@@ -23,6 +21,25 @@
 export default {
   props: {
     blog: Object
+  },
+  methods: {
+    showBlogDetail (blog) {
+      this.$router.push({
+        name: 'blog', // 这里必须用name才能使用params传参
+        params: {
+          blog
+        }
+      })
+    },
+    clickComments () {
+      console.log('comments')
+    },
+    clickLike () {
+      console.log('like')
+    },
+    clickCategory () {
+      console.log('category')
+    }
   }
 }
 </script>
@@ -35,6 +52,9 @@ export default {
   margin-top: 10px;
   padding: 7px;
   background: $hui-bai;
+  *{
+    cursor: pointer;
+  }
 }
 
 .blog-image{
@@ -77,13 +97,6 @@ export default {
 
     .content{
       margin-right: 20px;
-    }
-
-    a{
-      text-decoration: none;
-      color: $hui-hei;
-      cursor: pointer;
-      outline: none;
     }
   }
 }
