@@ -9,8 +9,8 @@ const login = `api/admin/login`
 const register = `api/admin/register`
 const categoryList = `api/blog/category/list`
 const blogList = `api/blog/list`
-const hotBlogList = `api/blog/hot`
-const tagList = `api/blog/tag/list`
+// const hotBlogList = `api/blog/hot`
+// const tagList = `api/blog/tag/list`
 
 export default {
   requireAuth: {
@@ -23,8 +23,6 @@ export default {
     login,
     register,
     categoryList,
-    blogList,
-    hotBlogList,
-    tagList
+    blogList
   }
 }

@@ -1,16 +1,9 @@
 <template>
-  <div class="banner" :style="widthStyle">
+  <div class="banner" :style="sizeStyle">
     <swiper :options="swiperOption">
-      <swiper-slide><img :src="slideImage" :style="widthStyle"></swiper-slide>
-      <swiper-slide><img :src="slideImage" :style="widthStyle"></swiper-slide>
-      <swiper-slide><img :src="slideImage" :style="widthStyle"></swiper-slide>
-      <swiper-slide><img :src="slideImage" :style="widthStyle"></swiper-slide>
-      <swiper-slide><img :src="slideImage" :style="widthStyle"></swiper-slide>
-      <swiper-slide><img :src="slideImage" :style="widthStyle"></swiper-slide>
-      <swiper-slide><img :src="slideImage" :style="widthStyle"></swiper-slide>
-      <swiper-slide><img :src="slideImage" :style="widthStyle"></swiper-slide>
-      <swiper-slide><img :src="slideImage" :style="widthStyle"></swiper-slide>
-      <swiper-slide><img :src="slideImage" :style="widthStyle"></swiper-slide>
+      <swiper-slide v-for="(blog, index) in hotBlogList" :key="index">
+        <img :src="blog.image" :style="sizeStyle">
+      </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
     </swiper>
   </div>
@@ -19,7 +12,7 @@
 <script>
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import mockdata from '../../mock/mock'
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
@@ -35,9 +28,13 @@ export default {
           clickable: true
         }
       },
-      widthStyle: '',
-      slideImage: mockdata.slideImage
+      sizeStyle: ''
     }
+  },
+  computed: {
+    ...mapGetters([
+      'hotBlogList'
+    ])
   },
 
   components: {
@@ -64,12 +61,15 @@ export default {
   methods: {
     setStyle (self) {
       let imgWidth
+      let imgHeight
       if (document.body.clientWidth >= 1000) {
-        imgWidth = '600px'
+        imgWidth = 600
+        imgHeight = 210
       } else {
-        imgWidth = 0.6 * document.body.clientWidth + 'px'
+        imgWidth = 0.6 * document.body.clientWidth
+        imgHeight = 210 / 600 * imgWidth
       }
-      self.widthStyle = `width: ${imgWidth}`
+      self.sizeStyle = `width: ${imgWidth}px; height: ${imgHeight}px`
     }
   }
 }
@@ -78,5 +78,9 @@ export default {
 <style scoped>
 .banner{
   box-sizing: border-box;
+}
+
+.swiper-slide img{
+  object-fit: cover
 }
 </style>

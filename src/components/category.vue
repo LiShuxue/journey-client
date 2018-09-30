@@ -5,7 +5,7 @@
       <span>标签</span>
     </p>
     <p class="category">
-      <span class="category-item" v-for="(item, index) in categoryList" :key="index">
+      <span class="category-item" v-for="(item, index) in tagList" :key="index">
         {{item}}
       </span>
     </p>
@@ -13,21 +13,12 @@
 </template>
 
 <script>
-import API from '@/ajax/api.js'
+import { mapGetters } from 'vuex'
 export default {
-  data () {
-    return {
-      categoryList: []
-    }
-  },
-  created () {
-    this.axios.get(API.notRequireAuth.tagList).then(response => {
-      if (response.data.tagList && response.data.tagList.length > 0) {
-        this.categoryList = response.data.tagList
-      }
-    }).catch(err => {
-      this.$message.error(err.data.errMsg || err.data)
-    })
+  computed: {
+    ...mapGetters([
+      'tagList'
+    ])
   }
 }
 </script>
