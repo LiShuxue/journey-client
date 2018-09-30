@@ -55,11 +55,11 @@ export default {
 }
 .router-fade-enter-active{
     transition-property: opacity;
-    transition-duration: 0.5s;
+    transition-duration: 0.3s;
 }
 .router-fade-leave-active{
     transition-property: opacity;
-    transition-duration: 0.5s;
+    transition-duration: 0.3s;
 }
 .router-fade-leave-to{
     opacity: 0;
