@@ -119,46 +119,44 @@ const getAllBlog = async (ctx) => {
     }
 }
 
-const getHotBlog = async (ctx) => {
-    let blogList = await BlogModel.getAllBlogSortBySee().catch(err=>{
-        ctx.status = 500;
-        ctx.body = {
-            errMsg: '获取博客列表失败!',
-            err
-        }
-    });
-    ctx.status = 200;
-    ctx.body = {
-        successMsg: '获取博客列表成功!',
-        blogList
-    }
-}
+// const getHotBlog = async (ctx) => {
+//     let blogList = await BlogModel.getAllBlogSortBySee().catch(err=>{
+//         ctx.status = 500;
+//         ctx.body = {
+//             errMsg: '获取博客列表失败!',
+//             err
+//         }
+//     });
+//     ctx.status = 200;
+//     ctx.body = {
+//         successMsg: '获取博客列表成功!',
+//         blogList
+//     }
+// }
 
-const getAllTags = async (ctx) => {
-    let result = await BlogModel.getAllTags().catch(err=>{
-        ctx.status = 500;
-        ctx.body = {
-            errMsg: '获取标签失败!',
-            err
-        }
-    })
-    let tagList=[];
-    result.forEach((value)=>{
-        // 用Set数组去重
-        tagList = [...new Set([...tagList, ...value.tags])];
-    })
-    ctx.status = 200;
-    ctx.body = {
-        successMsg: '获取标签成功!',
-        tagList
-    }
-}
+// const getAllTags = async (ctx) => {
+//     let result = await BlogModel.getAllTags().catch(err=>{
+//         ctx.status = 500;
+//         ctx.body = {
+//             errMsg: '获取标签失败!',
+//             err
+//         }
+//     })
+//     let tagList=[];
+//     result.forEach((value)=>{
+//         // 用Set数组去重
+//         tagList = [...tagList, ...value.tags];
+//     })
+//     ctx.status = 200;
+//     ctx.body = {
+//         successMsg: '获取标签成功!',
+//         tagList: [...new Set(tagList)]
+//     }
+// }
 
 module.exports = {
     publishNewBlog,
     saveImage,
     removeImage,
-    getAllBlog,
-    getHotBlog,
-    getAllTags
+    getAllBlog
 };

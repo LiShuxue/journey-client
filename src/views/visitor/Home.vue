@@ -30,6 +30,7 @@ export default {
   created () {
     this.axios.get(API.notRequireAuth.blogList).then(response => {
       if (response.data.blogList && response.data.blogList.length > 0) {
+        this.$store.commit('saveBlogListMutation', response.data.blogList)
         this.allBlogList = response.data.blogList
         this.allBlogList.forEach(item => {
           item.publishTime = item.publishTime.substring(0, 10)
@@ -48,7 +49,7 @@ export default {
 
   methods: {
     getMore () {
-      // 通过函数节流原理，设置一个标志位，防止多次点击多次请求
+      // 通过函数防抖原理，设置一个标志位，防止多次点击多次请求
       if (this.canGetMore && !this.isLoading) {
         this.isLoading = true
         this.msg = 'loading...'

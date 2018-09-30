@@ -5,7 +5,7 @@
       <span>阅读排行</span>
     </p>
     <div class="article">
-      <p class="article-item" v-for="(item, index) in blogList" :key="index">
+      <p class="article-item" v-for="(item, index) in hotBlogList" :key="index">
         {{item.title}}
       </p>
     </div>
@@ -13,21 +13,12 @@
 </template>
 
 <script>
-import API from '@/ajax/api.js'
+import { mapGetters } from 'vuex'
 export default {
-  data () {
-    return {
-      blogList: []
-    }
-  },
-  created () {
-    this.axios.get(API.notRequireAuth.hotBlogList).then(response => {
-      if (response.data.blogList && response.data.blogList.length > 0) {
-        this.blogList = response.data.blogList
-      }
-    }).catch(err => {
-      this.$message.error(err.data.errMsg || err.data)
-    })
+  computed: {
+    ...mapGetters([
+      'hotBlogList'
+    ])
   }
 }
 </script>

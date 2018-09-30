@@ -32,28 +32,26 @@ const getAllBlog = () => {
         });
     })
 }
-const getAllBlogSortBySee = () => {
-    return new Promise((resolve, reject)=>{
-        Blog.find({}, (err,doc)=>{
-            if(err) reject(err);
-            resolve(doc);
-        }).sort({see: -1}).limit(10); // see字段降序排序，取前10条
-    })
-}
+// const getAllBlogSortBySee = () => {
+//     return new Promise((resolve, reject)=>{
+//         Blog.find({}, (err,doc)=>{
+//             if(err) reject(err);
+//             resolve(doc);
+//         }).sort({see: -1}).limit(10); // see字段降序排序，取前10条
+//     })
+// }
 
-const getAllTags = () =>{
-    return new Promise((resolve, reject)=>{
-        // 查找某一列
-        Blog.find({}, {tags: 1, _id: 0}, (err, doc)=>{
-            if(err) reject(err);
-            resolve(doc);
-        })
-    });
-}
+// const getAllTags = () =>{
+//     return new Promise((resolve, reject)=>{
+//         // 查找某一列
+//         Blog.find({}, {tags: 1, _id: 0}, (err, doc)=>{
+//             if(err) reject(err);
+//             resolve(doc);
+//         })
+//     });
+// }
 
 module.exports = {
     publishBlog,
-    getAllBlog,
-    getAllTags,
-    getAllBlogSortBySee
+    getAllBlog
 };
