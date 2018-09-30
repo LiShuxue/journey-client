@@ -25,11 +25,9 @@ const router = new Router({
       component: () => import('./views/visitor/Main.vue'),
       redirect: '/home',
       children: [
-        { path: 'home',
-          component: () => import('./views/visitor/Home.vue'),
-          meta: { keepAlive: true }
-        },
-        { path: 'about', component: () => import('./views/visitor/About.vue') }
+        { path: 'home', component: () => import('./views/visitor/Home.vue'), meta: { keepAlive: true } },
+        { path: 'about', component: () => import('./views/visitor/About.vue') },
+        { path: 'blog', name: 'blog', component: () => import('./views/visitor/Blog.vue') }
       ]
     },
     { path: '/login', component: () => import('./views/admin/login.vue') },
@@ -38,11 +36,8 @@ const router = new Router({
       component: () => import('./views/admin/Admin.vue'),
       redirect: '/admin/home',
       children: [
-        { path: 'home',
-          component: () => import('./views/admin/home.vue'),
-          meta: { requireAuth: true } // 添加该字段，表示进入这个路由是需要登录的
-        },
-        { path: 'edit', component: () => import('./views/admin/edit.vue') }
+        { path: 'home', component: () => import('./views/admin/home.vue'), meta: { requireAuth: true } }, // 添加requireAuth，表示进入这个路由是需要登录的
+        { path: 'edit', component: () => import('./views/admin/edit.vue'), meta: { requireAuth: true } }
       ]
     }
   ]
