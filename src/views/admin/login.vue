@@ -8,7 +8,7 @@
       <el-input placeholder="请输入用户名" v-model="username" class="input-box">
         <template slot="prepend">用户名：</template>
       </el-input>
-      <el-input placeholder="请输入密码" v-model="password" type="password" class="input-box">
+      <el-input placeholder="请输入密码" v-model="password" type="password" class="input-box" @keyup.enter.native="login">
         <template slot="prepend">密&nbsp;&nbsp;&nbsp;&nbsp;码：</template>
       </el-input>
 
