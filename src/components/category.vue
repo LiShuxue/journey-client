@@ -5,7 +5,7 @@
       <span>标签</span>
     </p>
     <p class="category">
-      <span class="category-item" v-for="(item, index) in tagList" :key="index">
+      <span class="category-item" v-for="(item, index) in tagList" :key="index" @click="clickTag(item)">
         {{item}}
       </span>
     </p>
@@ -19,6 +19,16 @@ export default {
     ...mapGetters([
       'tagList'
     ])
+  },
+  methods: {
+    clickTag (tag) {
+      let blogList = [...this.$store.state.blogList]
+      let blogListWithSameTag = blogList.filter((value) => {
+        return value.tags.includes(tag)
+      })
+      this.$store.commit('saveSameTagBlogList', blogListWithSameTag)
+      this.$router.push('/bloglist')
+    }
   }
 }
 </script>

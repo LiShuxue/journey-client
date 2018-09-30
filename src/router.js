@@ -27,7 +27,8 @@ const router = new Router({
       children: [
         { path: 'home', component: () => import('./views/visitor/Home.vue'), meta: { keepAlive: true } },
         { path: 'about', component: () => import('./views/visitor/About.vue') },
-        { path: 'blog', name: 'blog', component: () => import('./views/visitor/Blog.vue') }
+        { path: 'blog', name: 'blog', component: () => import('./views/visitor/Blog.vue') },
+        { path: 'bloglist', name: 'bloglist', component: () => import('./views/visitor/BlogList.vue') }
       ]
     },
     { path: '/login', component: () => import('./views/admin/login.vue') },
