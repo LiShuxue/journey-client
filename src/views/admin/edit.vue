@@ -181,9 +181,7 @@ export default {
         }).catch(err => {
           this.$message.error(err.data.errMsg || err.data)
         })
-      }).catch(() => {
-        console.log('cancle input ...')
-      })
+      }).catch(() => {})
     },
     handleClose (tag) {
       this.tags.splice(this.tags.indexOf(tag), 1)

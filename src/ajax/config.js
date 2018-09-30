@@ -21,7 +21,6 @@ axios.interceptors.request.use(config => {
 })
 
 axios.interceptors.response.use(response => {
-  console.log(response)
   if (response.status === 200 && response.data.errMsg) {
     return Promise.reject(response)
   }
@@ -31,7 +30,6 @@ axios.interceptors.response.use(response => {
   }
   return response
 }, error => {
-  console.log(error.response)
   return Promise.reject(error.response)
 })
 
