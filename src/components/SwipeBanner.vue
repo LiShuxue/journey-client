@@ -75,11 +75,9 @@ export default {
       self.sizeStyle = `width: ${imgWidth}px; height: ${imgHeight}px`
     },
     enter () {
-      console.log('enter')
       // this.swiper.autoplay.pause()
     },
     leave () {
-      console.log('leave')
       // this.swiper.autoplay.run()
     },
     showBlogDetail (blog) {

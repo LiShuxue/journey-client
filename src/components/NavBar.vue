@@ -45,6 +45,9 @@ export default{
   padding: 10px 10px 10px 10px;
   margin-bottom: 10px;
   border-radius: 20%;
+  &:hover{
+    background: $shen-hui;
+  }
 }
 .nav-icon{
   margin-right: 15px;
