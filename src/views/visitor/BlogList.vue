@@ -1,8 +1,6 @@
 <template>
-  <div class="blog">
-    <div class="blog-list" v-for="(item, index) in blogList" :key="index">
-      <blog-item :blog="item"></blog-item>
-    </div>
+  <div class="blog-list">
+    <blog-item v-for="(item, index) in blogList" :blog="item" :key="index"></blog-item>
     <div class="more" @click="getMore" :style="cursor">{{msg}}</div>
   </div>
 </template>
@@ -89,8 +87,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.blog{
+.blog-list{
   box-sizing: border-box;
+}
+.blog-item:first-child{
+  margin-top: 0px;
 }
 .more{
   display: inline-block;
