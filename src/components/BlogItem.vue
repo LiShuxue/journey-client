@@ -2,6 +2,8 @@
   <div class="blog-item" @click="showBlogDetail(blog)">
     <div class="blog-image">
       <img :src="blog.image">
+      <div v-if="blog.isOriginal" class="blog-mark">原创</div>
+      <div v-else class="blog-mark">转载</div>
     </div>
     <div class="blog-intro">
       <div class="title">{{blog.title}}</div>
@@ -56,6 +58,8 @@ export default {
 }
 
 .blog-image{
+  position: relative;
+  overflow: hidden;
   flex-basis: 175px;
   height: 120px;
   margin-right: 15px;
@@ -63,6 +67,21 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: cover;    // 通过这个属性实现background-size:cover的效果
+  }
+  .blog-mark{
+    position: absolute;
+    display: inline-block;
+    text-align: center;
+    top: 0;
+    left: 0;
+    transform: rotate(-45deg) translate(-5px, -20px);
+    transform-origin: center;
+    color: $hui-bai;
+    background: $qian-lan;
+    font-size: 12px;
+    width: 50px;
+    padding-top: 20px;
+    opacity: 0.7;
   }
 }
 
