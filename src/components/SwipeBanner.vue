@@ -1,6 +1,6 @@
 <template>
-  <div class="banner" :style="sizeStyle">
-    <swiper :options="swiperOption">
+  <div class="banner" :style="sizeStyle"  @mouseenter="enter()" @mouseleave="leave()">
+    <swiper :options="swiperOption" ref="mySwiper">
       <swiper-slide v-for="(blog, index) in hotBlogList" :key="index">
         <img :src="blog.image" :style="sizeStyle">
       </swiper-slide>
@@ -20,7 +20,7 @@ export default {
         spaceBetween: 20, // 切换图片时中间的白条
         centeredSlides: true,
         autoplay: {
-          delay: 2500,
+          delay: 4000,
           disableOnInteraction: false
         },
         pagination: {
@@ -32,6 +32,9 @@ export default {
     }
   },
   computed: {
+    swiper () {
+      return this.$refs.mySwiper.swiper
+    },
     ...mapGetters([
       'hotBlogList'
     ])
@@ -70,17 +73,29 @@ export default {
         imgHeight = 210 / 600 * imgWidth
       }
       self.sizeStyle = `width: ${imgWidth}px; height: ${imgHeight}px`
+    },
+    enter () {
+      console.log('enter')
+      // this.swiper.autoplay.pause()
+    },
+    leave () {
+      console.log('leave')
+      // this.swiper.autoplay.run()
     }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .banner{
   box-sizing: border-box;
 }
 
 .swiper-slide img{
-  object-fit: cover
+  object-fit: cover;
+  &:hover{
+    transform: rotate(2deg) scale(1.1);
+    transition: all 0.25s;
+  }
 }
 </style>

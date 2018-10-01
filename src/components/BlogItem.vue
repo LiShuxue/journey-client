@@ -55,6 +55,13 @@ export default {
   *{
     cursor: pointer;
   }
+  &:hover{
+    background: $shen-hui;
+    img{
+      transform: scale(1.1);
+      transition: all 0.25s;
+    }
+  }
 }
 
 .blog-image{
