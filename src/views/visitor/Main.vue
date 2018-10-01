@@ -73,6 +73,7 @@ export default {
   flex-basis: 600px;
   box-sizing: border-box;
   margin: 0 10px;
+  z-index: 10;
 }
 
 .right{
