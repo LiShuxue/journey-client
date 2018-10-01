@@ -2,7 +2,7 @@
   <div class="banner" :style="sizeStyle"  @mouseenter="enter()" @mouseleave="leave()">
     <swiper :options="swiperOption" ref="mySwiper">
       <swiper-slide v-for="(blog, index) in hotBlogList" :key="index">
-        <img :src="blog.image" :style="sizeStyle">
+        <img :src="blog.image" :style="sizeStyle" @click="showBlogDetail(blog)">
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
     </swiper>
@@ -81,6 +81,12 @@ export default {
     leave () {
       console.log('leave')
       // this.swiper.autoplay.run()
+    },
+    showBlogDetail (blog) {
+      this.$store.commit('chooseBlog', blog)
+      if (this.$route.name !== 'blog') {
+        this.$router.push('/blog')
+      }
     }
   }
 }
