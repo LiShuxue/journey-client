@@ -4,7 +4,10 @@
     <div class="fix-flex-issue">
       <div class="content">
         <div class="logo"></div>
-        <div class="title">身体和灵魂，总有一个要在路上</div>
+        <div class="title">
+          <div class="blink"></div>
+          身体和灵魂，总有一个要在路上
+        </div>
         <div class="other"></div>
       </div>
     </div>
@@ -50,10 +53,33 @@
   color: $qian-lan;
   font-weight: bold;
   font-size: 17px;
+  position: relative;
 }
 .other{
   order: 2;
   flex-basis: 220px;
   box-sizing: border-box;
+}
+.blink{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 240px;
+  animation: blink 5s infinite;
+  &::after{
+    content: '';
+    height: 70px;
+    width: 15px;
+    position: absolute;
+    top: 0;
+    left: -20px;
+    background: radial-gradient($hui-bai, rgba(248, 248, 248, 0), rgba(248, 248, 248, 0));
+    transform: rotate(30deg) translateY(-30px);
+  }
+}
+@keyframes blink {
+  0% { transform: translateX(-5%); }
+  100% { transform: translateX(120%); }
 }
 </style>
