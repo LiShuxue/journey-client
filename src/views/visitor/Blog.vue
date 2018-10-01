@@ -71,6 +71,11 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    opacity: .9;
+    &:hover{
+      opacity: 1;
+      transition: all .25s;
+    }
   }
 }
 </style>
