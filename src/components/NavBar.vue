@@ -32,7 +32,7 @@ export default{
   position: fixed;
   top: 70px;
   width: 160px;
-  height: calc(100% - 70px - 60px - 51px);
+  height: calc(100% - 70px - 75px - 45px);
   color: $hui-hei;
   background: $hui-bai;
   border-radius: 10px;

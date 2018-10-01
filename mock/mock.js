@@ -1,22 +1,25 @@
 import Mock from 'mockjs'
 
 const mockdata = Mock.mock({
-  'blogList|1-10': [{
-    'title|1-5': '标题',
-    'subTitle|1-5': '子标题',
-    image: Mock.Random.dataImage('600x210'),
-    publishTime: Mock.Random.date(),
-    'see|1-500': 500,
-    'like|1-100': 30,
-    'category|1': ['NodeJS', 'ES6', 'Vue', 'CSS', 'Webpack'],
-    'comments|1-10': [{
-      time: Mock.Random.datetime(),
-      'content|1-10': '评论',
-      'arthur|1': ['张三', '李四', '王五', '赵六']
-    }]
-  }],
-  'slideImage': Mock.Random.dataImage('600x210'),
-  'categoryList': ['NodeJS', 'ES6', 'Vue', 'CSS', 'Webpack', 'NodeJS', 'ES6', 'Vue', 'CSS', 'Webpack', 'NodeJS', 'ES6', 'Vue', 'CSS', 'Webpack', 'NodeJS', 'ES6', 'Vue', 'CSS', 'Webpack', 'NodeJS', 'ES6', 'Vue', 'CSS', 'Webpack']
+  'blogList': [
+    {
+      'title': '维护中',
+      'subTitle': '维护中，等等再来吧...',
+      'image': 'https://www.test.com/down.png',
+      'content': '<p>维护中，等等再来吧...</p>',
+      'isOriginal': true,
+      'publishTime': Mock.Random.now(),
+      'see': 100,
+      'like': 100,
+      'category': '维护',
+      'tags': ['维护'],
+      'comments': [{
+        time: Mock.Random.now(),
+        'content': '维护中',
+        'arthur': '维护中'
+      }]
+    }
+  ]
 })
 
 export default mockdata

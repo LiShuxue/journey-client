@@ -93,9 +93,14 @@ export default {
   box-sizing: border-box;
 }
 .more{
-  font-size: 14px;
-  color: $hui-hei;
-  width: 100px;
-  margin: 15px auto 5px auto;
+  display: inline-block;
+  text-align: center;
+  font-size: 15px;
+  line-height: 15px;
+  color:$hui-hei;
+  width: 100%;
+  padding: 10px 0;
+  margin-top: 10px;
+  background: $shen-hui;
 }
 </style>

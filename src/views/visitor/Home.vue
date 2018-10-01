@@ -12,6 +12,7 @@
 import SwipeBanner from '@/components/SwipeBanner.vue'
 import BlogItem from '@/components/BlogItem.vue'
 import API from '@/ajax/api.js'
+import mockdata from '../../../mock/mock'
 export default {
   data () {
     return {
@@ -42,9 +43,22 @@ export default {
           this.cursor = ''
           this.canGetMore = false
         }
+      } else {
+        this.$store.commit('saveBlogListMutation', mockdata.blogList)
+        this.allBlogList = mockdata.blogList
+        this.blogList = this.allBlogList.slice(this.startArrIndex, this.endArrIndex)
+        this.msg = '没有更多了'
+        this.cursor = ''
+        this.canGetMore = false
       }
     }).catch(err => {
       this.$message.error(err.data.errMsg || err.data)
+      this.$store.commit('saveBlogListMutation', mockdata.blogList)
+      this.allBlogList = mockdata.blogList
+      this.blogList = this.allBlogList.slice(this.startArrIndex, this.endArrIndex)
+      this.msg = '没有更多了'
+      this.cursor = ''
+      this.canGetMore = false
     })
   },
 
@@ -87,9 +101,14 @@ export default {
   box-sizing: border-box;
 }
 .more{
-  font-size: 14px;
-  color: $hui-hei;
-  width: 100px;
-  margin: 15px auto 5px auto;
+  display: inline-block;
+  text-align: center;
+  font-size: 15px;
+  line-height: 15px;
+  color:$hui-hei;
+  width: 100%;
+  padding: 10px 0;
+  margin-top: 10px;
+  background: $shen-hui;
 }
 </style>
