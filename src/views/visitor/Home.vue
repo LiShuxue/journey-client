@@ -1,8 +1,8 @@
 <template>
   <div class="home">
     <swipe-banner></swipe-banner>
-    <div class="blog-list" v-for="(item, index) in blogList" :key="index">
-      <blog-item :blog="item"></blog-item>
+    <div class="blog-list">
+      <blog-item v-for="(item, index) in blogList" :blog="item" :key="index" ></blog-item>
     </div>
     <div class="more" @click="getMore" :style="cursor">{{msg}}</div>
   </div>
