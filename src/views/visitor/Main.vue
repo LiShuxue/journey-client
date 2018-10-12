@@ -19,10 +19,10 @@
       <aside class="right">
         <search-box></search-box>
         <keep-alive>
-          <category-box></category-box>
+          <recommend-box></recommend-box>
         </keep-alive>
         <keep-alive>
-          <recommend-box></recommend-box>
+          <category-box></category-box>
         </keep-alive>
       </aside>
     </div>
