@@ -10,7 +10,7 @@ export default new Vuex.Store({
     refresh_token: '',
     blogList: [],
     chooseBlog: {},
-    sameTagBlogList: []
+    filterBlogList: []
   },
   getters: {
     hotBlogList: state => {
@@ -45,8 +45,8 @@ export default new Vuex.Store({
     chooseBlog (state, blog) {
       state.chooseBlog = blog
     },
-    saveSameTagBlogList (state, blogList) {
-      state.sameTagBlogList = blogList
+    saveFilterBlogList (state, blogList) {
+      state.filterBlogList = blogList
     }
   },
   actions: {

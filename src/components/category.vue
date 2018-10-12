@@ -40,7 +40,7 @@ export default {
       let blogListWithSameTag = blogList.filter((value) => {
         return value.tags.includes(tag)
       })
-      this.$store.commit('saveSameTagBlogList', blogListWithSameTag)
+      this.$store.commit('saveFilterBlogList', blogListWithSameTag)
       this.$router.push('/bloglist')
     }
   }
