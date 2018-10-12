@@ -14,11 +14,25 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import $ from 'jquery'
 export default {
   computed: {
     ...mapGetters([
       'tagList'
     ])
+  },
+  mounted() {
+    window.onscroll = function() {
+      // $(window).scrollTop() // html卷入浏览器的距离
+      // $('.category-wrapper').offsetTop // 元素距离文档顶端的距离 490px，这个是固定的
+      // $('.category-wrapper').offsetTop - $(window).scrollTop() // 元素距离浏览器顶端的距离
+      // if($('.category-wrapper').offsetTop - $(window).scrollTop() <= 70){ // 判断距离小于等于70，可以反过来判断卷入距离大于等于420
+      if($(window).scrollTop() >= 420){
+        !$('.category-wrapper').hasClass('sticky-top') && $('.category-wrapper').addClass('sticky-top')
+      }else{
+        $('.category-wrapper').hasClass('sticky-top') && $('.category-wrapper').removeClass('sticky-top')
+      }
+    }
   },
   methods: {
     clickTag (tag) {
@@ -34,6 +48,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.sticky-top{
+  position: fixed;
+  /* position: sticky; 未来可以用这个属性值*/
+  top: 70px;
+  margin-top: 0 !important;
+  width: 220px;
+  box-sizing: border-box;
+}
 .category-wrapper{
   display: flex;
   flex-direction: column;
