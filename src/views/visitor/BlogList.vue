@@ -23,15 +23,15 @@ export default {
   },
   computed: {
     ...mapState([
-      'sameTagBlogList'
+      'filterBlogList'
     ])
   },
   watch: {
-    sameTagBlogList () {
+    filterBlogList () {
       this.startArrIndex = 0
       this.endArrIndex = 6
-      this.blogList = this.sameTagBlogList.slice(this.startArrIndex, this.endArrIndex)
-      if (this.blogList.length < this.sameTagBlogList.length) {
+      this.blogList = this.filterBlogList.slice(this.startArrIndex, this.endArrIndex)
+      if (this.blogList.length < this.filterBlogList.length) {
         this.msg = '点击加载更多'
         this.cursor = 'cursor: pointer;'
         this.canGetMore = true
@@ -43,8 +43,8 @@ export default {
     }
   },
   created () {
-    this.blogList = this.sameTagBlogList.slice(this.startArrIndex, this.endArrIndex)
-    if (this.blogList.length < this.sameTagBlogList.length) {
+    this.blogList = this.filterBlogList.slice(this.startArrIndex, this.endArrIndex)
+    if (this.blogList.length < this.filterBlogList.length) {
       this.msg = '点击加载更多'
       this.cursor = 'cursor: pointer;'
       this.canGetMore = true
@@ -69,12 +69,12 @@ export default {
         this.timer = setTimeout(() => {
           this.startArrIndex = this.startArrIndex + this.getMoreList
           this.endArrIndex = this.endArrIndex + this.getMoreList
-          let moreList = this.sameTagBlogList.slice(this.startArrIndex, this.endArrIndex)
+          let moreList = this.filterBlogList.slice(this.startArrIndex, this.endArrIndex)
           let newList = [...this.blogList, ...moreList]
           this.blogList = newList
           this.msg = '点击加载更多'
           this.cursor = 'cursor: pointer;'
-          if (this.endArrIndex >= this.sameTagBlogList.length - 1) {
+          if (this.endArrIndex >= this.filterBlogList.length - 1) {
             this.msg = '没有更多了'
             this.cursor = ''
             this.canGetMore = false

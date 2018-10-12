@@ -1,7 +1,7 @@
 <template>
   <div class="search">
-    <input type="search" placeholder="请输入关键字查找" class="search-box"/>
-    <button class="search-icon">
+    <input v-model="keywords" @keyup.enter="searchBlog" type="search" placeholder="请输入关键字查找" class="search-box"/>
+    <button class="search-icon" @click="searchBlog">
         <i class="iconfont icon-search"></i>
     </button>
   </div>
@@ -9,6 +9,27 @@
 
 <script>
 export default {
+  data() {
+    return {
+      keywords: ''
+    }
+  },
+  methods: {
+    searchBlog() {
+      console.log(this.keywords)
+      let keywords = this.keywords
+      let blogList = [...this.$store.state.blogList]
+      let blogListWithKeywords = blogList.filter((value) => {
+        // tags中包含 或者 title中包含 或者 subTitle中包含 或者 content中包含
+        return value.tags.join('').toUpperCase().indexOf(keywords.toUpperCase()) > -1 || 
+               value.title.toUpperCase().indexOf(keywords.toUpperCase()) > -1 || 
+               value.subTitle.toUpperCase().indexOf(keywords.toUpperCase()) > -1 || 
+               value.content.toUpperCase().indexOf(keywords.toUpperCase()) > -1
+      })
+      this.$store.commit('saveFilterBlogList', blogListWithKeywords)
+      this.$router.push('/bloglist')
+    }
+  }
 }
 </script>
 
@@ -31,6 +52,7 @@ input, button{
   flex-basis: 175px;
   height: 25px;
   background: $qian-hui;
+  color: $hui-hei;
 }
 .search-icon{
   flex-basis: 25px;
