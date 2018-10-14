@@ -16,7 +16,6 @@ export default {
   },
   methods: {
     searchBlog() {
-      console.log(this.keywords)
       let keywords = this.keywords
       let blogList = [...this.$store.state.blogList]
       let blogListWithKeywords = blogList.filter((value) => {

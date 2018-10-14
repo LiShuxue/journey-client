@@ -126,7 +126,7 @@ export default {
         this.uploadImageList.push({ name: response.data.originalName, url: response.data.imagePath })
         this.fileNameInServer = response.data.serverFileName
       }).catch((err) => {
-        this.$message.error(err.data.errMsg || err.data)
+        err && this.$message.error(err.data.errMsg || err.data)
       })
     },
     async beforeRemove (file, fileList) {
@@ -139,7 +139,7 @@ export default {
       let response = await this.axios.post(API.requireAuth.removeImage, {
         filename: this.fileNameInServer
       }).catch(err => {
-        this.$message.error(err.data.errMsg || err.data)
+        err && this.$message.error(err.data.errMsg || err.data)
         return Promise.reject(err)
       })
       this.$message.success(response.data.successMsg)
@@ -179,7 +179,7 @@ export default {
           this.category = value
           this.$message.success(response.data.successMsg)
         }).catch(err => {
-          this.$message.error(err.data.errMsg || err.data)
+          err && this.$message.error(err.data.errMsg || err.data)
         })
       }).catch(() => {})
     },
@@ -214,7 +214,7 @@ export default {
       }).then(response => {
         this.$message.success(response.data.successMsg)
       }).catch(err => {
-        this.$message.error(err.data.errMsg || err.data)
+        err && this.$message.error(err.data.errMsg || err.data)
       })
     },
     getAllCategory () {
@@ -226,7 +226,7 @@ export default {
           })
         }
       }).catch(err => {
-        this.$message.error(err.data.errMsg || err.data)
+        err && this.$message.error(err.data.errMsg || err.data)
       })
     }
   }

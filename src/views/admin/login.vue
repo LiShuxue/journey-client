@@ -41,7 +41,7 @@ export default {
         this.loading = false
         this.$message.success(response.data.successMsg)
       }).catch(err => {
-        this.$message.error(err.data.errMsg || err.data)
+        err && this.$message.error(err.data.errMsg || err.data)
         this.loading = false
       })
     },
@@ -68,7 +68,7 @@ export default {
         }
       }).catch(err => {
         this.loading = false
-        this.$message.error(err.data.errMsg || err.data)
+        err && this.$message.error(err.data.errMsg || err.data)
       })
     }
   }
