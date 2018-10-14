@@ -52,7 +52,7 @@ export default {
         this.canGetMore = false
       }
     }).catch(err => {
-      this.$message.error(err.data.errMsg || err.data)
+      err && this.$message.error(err.data.errMsg || err.data)
       this.$store.commit('saveBlogListMutation', mockdata.blogList)
       this.allBlogList = mockdata.blogList
       this.blogList = this.allBlogList.slice(this.startArrIndex, this.endArrIndex)
