@@ -1,4 +1,4 @@
-# journey
+# journey-client
 
 ## Project setup
 ```
