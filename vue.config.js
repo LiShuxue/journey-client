@@ -6,12 +6,5 @@ module.exports = {
                 data: `@import "@/assets/style/base.scss";`
             }
         },
-    },
-    devServer: {
-        proxy: {
-            '/api/*': {
-                target: 'http://localhost:4000'
-            }
-        }
     }
 }
