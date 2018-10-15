@@ -11,7 +11,7 @@ axios.interceptors.request.use(config => {
     if (config.url.includes(API.requireAuth[key])) {
       if (store.state.access_token && store.state.refresh_token) {
         config.headers.Authorization = `Bearer ${store.state.access_token}`
-        config.headers.refresh_token = store.state.refresh_token
+        config.headers['refresh-token'] = store.state.refresh_token
       }
     }
   }
