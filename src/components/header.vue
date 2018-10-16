@@ -20,7 +20,7 @@
   top: 0;
   left: 0;
   background-color: $hui-bai;
-  z-index: 10;
+  z-index: 100;
   opacity: 0.8;
   width: 100%;
   box-sizing: border-box;

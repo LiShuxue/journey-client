@@ -1,5 +1,6 @@
 <template>
   <div class="wrapper">
+    <div class="global-background"></div>
     <main-header></main-header>
 
     <div class="content">
@@ -52,6 +53,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.global-background{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../../assets/img/background.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -1;
+}
+.wrapper{
+  opacity: 0.9;
+}
 .content{
   display: flex;
   flex-direction: row;
