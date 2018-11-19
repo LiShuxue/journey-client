@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div class="app" v-bind:class="{ 'is-mobile': isMobile }">
     <transition name="router-fade" mode="out-in">
       <router-view></router-view>
     </transition>
@@ -7,7 +7,13 @@
 </template>
 
 <script>
+import { isMobile } from './utils/device'
 export default {
+  data(){
+    return{
+      isMobile: isMobile
+    }
+  }
 }
 </script>
 
