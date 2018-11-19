@@ -71,31 +71,31 @@ export default {
 .content{
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  width: 1000px;
   box-sizing: border-box;
   padding-top: 10px;
-  margin-top: 60px;
+  margin: 60px auto 0 auto;
   min-height: 80vh;
 }
 
 .left{
-  order: 0;
-  flex-basis: 160px;
+  width: 160px;
   box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 .center{
-  order: 1;
-  flex-basis: 600px;
+  width: 600px;
   box-sizing: border-box;
   margin: 0 10px;
   z-index: 10;
+  flex-shrink: 0;
 }
 
 .right{
-  order: 2;
-  flex-basis: 220px;
+  width: 220px;
   box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 .router-fade-enter{
