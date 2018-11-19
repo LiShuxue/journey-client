@@ -31,8 +31,8 @@ export default {
   created () {
     this.axios.get(API.notRequireAuth.blogList).then(response => {
       if (response.data.blogList && response.data.blogList.length > 0) {
-        this.$store.commit('saveBlogListMutation', response.data.blogList)
         this.allBlogList = response.data.blogList
+        this.$store.commit('saveBlogListMutation', this.allBlogList)
         this.blogList = this.allBlogList.slice(this.startArrIndex, this.endArrIndex)
         if (this.blogList.length < this.allBlogList.length) {
           this.msg = '点击加载更多'
