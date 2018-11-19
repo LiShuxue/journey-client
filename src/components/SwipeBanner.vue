@@ -13,6 +13,7 @@
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import { mapGetters } from 'vuex'
+import { isMobile } from '../utils/device'
 export default {
   data () {
     return {
@@ -65,12 +66,12 @@ export default {
     setStyle (self) {
       let imgWidth
       let imgHeight
-      if (document.body.clientWidth >= 1000) {
+      if (isMobile) {
+        imgWidth = document.body.clientWidth - 20
+        imgHeight = 210 / 600 * imgWidth
+      } else {
         imgWidth = 600
         imgHeight = 210
-      } else {
-        imgWidth = 0.6 * document.body.clientWidth
-        imgHeight = 210 / 600 * imgWidth
       }
       self.sizeStyle = `width: ${imgWidth}px; height: ${imgHeight}px`
     },
