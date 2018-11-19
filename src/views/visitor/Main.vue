@@ -75,7 +75,7 @@ export default {
   box-sizing: border-box;
   padding-top: 10px;
   margin: 60px auto 0 auto;
-  min-height: 80vh;
+  min-height: calc(100vh - 135px);
 }
 
 .left{
