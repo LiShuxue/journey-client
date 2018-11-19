@@ -1,5 +1,8 @@
 <template>
   <header class="header">
+    <div class="nav-menu" v-if="this.$store.state.isMobile">
+      <span class="iconfont icon-menu"></span>
+    </div>
     <!-- 为了解决在fixed定位下，flex不生效的问题，得在flex上面再包裹一层dom，并设置其宽高-->
     <div class="fix-flex-issue">
       <div class="content">
@@ -24,6 +27,18 @@
   opacity: 0.8;
   width: 100%;
   box-sizing: border-box;
+}
+.nav-menu{
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  transform: translateY(-50%);
+  .icon-menu{
+    font-size: 20px;
+  }
 }
 .fix-flex-issue{
   width: 100%;
