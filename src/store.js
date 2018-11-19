@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { isMobile } from './utils/device'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    isMobile: isMobile,
     username: '',
     access_token: '',
     refresh_token: '',
