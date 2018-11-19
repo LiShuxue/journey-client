@@ -50,4 +50,13 @@
 .other{
   padding: 0 20px
 }
+
+.is-mobile{
+  .ft, .fr{
+    display: none;
+  }
+  .copyright, .power, .other{
+    padding: 0 10px;
+  }
+}
 </style>

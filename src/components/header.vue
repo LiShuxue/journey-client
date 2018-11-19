@@ -82,4 +82,10 @@
   0% { transform: translateX(-5%); }
   100% { transform: translateX(120%); }
 }
+
+.is-mobile{
+  .title, .other{
+    display: none;
+  }
+}
 </style>

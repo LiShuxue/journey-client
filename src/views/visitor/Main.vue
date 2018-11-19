@@ -112,4 +112,18 @@ export default {
 .router-fade-leave-to{
     opacity: 0;
 }
+
+.is-mobile{
+  .content{
+    width: 100vw;
+  }
+  .left, .right{
+    display: none;
+  }
+  .center{
+    width: 100vw;
+    padding: 0 10px 0 10px;
+    margin: 0;
+  }
+}
 </style>
