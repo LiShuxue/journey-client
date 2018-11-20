@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <div class="nav-menu" v-if="this.$store.state.isMobile">
+    <div class="nav-menu" v-if="this.$store.state.isMobile" @click="clickMenu">
       <span class="iconfont icon-menu"></span>
     </div>
     <!-- 为了解决在fixed定位下，flex不生效的问题，得在flex上面再包裹一层dom，并设置其宽高-->
@@ -16,6 +16,16 @@
     </div>
   </header>
 </template>
+
+<script>
+export default {
+  methods: {
+    clickMenu(){
+      this.$emit('clickMenu');
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .header{
