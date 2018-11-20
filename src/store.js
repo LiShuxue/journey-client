@@ -7,6 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isMobile: isMobile,
+    isMenuOpen: false,
     username: '',
     access_token: '',
     refresh_token: '',
@@ -49,6 +50,9 @@ export default new Vuex.Store({
     },
     saveFilterBlogList (state, blogList) {
       state.filterBlogList = blogList
+    },
+    openOrCloseMenuMutation (state, isMenuOpen) {
+      state.isMenuOpen = isMenuOpen;
     }
   },
   actions: {

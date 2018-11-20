@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" v-bind:class="{'menu-open': isMenuOpen}">
+  <div class="wrapper" v-bind:class="{'menu-open': this.$store.state.isMenuOpen}">
     <div class="global-background"></div>
     <main-header @clickMenu="clickMenu"></main-header>
 
@@ -41,11 +41,6 @@ import RecommendBox from '@/components/recommend.vue'
 import MainFooter from '@/components/footer.vue'
 
 export default {
-  data(){
-    return{
-      isMenuOpen: false
-    }
-  },
   components: {
     NavBar,
     MainHeader,
@@ -57,10 +52,10 @@ export default {
 
   methods: {
     clickMenu(){
-      if(this.isMenuOpen){
-        this.isMenuOpen = false;
+      if(this.$store.state.isMenuOpen){
+        this.$store.commit('openOrCloseMenuMutation', false);
       }else{
-        this.isMenuOpen = true;
+        this.$store.commit('openOrCloseMenuMutation', true);
       }
     }
   }
