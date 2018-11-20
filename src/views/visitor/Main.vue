@@ -101,11 +101,13 @@ export default {
 
 .center{
   position: relative;
+  left: 0;
   width: 600px;
   box-sizing: border-box;
   margin: 0 10px;
   z-index: 10;
   flex-shrink: 0;
+  transition: left 0.5s;
 }
 
 .right{

@@ -37,6 +37,7 @@ export default {
   opacity: 0.8;
   width: 100%;
   box-sizing: border-box;
+  transition: left 0.5s;
 }
 .nav-menu{
   position: absolute;
