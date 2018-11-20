@@ -1,7 +1,7 @@
 <template>
   <nav class="nav">
     <div v-for="(item, index) in navList" :key="index">
-        <router-link v-bind:to="item.path">
+        <router-link v-bind:to="item.path" @click.native="closeMenu">
           <div class="nav-item">
             <span class="nav-icon iconfont" v-bind:class="item.style"></span>
             <span class="nav-title">{{item.name}}</span>
@@ -20,6 +20,13 @@ export default{
         { path: '/about', name: '关于', style: 'icon-user' },
         { path: '/admin', name: '管理员入口', style: 'icon-user' }
       ]
+    }
+  },
+  methods: {
+    closeMenu() {
+      if(this.$store.state.isMenuOpen){
+        this.$store.commit('openOrCloseMenuMutation', false);
+      }
     }
   }
 }

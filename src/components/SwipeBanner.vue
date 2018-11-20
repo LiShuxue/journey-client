@@ -81,6 +81,9 @@ export default {
       // this.swiper.autoplay.run()
     },
     showBlogDetail (blog) {
+      if(this.$store.state.isMenuOpen){
+        this.$store.commit('openOrCloseMenuMutation', false);
+      }
       this.$store.commit('chooseBlog', blog)
       if (this.$route.name !== 'blog') {
         this.$router.push('/blog')
