@@ -71,11 +71,12 @@ a{
 }
 .is-mobile .nav{
   top: 0;
+  height: 100vh;
   left: -160px;
+  border-radius: 0;
+  transition: left 0.5s;
 }
 .is-mobile .menu-open .nav{
   left: 0;
-  height: 100vh;
-  border-radius: 0;
 }
 </style>

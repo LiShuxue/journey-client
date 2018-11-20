@@ -13,6 +13,7 @@
 <style lang="scss" scoped>
 .footer{
   position: relative;
+  left: 0;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -21,6 +22,7 @@
   font-size: 13px;
   color: $hui-hei;
   background-color: $hui-bai;
+  transition: left 0.5s;
 }
 .ft{
   order: 0;
