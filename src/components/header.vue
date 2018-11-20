@@ -113,4 +113,7 @@ export default {
     display: none;
   }
 }
+.is-mobile .menu-open .header{
+  left: 160px;
+}
 </style>
