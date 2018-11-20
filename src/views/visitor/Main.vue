@@ -100,6 +100,7 @@ export default {
 }
 
 .center{
+  position: relative;
   width: 600px;
   box-sizing: border-box;
   margin: 0 10px;
@@ -145,14 +146,6 @@ export default {
   }
 }
 .is-mobile .menu-open .center{
-  position: relative;
-  left: 160px;
-}
-.is-mobile .menu-open .header{
-  left: 160px;
-}
-.is-mobile .menu-open .footer{
-  position: relative;
   left: 160px;
 }
 </style>

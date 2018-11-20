@@ -12,6 +12,7 @@
 
 <style lang="scss" scoped>
 .footer{
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -58,5 +59,8 @@
   .copyright, .power, .other{
     padding: 0 10px;
   }
+}
+.is-mobile .menu-open .footer{
+  left: 160px;
 }
 </style>
