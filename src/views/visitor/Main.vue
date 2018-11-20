@@ -1,7 +1,7 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" v-bind:class="{'menu-open': isMenuOpen}">
     <div class="global-background"></div>
-    <main-header></main-header>
+    <main-header @clickMenu="clickMenu"></main-header>
 
     <div class="content">
       <div class="left">
@@ -41,6 +41,11 @@ import RecommendBox from '@/components/recommend.vue'
 import MainFooter from '@/components/footer.vue'
 
 export default {
+  data(){
+    return{
+      isMenuOpen: false
+    }
+  },
   components: {
     NavBar,
     MainHeader,
@@ -48,22 +53,32 @@ export default {
     CategoryBox,
     RecommendBox,
     MainFooter
+  },
+
+  methods: {
+    clickMenu(){
+      if(this.isMenuOpen){
+        this.isMenuOpen = false;
+      }else{
+        this.isMenuOpen = true;
+      }
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .global-background{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-image: url('../../assets/img/background.jpg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('../../assets/img/background.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -1;
 }
 .wrapper{
   opacity: 0.9;
@@ -117,7 +132,10 @@ export default {
   .content{
     width: 100vw;
   }
-  .left, .right{
+  .left{
+    width: 0;
+  }
+  .right{
     display: none;
   }
   .center{
@@ -125,5 +143,16 @@ export default {
     padding: 0 10px 0 10px;
     margin: 0;
   }
+}
+.is-mobile .menu-open .center{
+  position: relative;
+  left: 160px;
+}
+.is-mobile .menu-open .header{
+  left: 160px;
+}
+.is-mobile .menu-open .footer{
+  position: relative;
+  left: 160px;
 }
 </style>

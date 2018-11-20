@@ -69,4 +69,13 @@ a{
   cursor: pointer;
   outline: none;
 }
+.is-mobile .nav{
+  top: 0;
+  left: -160px;
+}
+.is-mobile .menu-open .nav{
+  left: 0;
+  height: 100vh;
+  border-radius: 0;
+}
 </style>
