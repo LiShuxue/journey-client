@@ -101,8 +101,8 @@ export default {
 .swiper-slide img{
   object-fit: cover;
   &:hover{
-    transform: rotate(2deg) scale(1.1);
-    transition: all 0.25s;
+    transform: scale(1.2);
+    transition: all 1s;
   }
 }
 </style>
