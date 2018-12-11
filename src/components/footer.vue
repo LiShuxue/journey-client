@@ -26,15 +26,15 @@
 }
 .ft{
   order: 0;
-  flex-basis: 160px;
+  flex-basis: $left-width;
 }
 .fr{
   order: 2;
-  flex-basis: 220px;
+  flex-basis: $right-width;
 }
 .content{
   order: 1;
-  flex-basis: 600px;
+  flex-basis: $center-width;
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
@@ -63,6 +63,6 @@
   }
 }
 .is-mobile .menu-open .footer{
-  left: 160px;
+  left: $left-width;
 }
 </style>

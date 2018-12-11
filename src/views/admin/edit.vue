@@ -245,13 +245,13 @@ export default {
 }
 .markdown-editor-size{
   height: 500px;
-  /* width: 600px; */
+  /* width: 700px; */
 }
 .w-e-toolbar{
   color: #24292e !important;
   background: #fff !important;
   height: 35px !important;
-  /* width: 600px !important; */
+  /* width: 700px !important; */
   border: none !important;
   box-shadow: 0 0px 4px rgba(0,0,0,0.157), 0 0px 4px rgba(0,0,0,0.227);
 }
@@ -259,7 +259,7 @@ export default {
   color: #24292e !important;
   background: #fff !important;
   height: 465px !important;
-  /* width: 600px !important; */
+  /* width: 700px !important; */
   border: none !important;
   box-shadow: 0 0px 4px rgba(0,0,0,0.157), 0 0px 4px rgba(0,0,0,0.227);
 }

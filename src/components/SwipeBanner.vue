@@ -67,10 +67,10 @@ export default {
       let imgHeight
       if (this.$store.state.isMobile) {
         imgWidth = document.body.clientWidth - 20
-        imgHeight = 210 / 600 * imgWidth
+        imgHeight = 250 / 700 * imgWidth
       } else {
-        imgWidth = 600
-        imgHeight = 210
+        imgWidth = 700
+        imgHeight = 250
       }
       self.sizeStyle = `width: ${imgWidth}px; height: ${imgHeight}px`
     },

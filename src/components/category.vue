@@ -53,7 +53,7 @@ export default {
   /* position: sticky; 未来可以用这个属性值*/
   top: 70px;
   margin-top: 0 !important;
-  width: 220px;
+  width: $right-width;
   box-sizing: border-box;
 }
 .category-wrapper{

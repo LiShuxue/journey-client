@@ -51,7 +51,6 @@ export default {
 .blog-item{
   display: flex;
   box-sizing: border-box;
-  height: 135px;
   margin-top: 10px;
   padding: 7px;
   background: $hui-bai;
@@ -70,9 +69,10 @@ export default {
 .blog-image{
   position: relative;
   overflow: hidden;
-  flex-basis: 175px;
-  height: 120px;
+  flex-basis: $blog-item-image-width;
+  height: $blog-item-height;
   margin-right: 15px;
+  box-sizing: border-box;
   img{
     width: 100%;
     height: 100%;
@@ -97,10 +97,11 @@ export default {
 
 .blog-intro{
   position: relative;
-  flex-basis: 410px;
-  height: 120px;
+  flex-basis: $blog-item-intro-width;
+  height: $blog-item-height;
   color: $hui-hei;
-
+  padding: 0 10px;
+  box-sizing: border-box;
   .title{
     margin-top: 5px;
     font-weight: bold;
