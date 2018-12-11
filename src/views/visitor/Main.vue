@@ -81,7 +81,7 @@ export default {
 .content{
   display: flex;
   flex-direction: row;
-  width: 1000px;
+  width: $total-width;
   box-sizing: border-box;
   padding-top: 10px;
   margin: 60px auto 0 auto;
@@ -89,7 +89,7 @@ export default {
 }
 
 .left{
-  width: 160px;
+  width: $left-width;
   box-sizing: border-box;
   flex-shrink: 0;
 }
@@ -97,7 +97,7 @@ export default {
 .center{
   position: relative;
   left: 0;
-  width: 600px;
+  width: $center-width;
   box-sizing: border-box;
   margin: 0 10px;
   z-index: 10;
@@ -106,7 +106,7 @@ export default {
 }
 
 .right{
-  width: 220px;
+  width: $right-width;
   box-sizing: border-box;
   flex-shrink: 0;
 }
@@ -143,6 +143,6 @@ export default {
   }
 }
 .is-mobile .menu-open .center{
-  left: 160px;
+  left: $left-width;
 }
 </style>

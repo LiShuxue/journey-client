@@ -38,7 +38,7 @@ export default{
 .nav{
   position: fixed;
   top: 70px;
-  width: 160px;
+  width: $left-width;
   height: calc(100% - 70px - 75px - 45px);
   color: $hui-hei;
   background: $hui-bai;
@@ -79,7 +79,7 @@ a{
 .is-mobile .nav{
   top: 0;
   height: 100vh;
-  left: -160px;
+  left: -$left-width;
   border-radius: 0;
   transition: left 0.5s;
 }

@@ -63,7 +63,7 @@ export default {
 }
 .logo{
   order: 0;
-  flex-basis: 160px;
+  flex-basis: $left-width;
   height: 23px;
   box-sizing: border-box;
   margin-top: 17px;
@@ -73,7 +73,7 @@ export default {
 }
 .title{
   order: 1;
-  flex-basis: 600px;
+  flex-basis: $center-width;
   box-sizing: border-box;
   margin: 17px 10px 0px 10px;
   color: $qian-lan;
@@ -83,7 +83,7 @@ export default {
 }
 .other{
   order: 2;
-  flex-basis: 220px;
+  flex-basis: $right-width;
   box-sizing: border-box;
 }
 .blink{
@@ -115,6 +115,6 @@ export default {
   }
 }
 .is-mobile .menu-open .header{
-  left: 160px;
+  left: $left-width;
 }
 </style>
