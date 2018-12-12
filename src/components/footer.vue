@@ -1,7 +1,10 @@
 <template>
   <footer class="footer">
     <div class="ft"></div>
-    <div class="content">
+    <div v-if="this.$store.state.isMobile" class="content">
+      <span class="other">永不止步</span>
+    </div>
+    <div v-else class="content">
       <span class="copyright">Copyright © 2018 LSX</span>
       <span class="power">Powered by Vue</span>
       <span class="other">永不止步</span>
