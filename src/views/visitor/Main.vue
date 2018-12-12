@@ -83,8 +83,8 @@ export default {
   flex-direction: row;
   width: $total-width;
   box-sizing: border-box;
-  padding-top: 10px;
-  margin: 60px auto 0 auto;
+  padding-top: 70px;
+  margin: 0 auto;
   min-height: calc(100vh - 135px);
 }
 
