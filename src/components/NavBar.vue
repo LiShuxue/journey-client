@@ -1,5 +1,6 @@
 <template>
   <nav class="nav">
+    <div v-if="this.$store.state.isMobile" class="logo"></div>
     <div v-for="(item, index) in navList" :key="index">
         <router-link v-bind:to="item.path" @click.native="closeMenu">
           <div class="nav-item">
@@ -45,6 +46,18 @@ export default{
   padding: 10px 10px 0 10px;
   opacity: 0.8;
   font-size: $large-size;
+}
+
+.logo{
+  position: relative;
+  top: 12px;
+  left: -19px;
+  height: 20px;
+  box-sizing: border-box;
+  margin-bottom: 35px;
+  background: url('../assets/img/logo.png') no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 .nav-item{
