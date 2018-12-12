@@ -19,3 +19,8 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
+
+# cordova assets file
+CordovaWrapper/www/
+CordovaWrapper/platforms/android/app/src/main/assets/www/
+CordovaWrapper/platforms/ios/www/
