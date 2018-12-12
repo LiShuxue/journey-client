@@ -48,7 +48,7 @@ export default {
   line-height: 40px;
   transform: translateY(-50%);
   .icon-menu{
-    font-size: 20px;
+    font-size: $super-large-size;
   }
 }
 .fix-flex-issue{
@@ -78,7 +78,7 @@ export default {
   margin: 17px 10px 0px 10px;
   color: $qian-lan;
   font-weight: bold;
-  font-size: 17px;
+  font-size: $super-large-size;
   position: relative;
 }
 .other{
@@ -106,7 +106,7 @@ export default {
 }
 @keyframes blink {
   0% { transform: translateX(-5%); }
-  100% { transform: translateX(120%); }
+  100% { transform: translateX(150%); }
 }
 
 .is-mobile{

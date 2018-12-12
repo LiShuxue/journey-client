@@ -96,8 +96,8 @@ export default {
 .more{
   display: inline-block;
   text-align: center;
-  font-size: 15px;
-  line-height: 15px;
+  font-size: $mediu-size;
+  line-height: $mediu-size;
   color:$hui-hei;
   width: 100%;
   padding: 10px 0;

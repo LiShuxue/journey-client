@@ -45,6 +45,7 @@ export default {
 .title{
   padding: 5px 10px 6px 0;
   border-bottom: 1px dashed $shen-hui;
+  font-size: $large-size;
 
   span{
     margin-right: 5px;
@@ -62,6 +63,6 @@ export default {
   margin: 0 10px 10px 0;
   border-radius: 10%;
   cursor: pointer;
-  font-size: 13px;
+  font-size: $mediu-size;
 }
 </style>
