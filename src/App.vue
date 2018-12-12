@@ -13,6 +13,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import "./assets/iconfont/iconfont.css";
 .app{
     background-color: $qian-hui;
 }
