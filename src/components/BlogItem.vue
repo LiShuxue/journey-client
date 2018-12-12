@@ -84,11 +84,11 @@ export default {
     text-align: center;
     top: 0;
     left: 0;
-    transform: rotate(-45deg) translate(-5px, -20px);
+    transform: rotate(-45deg) translate(-7px, -20px);
     transform-origin: center;
     color: $hui-bai;
     background: $qian-lan;
-    font-size: 12px;
+    font-size: $mediu-small-size;
     width: 50px;
     padding-top: 20px;
     opacity: 0.7;
@@ -105,12 +105,12 @@ export default {
   .title{
     margin-top: 5px;
     font-weight: bold;
-    font-size: 15px;
+    font-size: $mediu-large-size;
   }
 
   .sub-title{
     margin-top: 10px;
-    font-size: 13px;
+    font-size: $mediu-size;
   }
 
   .tool{
@@ -120,7 +120,7 @@ export default {
     span{
       display: inline-block;
       margin-right: 5px;
-      font-size: 14px;
+      font-size: $mediu-small-size;
     }
 
     .content{

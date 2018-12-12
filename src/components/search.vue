@@ -38,6 +38,7 @@ export default {
   padding: 5px 10px;
   background: $hui-bai;
   border-radius: 5%;
+  font-size: $mediu-size;
 }
 input, button{
   border: none;
@@ -57,5 +58,6 @@ input, button{
   height: 25px;
   background: #C5C5C5;
   cursor: pointer;
+  padding-top: 4px;
 }
 </style>

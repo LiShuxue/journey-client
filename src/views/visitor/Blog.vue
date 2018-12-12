@@ -36,23 +36,25 @@ export default {
     text-align: center;
     top: 0;
     left: 0;
-    transform: rotate(-45deg) translate(-8px, -20px);
+    transform: rotate(-45deg) translate(-8px, -22px);
     transform-origin: center;
     color: $hui-bai;
     background: $qian-lan;
-    font-size: 12px;
+    font-size: $mediu-small-size;
     width: 60px;
-    padding: 20px 0 5px 0;
+    padding: 23px 0 1px 0;
     opacity: 0.7;
   }
   .blog-title{
     margin: 25px 0 30px 0;
     display: flex;
     justify-content: center;
+    font-size: $mediu-large-size;
   }
   .blog-content{
     display: flex;
     justify-content: center;
+    font-size: $mediu-size;
   }
 
   /*下面的方法实现长宽比*/

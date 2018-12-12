@@ -44,6 +44,7 @@ export default{
   box-sizing: border-box;
   padding: 10px 10px 0 10px;
   opacity: 0.8;
+  font-size: $large-size;
 }
 
 .nav-item{

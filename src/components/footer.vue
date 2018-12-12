@@ -19,7 +19,7 @@
   justify-content: center;
   margin-top: 15px;
   height: 60px;
-  font-size: 13px;
+  font-size: $mediu-size;
   color: $hui-hei;
   background-color: $hui-bai;
   transition: left 0.5s;
