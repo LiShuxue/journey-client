@@ -24,3 +24,17 @@ yarn-error.log*
 CordovaWrapper/www/
 CordovaWrapper/platforms/android/app/src/main/assets/www/
 CordovaWrapper/platforms/ios/www/
+
+CordovaWrapper/platforms/android/.gradle
+CordovaWrapper/platforms/android/.idea
+CordovaWrapper/platforms/android/build
+CordovaWrapper/platforms/android/android.iml
+CordovaWrapper/platforms/android/local.properties
+CordovaWrapper/platforms/android/CordovaLib/build/
+CordovaWrapper/platforms/android/CordovaLib/CordovaLib.iml
+CordovaWrapper/platforms/android/app/app.iml
+CordovaWrapper/platforms/android/app/build/
+
+CordovaWrapper/platforms/ios/CordovaLib/CordovaLib.xcodeproj/xcuserdata/
+CordovaWrapper/platforms/ios/Journey.xcworkspace/xcshareddata/
+CordovaWrapper/platforms/ios/Journey.xcworkspace/xcuserdata/
