@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper" v-bind:class="{'menu-open': this.$store.state.isMenuOpen}">
-    <div class="global-background"></div>
+    <div v-if="!this.$store.state.isMobile" class="global-background"></div>
     <main-header @clickMenu="clickMenu"></main-header>
 
     <div class="content">
