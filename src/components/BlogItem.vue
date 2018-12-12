@@ -51,7 +51,7 @@ export default {
 .blog-item{
   display: flex;
   box-sizing: border-box;
-  margin-top: 10px;
+  margin-top: 15px;
   padding: 7px;
   background: $hui-bai;
   *{
