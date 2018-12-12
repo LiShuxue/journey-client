@@ -33,8 +33,6 @@ export default{
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/iconfont/iconfont.css";
-
 .nav{
   position: fixed;
   top: 70px;
