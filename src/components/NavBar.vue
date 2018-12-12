@@ -16,7 +16,7 @@ export default{
   data () {
     return {
       navList: [
-        { path: '/', name: '主页', style: 'icon-home' },
+        { path: '/home', name: '主页', style: 'icon-home' },
         { path: '/about', name: '关于', style: 'icon-user' },
         { path: '/admin', name: '管理员入口', style: 'icon-user' }
       ]
@@ -45,6 +45,7 @@ export default{
   border-radius: 10px;
   box-sizing: border-box;
   padding: 10px 10px 0 10px;
+  opacity: 0.8;
 }
 
 .nav-item{
@@ -65,7 +66,7 @@ export default{
 
 .router-link-exact-active{
   & .nav-item{
-    background: $qian-hui;
+    background: $shen-hui;
     color: $qian-lan;
   }
 }

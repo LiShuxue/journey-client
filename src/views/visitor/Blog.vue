@@ -46,7 +46,7 @@ export default {
     opacity: 0.7;
   }
   .blog-title{
-    margin: 30px 0 20px 0;
+    margin: 25px 0 30px 0;
     display: flex;
     justify-content: center;
   }
@@ -59,8 +59,8 @@ export default {
   .blog-img {
     position: relative; /*容器所有子元素需要绝对定位*/
     height: 0; /*容器高度是由padding来控制*/
-    padding-top: 35%; /* 210 / 600 = 0.35 */
-    margin-bottom: 10px;
+    padding-top: 35.7%; /* 250 / 700 = 0.357 */
+    margin-bottom: 15px;
     border: 5px solid $shen-hui;
     border-radius: 5px;
   }
