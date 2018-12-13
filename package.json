@@ -4,9 +4,12 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "build-app": "rm -rf CordovaWrapper/www && yarn build && cp -r dist/ CordovaWrapper/www/ && cd CordovaWrapper && cordova prepare"
+    "build-prd": "vue-cli-service build",
+    "build-dev-web": "cross-env VUE_APP_TARGET=web vue-cli-service build --mode development",
+    "build-dev-mobile": "cross-env VUE_APP_TARGET=mobile vue-cli-service build --mode development",
+    "build-prd-app": "rm -rf CordovaWrapper/www && yarn build-prd && cp -r dist/ CordovaWrapper/www/ && cd CordovaWrapper && cordova prepare",
+    "build-dev-app": "rm -rf CordovaWrapper/www && yarn build-dev-mobile && cp -r dist/ CordovaWrapper/www/ && cd CordovaWrapper && cordova prepare",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -27,6 +30,7 @@
     "@vue/cli-plugin-eslint": "^3.0.0",
     "@vue/cli-service": "^3.0.0",
     "@vue/eslint-config-standard": "^3.0.0",
+    "cross-env": "^5.2.0",
     "node-sass": "^4.9.3",
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.5.17"
