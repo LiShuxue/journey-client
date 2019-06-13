@@ -114,21 +114,31 @@ export default {
     this.wangeditor.create()
   },
   methods: {
-    myUpload (content) {
-      let param = new FormData()
-      param.append('file', content.file)
+    async myUpload (content) {
       let config = {
         headers: { 'Content-Type': 'multipart/form-data' }
       }
-      this.axios.post(API.requireAuth.uploadImage, param, config).then((response) => {
-        this.$message.success(response.data.successMsg)
-        this.image = response.data.imagePath
-        this.uploadImageList.push({ name: response.data.originalName, url: response.data.imagePath })
-        this.fileNameInServer = response.data.serverFileName
-      }).catch((err) => {
+
+      try {
+        // 先获取七牛云的上传凭证
+        let tokenResponse = await this.axios.get(API.requireAuth.uploadToken)
+        // 上传文件参数
+        let formdata = new FormData()
+        formdata.append('file', content.file)
+        formdata.append('token', tokenResponse.data.qiniuUploadToken)
+        formdata.append('key', content.file.name)
+        // 上传到七牛云
+        let response = await this.axios.post(tokenResponse.data.uploadDomain, formdata, config)
+
+        this.$message.success(response.data.key + '上传成功！')
+        this.image = tokenResponse.data.downloadDomain + response.data.key
+        this.uploadImageList.push({ name: response.data.key, url: this.image })
+        this.fileNameInServer = response.data.key
+      } catch (err) {
         err && this.$message.error(err.data.errMsg || err.data)
-      })
+      }
     },
+
     async beforeRemove (file, fileList) {
       await this.$confirm(`确定移除 ${file.name}？`).catch(_ => {
         return Promise.reject(_)
@@ -146,6 +156,7 @@ export default {
       this.uploadImageList.pop()
       return Promise.resolve()
     },
+    
     chooseMarkdown () {
       this.isMarkdown = true
     },
