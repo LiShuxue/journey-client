@@ -1,8 +1,8 @@
 // require auth api call
 const publish = `api/blog/publish`
 const addCategory = `api/blog/category/add`
-const uploadImage = `api/blog/uploadImage`
-const removeImage = `api/blog/removeImage`
+const uploadToken = `api/qiniu/uploadToken`
+const removeImage = `api/qiniu/removeImage`
 
 // not require auth api call
 const login = `api/admin/login`
@@ -16,7 +16,7 @@ export default {
   requireAuth: {
     publish,
     addCategory,
-    uploadImage,
+    uploadToken,
     removeImage
   },
   notRequireAuth: {
