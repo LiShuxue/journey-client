@@ -1,5 +1,5 @@
 <template>
-  <div class="admin">
+  <div class="admin" v-bind:class="{ 'is-mobile': this.$store.state.isMobile }">
     <el-menu
       default-active="1"
       class="nav-list"
@@ -9,11 +9,11 @@
       active-text-color="#409EFF">
       <el-menu-item index="home">
         <i class="el-icon-menu"></i>
-        <span slot="title">导航一</span>
+        <span class="nav-item-title" slot="title">导航一</span>
       </el-menu-item>
       <el-menu-item index="edit">
         <i class="el-icon-menu"></i>
-        <span slot="title">写博客</span>
+        <span class="nav-item-title" slot="title">写博客</span>
       </el-menu-item>
     </el-menu>
 
@@ -62,5 +62,9 @@ export default {
 }
 .router-fade-leave-to{
     opacity: 0;
+}
+
+.is-mobile .nav-item-title{
+  display: none;
 }
 </style>
