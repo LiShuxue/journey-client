@@ -7,7 +7,7 @@
       <img :src="blog.image" :alt="blog.subTitle">
     </div>
     <div class="blog-content">
-      <span v-html="blog.content"></span>
+      <div class="markdown-body" v-html="blog.content"></div>
     </div>
   </div>
 </template>
@@ -21,14 +21,13 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .blog{
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
   border-radius: 10px;
   padding: 0 20px;
-  color: $hui-hei;
   background: $hui-bai;
   .blog-mark{
     position: absolute;
@@ -51,12 +50,11 @@ export default {
     justify-content: center;
     font-size: $mediu-large-size;
   }
-  .blog-content{
-    display: flex;
-    justify-content: center;
-    font-size: $mediu-size;
-  }
 
+  .blog-content{ 
+    @import "../../assets/style/markdown"; 
+  }
+  
   /*下面的方法实现长宽比*/
   .blog-img {
     position: relative; /*容器所有子元素需要绝对定位*/
