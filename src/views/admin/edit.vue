@@ -27,10 +27,10 @@
     </div>
 
     <div :class="isMarkdown ? 'show' : 'not-show'">
-      <mavon-editor class="markdown-editor-size" @change="markdownContentChange" @save="markdownContentSave" :subfield="showParseText" placeholder=" "></mavon-editor>
+      <mavon-editor class="markdown-editor-wrapper" @change="markdownContentChange" @save="markdownContentSave" :subfield="showParseText" placeholder=" "></mavon-editor>
     </div>
     <div :class="isMarkdown ? 'not-show' : 'show'">
-      <div ref="wangeditor"></div>
+      <div ref="wangeditor" class="wang-editor-wrapper"></div>
     </div>
 
     <div class="category-radio-box">
@@ -98,6 +98,7 @@ export default {
       wangeditor: null,
       wangeditorContent: '',
       markdownPlaceholder: '',
+      htmlContent: '',
       markdownContent: '',
       showParseText: false
     }
@@ -163,6 +164,7 @@ export default {
     chooseEdit () {
       this.isMarkdown = false
     },
+
     initWangEditorConfig () {
       this.wangeditor.customConfig.onchangeTimeout = 100
       this.wangeditor.customConfig.onchange = html => {
@@ -173,12 +175,16 @@ export default {
       }
       this.wangeditor.customConfig.uploadImgShowBase64 = true
     },
+
     markdownContentChange (markdown, html) {
-      this.markdownContent = html
+      this.markdownContent = markdown
+      this.htmlContent = html
     },
     markdownContentSave (markdown, html) {
-      this.markdownContent = html
+      this.markdownContent = markdown
+      this.htmlContent = html
     },
+
     addCategory () {
       this.$prompt('请输入要添加的类别：').then(({ value }) => {
         this.axios.post(API.requireAuth.addCategory, {
@@ -194,6 +200,7 @@ export default {
         })
       }).catch(() => {})
     },
+
     handleClose (tag) {
       this.tags.splice(this.tags.indexOf(tag), 1)
     },
@@ -217,7 +224,8 @@ export default {
           title: this.title,
           subTitle: this.subTitle,
           image: this.image,
-          content: this.isMarkdown ? this.markdownContent : this.wangeditorContent,
+          htmlContent: this.isMarkdown ? this.htmlContent : this.wangeditorContent,
+          markdownContent: this.isMarkdown ? this.markdownContent : null,
           isOriginal: this.isOriginal,
           category: this.category,
           tags: this.tags
@@ -254,10 +262,16 @@ export default {
 .choose-editor{
   margin-bottom: 10px;
 }
-.markdown-editor-size{
+.markdown-editor-wrapper{
+  min-width: 0 !important;
   height: 500px;
-  /* width: 700px; */
 }
+.wang-editor-wrapper{
+  .w-e-text-container{
+    z-index: auto !important;
+  }
+}
+
 .w-e-toolbar{
   color: #24292e !important;
   background: #fff !important;

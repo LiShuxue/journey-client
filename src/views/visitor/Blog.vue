@@ -2,12 +2,13 @@
   <div class="blog">
     <div v-if="blog.isOriginal" class="blog-mark">原创</div>
     <div v-else class="blog-mark">转载</div>
-    <h3 class="blog-title">{{blog.title}}</h3>
+    <h1 class="blog-title">{{blog.title}}</h1>
     <div class="blog-img">
       <img :src="blog.image" :alt="blog.subTitle">
     </div>
     <div class="blog-content">
-      <div class="markdown-body" v-html="blog.content"></div>
+      <div v-if="blog.markdownContent" class="markdown-body" v-html="blog.htmlContent"></div>
+      <div v-else class="html-body" v-html="blog.htmlContent"></div>
     </div>
   </div>
 </template>
@@ -27,7 +28,7 @@ export default {
   overflow: hidden;
   box-sizing: border-box;
   border-radius: 10px;
-  padding: 0 20px;
+  padding: 0 20px 40px 20px;
   background: $hui-bai;
   .blog-mark{
     position: absolute;
@@ -48,11 +49,26 @@ export default {
     margin: 25px 0 30px 0;
     display: flex;
     justify-content: center;
-    font-size: $mediu-large-size;
+    font-size: $super-large-size;
   }
 
   .blog-content{ 
     @import "../../assets/style/markdown"; 
+    
+    .html-body {
+      pre {
+        background-color: #DADADA;
+        border-radius: 3px;
+        font-size: 85%;
+        line-height: 1.45;
+        overflow: auto;
+        padding: 16px;
+
+        .code {
+          font-size: 12px;
+        }
+      }
+    }
   }
   
   /*下面的方法实现长宽比*/
