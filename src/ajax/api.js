@@ -1,16 +1,16 @@
 // require auth api call
-const publish = `api/blog/publish`
-const addCategory = `api/blog/category/add`
-const uploadToken = `api/qiniu/uploadToken`
-const removeImage = `api/qiniu/removeImage`
+const publish = `blog/publish`
+const addCategory = `blog/category/add`
+const uploadToken = `qiniu/uploadToken`
+const removeImage = `qiniu/removeImage`
 
 // not require auth api call
-const login = `api/admin/login`
-const register = `api/admin/register`
-const categoryList = `api/blog/category/list`
-const blogList = `api/blog/list`
-// const hotBlogList = `api/blog/hot`
-// const tagList = `api/blog/tag/list`
+const login = `admin/login`
+const register = `admin/register`
+const categoryList = `blog/category/list`
+const blogList = `blog/list`
+// const hotBlogList = `blog/hot`
+// const tagList = `blog/tag/list`
 
 export default {
   requireAuth: {

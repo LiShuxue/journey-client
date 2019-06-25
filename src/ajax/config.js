@@ -3,7 +3,7 @@ import API from './api'
 import store from '../store'
 
 axios.defaults.timeout = 60 * 1000
-axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? 'http://lishuxue.site/' : (process.env.VUE_APP_TARGET === 'mobile' ? 'http://lishuxue.site/' : 'http://localhost:4000/')
+axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? 'http://lishuxue.site/api/' : (process.env.VUE_APP_TARGET === 'mobile' ? 'http://lishuxue.site/api/' : 'http://localhost:4000/api/')
 
 axios.interceptors.request.use(config => {
   for (let key in API.requireAuth) {
