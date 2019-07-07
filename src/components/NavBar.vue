@@ -18,6 +18,7 @@ export default{
     return {
       navList: [
         { path: '/home', name: '主页', style: 'icon-home' },
+        { path: '/category', name: '分类', style: 'icon-home' },
         { path: '/about', name: '关于', style: 'icon-user' },
         { path: '/admin', name: '管理员入口', style: 'icon-user' }
       ]

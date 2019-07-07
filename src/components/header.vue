@@ -9,7 +9,7 @@
         <div class="logo"></div>
         <div class="title">
           <div class="blink"></div>
-          身体和灵魂，总有一个要在路上
+          身体和灵魂，总要有一个在路上
         </div>
         <div class="other"></div>
       </div>
