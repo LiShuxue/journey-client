@@ -15,6 +15,10 @@
         <i class="el-icon-menu"></i>
         <span class="nav-item-title" slot="title">写博客</span>
       </el-menu-item>
+      <el-menu-item index="user">
+        <i class="el-icon-menu"></i>
+        <span class="nav-item-title" slot="title">管理员列表</span>
+      </el-menu-item>
     </el-menu>
 
     <div class="content-wrapper">

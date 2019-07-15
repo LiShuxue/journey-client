@@ -11,11 +11,7 @@
       <el-input placeholder="请输入密码" v-model="password" type="password" class="input-box" @keyup.enter.native="login">
         <template slot="prepend">密&nbsp;&nbsp;&nbsp;&nbsp;码：</template>
       </el-input>
-
-      <div class="button-wrapper">
-        <el-button type="info" class="button-clear" @click="register">注册</el-button>
-        <el-button type="info" class="button-login" @click="login">登录</el-button>
-      </div>
+      <el-button type="info" class="button-login" @click="login">登录</el-button>
     </div>
   </div>
 </template>
@@ -32,19 +28,6 @@ export default {
     }
   },
   methods: {
-    register () {
-      this.loading = true
-      this.axios.post(API.notRequireAuth.register, {
-        username: this.username,
-        password: SHA256(this.password).toString()
-      }).then(response => {
-        this.loading = false
-        this.$message.success(response.data.successMsg)
-      }).catch(err => {
-        err && this.$message.error(err.data.errMsg || err.data)
-        this.loading = false
-      })
-    },
     login () {
       this.loading = true
       this.axios.post(API.notRequireAuth.login, {
@@ -93,13 +76,8 @@ export default {
       margin-bottom: 15px;
     }
 
-    .button-wrapper{
-      display: flex;
-      justify-content: center;
-
-      .button-clear{
-        margin-right: 100px;
-      }
+    .button-login{
+      width: 100%;
     }
   }
 }
