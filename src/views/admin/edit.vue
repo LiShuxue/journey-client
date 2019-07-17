@@ -219,13 +219,13 @@ export default {
       this.inputValue = ''
     },
     publishBlog () {
-      this.axios.post(API.requireAuth.publish, {
+      this.axios.post(API.requireAuth.publishBlog, {
         blog: {
           title: this.title,
           subTitle: this.subTitle,
           image: this.image,
           htmlContent: this.isMarkdown ? this.htmlContent : this.wangeditorContent,
-          markdownContent: this.isMarkdown ? this.markdownContent : null,
+          markdownContent: this.isMarkdown ? this.markdownContent : '',
           isOriginal: this.isOriginal,
           category: this.category,
           tags: this.tags

@@ -25,7 +25,7 @@ export default {
 <style lang="scss">
 .blog{
   position: relative;
-  overflow: hidden;
+  overflow: scroll;
   box-sizing: border-box;
   border-radius: 10px;
   padding: 0 20px 40px 20px;
