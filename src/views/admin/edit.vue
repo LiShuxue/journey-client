@@ -15,28 +15,20 @@
         :http-request="myUpload"
         :before-remove="beforeRemove"
         :limit="1"
-        :accept="acceptFileType"
+        accept="image/*"
         list-type="picture">
         <el-button size="small">点击上传文章插图</el-button>
       </el-upload>
     </div>
 
-    <div class="choose-editor">
-      <el-button type="info" @click="chooseMarkdown" size="small">Mardown编辑器</el-button>
-      <el-button type="info" @click="chooseEdit" size="small">富文本编辑器</el-button>
-    </div>
-
-    <div :class="isMarkdown ? 'show' : 'not-show'">
+    <div class="blog-content">
       <mavon-editor class="markdown-editor-wrapper" @change="markdownContentChange" @save="markdownContentSave" :subfield="showParseText" placeholder=" "></mavon-editor>
-    </div>
-    <div :class="isMarkdown ? 'not-show' : 'show'">
-      <div ref="wangeditor" class="wang-editor-wrapper"></div>
     </div>
 
     <div class="category-radio-box">
       <span class="box-title">分类：</span>
       <el-radio-group v-model="category" size="small">
-        <el-radio v-for="category in categorys" :key="category" :label="category" border>{{category}}</el-radio>
+        <el-radio v-for="(category, index) in categoryList" :key="index" :label="category.name" border>{{category.name}}</el-radio>
       </el-radio-group>
       <el-button @click="addCategory" size="small">+ 创建新分类</el-button>
     </div>
@@ -75,7 +67,6 @@
 </template>
 
 <script>
-import WangEditor from 'wangeditor'
 import { mavonEditor } from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import API from '@/ajax/api.js'
@@ -84,36 +75,30 @@ export default {
     return {
       title: '',
       subTitle: '',
-      isOriginal: true,
-      category: '',
-      categorys: [],
-      tags: [],
-      image: '',
-      uploadImageList: [],
-      acceptFileType: 'image/*',
-      fileNameInServer: '',
-      inputVisible: false,
-      inputValue: '',
-      isMarkdown: true,
-      wangeditor: null,
-      wangeditorContent: '',
-      markdownPlaceholder: '',
       htmlContent: '',
       markdownContent: '',
-      showParseText: false
+      image: '',
+      isOriginal: true,
+      category: '',
+      tags: [],
+      
+      categoryList: [],
+      uploadImageList: [],
+      inputVisible: false,
+      inputValue: '',
+
+      showParseText: false // 单双栏模式
     }
   },
+
   components: {
     mavonEditor
   },
+
   created () {
     this.getAllCategory()
   },
-  mounted () {
-    this.wangeditor = new WangEditor(this.$refs.wangeditor)
-    this.initWangEditorConfig()
-    this.wangeditor.create()
-  },
+
   methods: {
     async myUpload (content) {
       let config = {
@@ -134,7 +119,6 @@ export default {
         this.$message.success(response.data.key + '上传成功！')
         this.image = tokenResponse.data.downloadDomain + response.data.key
         this.uploadImageList.push({ name: response.data.key, url: this.image })
-        this.fileNameInServer = response.data.key
       } catch (err) {
         err && this.$message.error(err.data.errMsg || err.data)
       }
@@ -144,36 +128,16 @@ export default {
       await this.$confirm(`确定移除 ${file.name}？`).catch(_ => {
         return Promise.reject(_)
       })
-      return this.removeFileFromServer()
+      return this.removeFileFromServer(file.name)
     },
-    async removeFileFromServer () {
-      let response = await this.axios.post(API.requireAuth.removeImage, {
-        filename: this.fileNameInServer
-      }).catch(err => {
+    async removeFileFromServer (filename) {
+      let response = await this.axios.post(API.requireAuth.removeImage, { filename }).catch(err => {
         err && this.$message.error(err.data.errMsg || err.data)
         return Promise.reject(err)
       })
       this.$message.success(response.data.successMsg)
       this.uploadImageList.pop()
       return Promise.resolve()
-    },
-    
-    chooseMarkdown () {
-      this.isMarkdown = true
-    },
-    chooseEdit () {
-      this.isMarkdown = false
-    },
-
-    initWangEditorConfig () {
-      this.wangeditor.customConfig.onchangeTimeout = 100
-      this.wangeditor.customConfig.onchange = html => {
-        this.wangeditorContent = html
-      }
-      this.wangeditor.customConfig.onblur = html => {
-        this.wangeditorContent = html
-      }
-      this.wangeditor.customConfig.uploadImgShowBase64 = true
     },
 
     markdownContentChange (markdown, html) {
@@ -192,7 +156,7 @@ export default {
             name: value
           }
         }).then(response => {
-          this.categorys.push(value)
+          this.categoryList.push({ name: value })
           this.category = value
           this.$message.success(response.data.successMsg)
         }).catch(err => {
@@ -224,8 +188,8 @@ export default {
           title: this.title,
           subTitle: this.subTitle,
           image: this.image,
-          htmlContent: this.isMarkdown ? this.htmlContent : this.wangeditorContent,
-          markdownContent: this.isMarkdown ? this.markdownContent : '',
+          htmlContent: this.htmlContent,
+          markdownContent: this.markdownContent,
           isOriginal: this.isOriginal,
           category: this.category,
           tags: this.tags
@@ -238,12 +202,7 @@ export default {
     },
     getAllCategory () {
       this.axios.get(API.notRequireAuth.categoryList).then(response => {
-        if (response.data.categoryList && response.data.categoryList.length > 0) {
-          let _categoryList = response.data.categoryList
-          _categoryList.forEach(element => {
-            this.categorys.push(element.name)
-          })
-        }
+        this.categoryList = response.data.categoryList
       }).catch(err => {
         err && this.$message.error(err.data.errMsg || err.data)
       })
@@ -259,41 +218,11 @@ export default {
 .upload-box{
   margin-bottom: 10px;
 }
-.choose-editor{
-  margin-bottom: 10px;
-}
 .markdown-editor-wrapper{
   min-width: 0 !important;
   height: 500px;
 }
-.wang-editor-wrapper{
-  .w-e-text-container{
-    z-index: auto !important;
-  }
-}
 
-.w-e-toolbar{
-  color: #24292e !important;
-  background: #fff !important;
-  height: 35px !important;
-  /* width: 700px !important; */
-  border: none !important;
-  box-shadow: 0 0px 4px rgba(0,0,0,0.157), 0 0px 4px rgba(0,0,0,0.227);
-}
-.w-e-text-container{
-  color: #24292e !important;
-  background: #fff !important;
-  height: 465px !important;
-  /* width: 700px !important; */
-  border: none !important;
-  box-shadow: 0 0px 4px rgba(0,0,0,0.157), 0 0px 4px rgba(0,0,0,0.227);
-}
-.show{
-  display: block;
-}
-.not-show{
-  display: none;
-}
 .box-title{
   color: $hui-hei;
   line-height: 32px;
