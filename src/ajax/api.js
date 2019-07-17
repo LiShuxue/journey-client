@@ -1,5 +1,5 @@
 // require auth api call
-const publish = `blog/publish`
+const publishBlog = `blog/publish`
 const addCategory = `blog/category/add`
 const uploadToken = `qiniu/uploadToken`
 const removeImage = `qiniu/removeImage`
@@ -15,7 +15,7 @@ const blogList = `blog/list`
 
 export default {
   requireAuth: {
-    publish,
+    publishBlog,
     addCategory,
     uploadToken,
     removeImage,
