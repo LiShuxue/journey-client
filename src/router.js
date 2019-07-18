@@ -39,8 +39,10 @@ const router = new Router({
       redirect: '/admin/home',
       children: [
         { path: 'home', component: () => import('./views/admin/home.vue'), meta: { requireAuth: true } }, // 添加requireAuth，表示进入这个路由是需要登录的
-        { path: 'edit', component: () => import('./views/admin/edit.vue'), meta: { requireAuth: true } },
-        { path: 'user', component: () => import('./views/admin/user.vue'), meta: { requireAuth: true } }
+        { path: 'user', component: () => import('./views/admin/user.vue'), meta: { requireAuth: true } },
+        { path: 'manage-blog', component: () => import('./views/admin/manage-blog.vue'), meta: { requireAuth: true } },
+        { path: 'view-blog', component: () => import('./views/visitor/Blog.vue') },
+        { name: 'edit-blog', path: 'edit-blog', component: () => import('./views/admin/edit-blog.vue'), meta: { requireAuth: true } }
       ]
     }
   ]

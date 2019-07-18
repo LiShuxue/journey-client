@@ -11,13 +11,17 @@
         <i class="el-icon-menu"></i>
         <span class="nav-item-title" slot="title">导航一</span>
       </el-menu-item>
-      <el-menu-item index="edit">
+      <el-menu-item index="edit-blog">
         <i class="el-icon-menu"></i>
         <span class="nav-item-title" slot="title">写博客</span>
       </el-menu-item>
       <el-menu-item index="user">
         <i class="el-icon-menu"></i>
         <span class="nav-item-title" slot="title">管理员列表</span>
+      </el-menu-item>
+      <el-menu-item index="manage-blog">
+        <i class="el-icon-menu"></i>
+        <span class="nav-item-title" slot="title">博客管理</span>
       </el-menu-item>
     </el-menu>
 
