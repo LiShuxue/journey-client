@@ -12,17 +12,18 @@
         class="upload-box-content"
         action=""
         :file-list="uploadImageList"
-        :http-request="myUpload"
-        :before-remove="beforeRemove"
+        :http-request="uploadImage"
+        :before-remove="removeImage"
         :limit="1"
         accept="image/*"
         list-type="picture">
-        <el-button size="small">点击上传文章插图</el-button>
+        <el-button v-if="!image" size="small">点击上传文章插图</el-button>
       </el-upload>
+      <el-button v-if="image" size="small" @click="removeImage">点击修改文章插图</el-button>
     </div>
 
     <div class="blog-content">
-      <mavon-editor class="markdown-editor-wrapper" @change="markdownContentChange" @save="markdownContentSave" :subfield="showParseText" placeholder=" "></mavon-editor>
+      <mavon-editor class="markdown-editor-wrapper" @change="markdownContentChange" @save="markdownContentSave" :subfield="showParseText" placeholder=" " :value="initContent"></mavon-editor>
     </div>
 
     <div class="category-radio-box">
@@ -61,8 +62,8 @@
         <el-radio :label=false>转载</el-radio>
       </el-radio-group>
     </div>
-
-    <el-button type="info" class="confirm-button" @click="publishBlog">发布文章</el-button>
+    <el-button v-if="isEdit" type="info" class="confirm-button" @click="editBlog">修改文章</el-button>
+    <el-button v-else type="info" class="confirm-button" @click="publishBlog">发布文章</el-button>
   </div>
 </template>
 
@@ -70,6 +71,8 @@
 import { mavonEditor } from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import API from '@/ajax/api.js'
+import { mapState } from 'vuex'
+
 export default {
   data () {
     return {
@@ -77,7 +80,7 @@ export default {
       subTitle: '',
       htmlContent: '',
       markdownContent: '',
-      image: '',
+      image: null,
       isOriginal: true,
       category: '',
       tags: [],
@@ -87,7 +90,17 @@ export default {
       inputVisible: false,
       inputValue: '',
 
-      showParseText: false // 单双栏模式
+      showParseText: false, // 单双栏模式
+      initContent: '' // 编辑器的初始值
+    }
+  },
+
+  computed: {
+    ...mapState({
+      chooseBlog: 'chooseBlog'
+    }),
+    isEdit() {
+      return this.$route.params.isEdit
     }
   },
 
@@ -97,10 +110,18 @@ export default {
 
   created () {
     this.getAllCategory()
+    if (this.isEdit) {
+      let editBlog = Object.assign({}, this.chooseBlog)
+      Object.keys(editBlog).forEach(key => {
+        this[key] = editBlog[key]
+      })
+      this.initContent = editBlog.markdownContent
+      this.uploadImageList.push(Object.assign({}, this.image))
+    }
   },
 
   methods: {
-    async myUpload (content) {
+    async uploadImage (content) {
       let config = {
         headers: { 'Content-Type': 'multipart/form-data' }
       }
@@ -117,27 +138,27 @@ export default {
         let response = await this.axios.post(tokenResponse.data.uploadDomain, formdata, config)
 
         this.$message.success(response.data.key + '上传成功！')
-        this.image = tokenResponse.data.downloadDomain + response.data.key
-        this.uploadImageList.push({ name: response.data.key, url: this.image })
+        let url = tokenResponse.data.downloadDomain + response.data.key
+        this.image = { name: response.data.key, url }
+        this.uploadImageList.push({ name: response.data.key, url })
       } catch (err) {
         err && this.$message.error(err.data.errMsg || err.data)
       }
     },
 
-    async beforeRemove (file, fileList) {
-      await this.$confirm(`确定移除 ${file.name}？`).catch(_ => {
-        return Promise.reject(_)
-      })
-      return this.removeFileFromServer(file.name)
-    },
-    async removeFileFromServer (filename) {
-      let response = await this.axios.post(API.requireAuth.removeImage, { filename }).catch(err => {
-        err && this.$message.error(err.data.errMsg || err.data)
+    async removeImage (file, fileList) {
+      try {
+        let filename = this.image.name
+        await this.$confirm(`确定移除 ${filename}？`)
+        let response = await this.axios.post(API.requireAuth.removeImage, { filename })
+        this.$message.success(response.data.successMsg)
+        this.image = null
+        this.uploadImageList.pop()
+        return Promise.resolve()
+      } catch (err) {
+        err && err.data && this.$message.error(err.data.errMsg || err.data)
         return Promise.reject(err)
-      })
-      this.$message.success(response.data.successMsg)
-      this.uploadImageList.pop()
-      return Promise.resolve()
+      }
     },
 
     markdownContentChange (markdown, html) {
@@ -200,6 +221,26 @@ export default {
         err && this.$message.error(err.data.errMsg || err.data)
       })
     },
+    editBlog () {
+      this.axios.post(API.requireAuth.updateBlog, {
+        blog: {
+          _id: this.chooseBlog._id,
+          title: this.title,
+          subTitle: this.subTitle,
+          image: this.image,
+          htmlContent: this.htmlContent,
+          markdownContent: this.markdownContent,
+          isOriginal: this.isOriginal,
+          category: this.category,
+          tags: this.tags
+        }
+      }).then(response => {
+        this.$message.success(response.data.successMsg)
+      }).catch(err => {
+        err && this.$message.error(err.data.errMsg || err.data)
+      })
+    },
+
     getAllCategory () {
       this.axios.get(API.notRequireAuth.categoryList).then(response => {
         this.categoryList = response.data.categoryList
