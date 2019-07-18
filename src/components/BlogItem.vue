@@ -1,7 +1,7 @@
 <template>
   <div class="blog-item" @click="showBlogDetail(blog)">
     <div class="blog-image">
-      <img :src="blog.image">
+      <img :src="blog.image.url" :alt="blog.image.name">
       <div v-if="blog.isOriginal" class="blog-mark">原创</div>
       <div v-else class="blog-mark">转载</div>
     </div>
