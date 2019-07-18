@@ -2,7 +2,7 @@
   <div class="banner" :style="sizeStyle"  @mouseenter="enter()" @mouseleave="leave()">
     <swiper :options="swiperOption" ref="mySwiper">
       <swiper-slide v-for="(blog, index) in hotBlogList" :key="index">
-        <img :src="blog.image" :style="sizeStyle" @click="showBlogDetail(blog)">
+        <img :src="blog.image.url" :alt="blog.image.name" :style="sizeStyle" @click="showBlogDetail(blog)">
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
     </swiper>

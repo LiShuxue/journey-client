@@ -4,7 +4,7 @@
     <div v-else class="blog-mark">转载</div>
     <h1 class="blog-title">{{blog.title}}</h1>
     <div class="blog-img">
-      <img :src="blog.image" :alt="blog.subTitle">
+      <img :src="blog.image.url" :alt="blog.image.name">
     </div>
     <div class="blog-content">
       <div v-if="blog.markdownContent" class="markdown-body" v-html="blog.htmlContent"></div>

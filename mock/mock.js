@@ -5,10 +5,14 @@ const mockdata = Mock.mock({
     {
       'title': '维护中',
       'subTitle': '维护中，等等再来吧...',
-      'image': 'https://www.test.com/down.png',
+      'image': {
+        'name': '维护中',
+        'url': 'https://www.test.com/down.png'
+      },
       'content': '<p>维护中，等等再来吧...</p>',
       'isOriginal': true,
       'publishTime': Mock.Random.now(),
+      'updateTime': Mock.Random.now(),
       'see': 100,
       'like': 100,
       'category': '维护',
