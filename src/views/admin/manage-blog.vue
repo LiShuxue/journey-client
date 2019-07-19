@@ -88,6 +88,7 @@ export default {
     // 初始化页面数据
     initData() {
       this.axios.get(API.notRequireAuth.blogList).then(response => {
+        this.$message.success(response.data.successMsg)
         this.blogList = response.data.blogList
         this.$store.commit('saveBlogListMutation', this.blogList)
         this.totalItem = this.blogList.length
