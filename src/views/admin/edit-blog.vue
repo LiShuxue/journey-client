@@ -109,6 +109,7 @@ export default {
   },
 
   created () {
+    this.sentry.addBreadcrumb('views/visitor/Home.vue --> lifecycle: created', this.isEdit)
     this.getAllCategory()
     if (this.isEdit) {
       let editBlog = Object.assign({}, this.chooseBlog)
@@ -122,6 +123,7 @@ export default {
 
   methods: {
     async uploadImage (content) {
+      this.sentry.addBreadcrumb('views/admin/edit-blog.vue --> methods: uploadImage')
       let config = {
         headers: { 'Content-Type': 'multipart/form-data' }
       }
@@ -142,11 +144,13 @@ export default {
         this.image = { name: response.data.key, url }
         this.uploadImageList.push({ name: response.data.key, url })
       } catch (err) {
+        this.sentry.captureException(err)
         err && this.$message.error(err.data.errMsg || err.data)
       }
     },
 
     async removeImage (file, fileList) {
+      this.sentry.addBreadcrumb('views/admin/edit-blog.vue --> methods: removeImage', this.image)
       try {
         let filename = this.image.name
         await this.$confirm(`确定移除 ${filename}？`)
@@ -156,6 +160,7 @@ export default {
         this.uploadImageList.pop()
         return Promise.resolve()
       } catch (err) {
+        this.sentry.captureException(err)
         err && err.data && this.$message.error(err.data.errMsg || err.data)
         return Promise.reject(err)
       }
@@ -171,6 +176,7 @@ export default {
     },
 
     addCategory () {
+      this.sentry.addBreadcrumb('views/admin/edit-blog.vue --> methods: addCategory')
       this.$prompt('请输入要添加的类别：').then(({ value }) => {
         this.axios.post(API.requireAuth.addCategory, {
           category: {
@@ -181,21 +187,25 @@ export default {
           this.category = value
           this.$message.success(response.data.successMsg)
         }).catch(err => {
+          this.sentry.captureException(err)
           err && this.$message.error(err.data.errMsg || err.data)
         })
       }).catch(() => {})
     },
 
     handleClose (tag) {
+      this.sentry.addBreadcrumb('views/admin/edit-blog.vue --> methods: handleClose', tag)
       this.tags.splice(this.tags.indexOf(tag), 1)
     },
     showInput () {
+      this.sentry.addBreadcrumb('views/admin/edit-blog.vue --> methods: showInput')
       this.inputVisible = true
       this.$nextTick(() => {
         this.$refs.saveTagInput.$refs.input.focus()
       })
     },
     handleInputConfirm () {
+      this.sentry.addBreadcrumb('views/admin/edit-blog.vue --> methods: handleInputConfirm')
       let inputValue = this.inputValue
       if (inputValue) {
         this.tags.push(inputValue)
@@ -204,6 +214,7 @@ export default {
       this.inputValue = ''
     },
     publishBlog () {
+      this.sentry.addBreadcrumb('views/admin/edit-blog.vue --> methods: publishBlog')
       this.axios.post(API.requireAuth.publishBlog, {
         blog: {
           title: this.title,
@@ -218,10 +229,12 @@ export default {
       }).then(response => {
         this.$message.success(response.data.successMsg)
       }).catch(err => {
+        this.sentry.captureException(err)
         err && this.$message.error(err.data.errMsg || err.data)
       })
     },
     editBlog () {
+      this.sentry.addBreadcrumb('views/admin/edit-blog.vue --> methods: editBlog')
       this.axios.post(API.requireAuth.updateBlog, {
         blog: {
           _id: this.chooseBlog._id,
@@ -237,14 +250,17 @@ export default {
       }).then(response => {
         this.$message.success(response.data.successMsg)
       }).catch(err => {
+        this.sentry.captureException(err)
         err && this.$message.error(err.data.errMsg || err.data)
       })
     },
 
     getAllCategory () {
+      this.sentry.addBreadcrumb('views/admin/edit-blog.vue --> methods: getAllCategory')
       this.axios.get(API.notRequireAuth.categoryList).then(response => {
         this.categoryList = response.data.categoryList
       }).catch(err => {
+        this.sentry.captureException(err)
         err && this.$message.error(err.data.errMsg || err.data)
       })
     }

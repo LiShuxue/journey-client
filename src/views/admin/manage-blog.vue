@@ -87,6 +87,7 @@ export default {
   methods: {
     // 初始化页面数据
     initData() {
+      this.sentry.addBreadcrumb('views/admin/manage-blog.vue --> methods: initData')
       this.axios.get(API.notRequireAuth.blogList).then(response => {
         this.$message.success(response.data.successMsg)
         this.blogList = response.data.blogList
@@ -97,12 +98,14 @@ export default {
         this.selectRows = []
         this.pageIndex = 1
       }).catch(err => {
+        this.sentry.captureException(err)
         err && this.$message.error(err.data.errMsg || err.data)
       })
     },
 
     // 查询博客
     queryBlog() {
+      this.sentry.addBreadcrumb('views/admin/manage-blog.vue --> methods: queryBlog', this.filterForm.keywords)
       let arr = this.blogList.filter((value, index) =>{
         let keywords = this.filterForm.keywords.trim().toUpperCase()
         return (
@@ -121,6 +124,7 @@ export default {
 
     // 点击批量删除
     clickDeleteAll() {
+      this.sentry.addBreadcrumb('views/admin/manage-blog.vue --> methods: clickDeleteAll')
       this.$confirm('确认删除选中记录吗？', '提示', {
         type: 'warning'
       }).then(() => {
@@ -131,21 +135,25 @@ export default {
       }).catch(() => {})
     },
     deleteBlogItem(ids){
+      this.sentry.addBreadcrumb('views/admin/manage-blog.vue --> methods: deleteBlogItem')
       this.axios.post(API.requireAuth.deleteBlog, { ids }).then(response => {
         this.$message.success(response.data.successMsg)
         this.initData()
       }).catch(err => {
+        this.sentry.captureException(err)
         err && this.$message.error(err.data.errMsg || err.data || err.message)
       })
     },
 
     // 在table中选择不同的行
     selectionChange(sels) {
+      this.sentry.addBreadcrumb('views/admin/manage-blog.vue --> methods: selectionChange', sels)
       this.selectRows = sels;
     },
 
     // 在某一行点击查看
     clickSeeItem(row, index) {
+      this.sentry.addBreadcrumb('views/admin/manage-blog.vue --> methods: clickSeeItem', row)
       let blog = this.blogList.filter(value => {
         return value._id === row._id
       })
@@ -155,6 +163,7 @@ export default {
 
     // 在某一行点击编辑
     clickEditItem(row, index) {
+      this.sentry.addBreadcrumb('views/admin/manage-blog.vue --> methods: clickEditItem', row)
       let blog = this.blogList.filter(value => {
         return value._id === row._id
       })
@@ -169,6 +178,7 @@ export default {
 
     // 在某一行点击删除
     clickDeleteItem(row, index) {
+      this.sentry.addBreadcrumb('views/admin/manage-blog.vue --> methods: clickDeleteItem', row)
       this.$confirm('确认删除选中记录吗？', '提示', {
         type: 'warning'
       }).then(() => {
@@ -178,6 +188,7 @@ export default {
 
     // 改变每页的条数
     sizeChangeHandle (val) {
+      this.sentry.addBreadcrumb('views/admin/manage-blog.vue --> methods: sizeChangeHandle', val)
       this.pageSize = val
       this.pageIndex = 1
       if (this.queryList.length > 0) {
@@ -188,6 +199,7 @@ export default {
     },
     // 改变当前页
     currentChangeHandle (val) {
+      this.sentry.addBreadcrumb('views/admin/manage-blog.vue --> methods: currentChangeHandle', val)
       this.pageIndex = val
       let currentPageArrIndexStart = (val - 1) * this.pageSize
       let currentPageArrIndexEnd = (val - 1) * this.pageSize + this.pageSize

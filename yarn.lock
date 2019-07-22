@@ -653,6 +653,67 @@
   version "1.1.2"
   resolved "http://registry.npm.taobao.org/@nodelib/fs.stat/download/@nodelib/fs.stat-1.1.2.tgz#54c5a964462be3d4d78af631363c18d6fa91ac26"
 
+"@sentry/browser@^5.5.0":
+  version "5.5.0"
+  resolved "https://registry.npm.taobao.org/@sentry/browser/download/@sentry/browser-5.5.0.tgz?cache=0&sync_timestamp=1562325621865&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40sentry%2Fbrowser%2Fdownload%2F%40sentry%2Fbrowser-5.5.0.tgz#ec99ea6897d23affc46d58e6ada32016b27721b5"
+  integrity sha1-7JnqaJfSOv/EbVjmraMgFrJ3IbU=
+  dependencies:
+    "@sentry/core" "5.5.0"
+    "@sentry/types" "5.5.0"
+    "@sentry/utils" "5.5.0"
+    tslib "^1.9.3"
+
+"@sentry/core@5.5.0":
+  version "5.5.0"
+  resolved "https://registry.npm.taobao.org/@sentry/core/download/@sentry/core-5.5.0.tgz?cache=0&sync_timestamp=1562325621660&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40sentry%2Fcore%2Fdownload%2F%40sentry%2Fcore-5.5.0.tgz#574fdc9228c8b4a909c0140eb0d8b098175c0f47"
+  integrity sha1-V0/ckijItKkJwBQOsNiwmBdcD0c=
+  dependencies:
+    "@sentry/hub" "5.5.0"
+    "@sentry/minimal" "5.5.0"
+    "@sentry/types" "5.5.0"
+    "@sentry/utils" "5.5.0"
+    tslib "^1.9.3"
+
+"@sentry/hub@5.5.0":
+  version "5.5.0"
+  resolved "https://registry.npm.taobao.org/@sentry/hub/download/@sentry/hub-5.5.0.tgz?cache=0&sync_timestamp=1562325611596&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40sentry%2Fhub%2Fdownload%2F%40sentry%2Fhub-5.5.0.tgz#6b8eecf769fa693260d45e771f4bca15bdbc6f4b"
+  integrity sha1-a47s92n6aTJg1F53H0vKFb28b0s=
+  dependencies:
+    "@sentry/types" "5.5.0"
+    "@sentry/utils" "5.5.0"
+    tslib "^1.9.3"
+
+"@sentry/integrations@^5.5.0":
+  version "5.5.0"
+  resolved "https://registry.npm.taobao.org/@sentry/integrations/download/@sentry/integrations-5.5.0.tgz?cache=0&sync_timestamp=1562325619671&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40sentry%2Fintegrations%2Fdownload%2F%40sentry%2Fintegrations-5.5.0.tgz#4d36adb607c007cab30c2fd83af0e905f0b62a88"
+  integrity sha1-TTattgfAB8qzDC/YOvDpBfC2Kog=
+  dependencies:
+    "@sentry/types" "5.5.0"
+    "@sentry/utils" "5.5.0"
+    tslib "^1.9.3"
+
+"@sentry/minimal@5.5.0":
+  version "5.5.0"
+  resolved "https://registry.npm.taobao.org/@sentry/minimal/download/@sentry/minimal-5.5.0.tgz?cache=0&sync_timestamp=1562325621802&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40sentry%2Fminimal%2Fdownload%2F%40sentry%2Fminimal-5.5.0.tgz#ea7939b8efe307d25775b23227a3f85dfb46b274"
+  integrity sha1-6nk5uO/jB9JXdbIyJ6P4XftGsnQ=
+  dependencies:
+    "@sentry/hub" "5.5.0"
+    "@sentry/types" "5.5.0"
+    tslib "^1.9.3"
+
+"@sentry/types@5.5.0":
+  version "5.5.0"
+  resolved "https://registry.npm.taobao.org/@sentry/types/download/@sentry/types-5.5.0.tgz?cache=0&sync_timestamp=1562325609518&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40sentry%2Ftypes%2Fdownload%2F%40sentry%2Ftypes-5.5.0.tgz#0e7d8e8359c7af685258d92b23831072bb79f46a"
+  integrity sha1-Dn2Og1nHr2hSWNkrI4MQcrt59Go=
+
+"@sentry/utils@5.5.0":
+  version "5.5.0"
+  resolved "https://registry.npm.taobao.org/@sentry/utils/download/@sentry/utils-5.5.0.tgz?cache=0&sync_timestamp=1562325609520&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40sentry%2Futils%2Fdownload%2F%40sentry%2Futils-5.5.0.tgz#5c516be0568f4d462ad550c723b78e3ad7776c4e"
+  integrity sha1-XFFr4FaPTUYq1VDHI7eOOtd3bE4=
+  dependencies:
+    "@sentry/types" "5.5.0"
+    tslib "^1.9.3"
+
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
   resolved "https://registry.npm.taobao.org/@types/normalize-package-data/download/@types/normalize-package-data-2.4.0.tgz#e486d0d97396d79beedd0a6e33f4534ff6b4973e"
@@ -6977,6 +7038,11 @@ tryer@^1.0.0:
 tslib@^1.9.0:
   version "1.9.3"
   resolved "http://registry.npm.taobao.org/tslib/download/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
+
+tslib@^1.9.3:
+  version "1.10.0"
+  resolved "https://registry.npm.taobao.org/tslib/download/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
+  integrity sha1-w8GflZc/sKYpc/sJ2Q2WHuQ+XIo=
 
 tty-browserify@0.0.0:
   version "0.0.0"
