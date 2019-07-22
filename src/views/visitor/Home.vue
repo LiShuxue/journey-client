@@ -29,6 +29,8 @@ export default {
   },
 
   created () {
+    this.sentry.addBreadcrumb('views/visitor/Home.vue --> lifecycle: created')
+
     this.axios.get(API.notRequireAuth.blogList).then(response => {
       if (response.data.blogList && response.data.blogList.length > 0) {
         this.allBlogList = response.data.blogList
@@ -52,6 +54,8 @@ export default {
         this.canGetMore = false
       }
     }).catch(err => {
+      this.sentry.captureException(err)
+
       err && this.$message.error(err.data.errMsg || err.data)
       this.$store.commit('saveBlogListMutation', mockdata.blogList)
       this.allBlogList = mockdata.blogList

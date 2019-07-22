@@ -104,6 +104,8 @@ export default {
   methods: {
     // 初始化页面数据
     initData() {
+      this.sentry.addBreadcrumb('views/admin/user.vue --> methods: initData')
+
       this.axios.get(API.requireAuth.userList).then(response => {
         this.$message.success(response.data.successMsg)
         this.userList = response.data.userList
@@ -112,17 +114,20 @@ export default {
         this.selectRows = []
         this.pageIndex = 1
       }).catch(err => {
+        this.sentry.captureException(err)
         err && this.$message.error(err.data.errMsg || err.data)
       })
     },
 
     // 在table中选择不同的行
     selectionChange(sels) {
+      this.sentry.addBreadcrumb('views/admin/user.vue --> methods: selectionChange', sels)
       this.selectRows = sels;
     },
 
     // 在某一行点击编辑
     clickEditItem(row, index) {
+      this.sentry.addBreadcrumb('views/admin/user.vue --> methods: clickEditItem', row)
       let editItem = this.tableData.filter(value => {
         return value._id === row._id
       })
@@ -131,17 +136,20 @@ export default {
     },
     // 关闭编辑页面
     closeEditForm() {
+      this.sentry.addBreadcrumb('views/admin/user.vue --> methods: closeEditForm')
       this.$confirm('确认放弃修改吗？', '提示', {}).then(() => {
         this.editFormVisible = false
-      })
+      }).catch(() => {})
     },
     // 编辑以后点击确定
     clickEditUser() {
+      this.sentry.addBreadcrumb('views/admin/user.vue --> methods: clickEditUser')
       this.$confirm('确认提交吗？', '提示', {}).then(() => {
         this.editUser(this.editForm)
-      })
+      }).catch(() => {})
     },
     editUser(user) {
+      this.sentry.addBreadcrumb('views/admin/user.vue --> methods: editUser', user)
       let hashUser = Object.assign({}, user)
       hashUser.password = SHA256(hashUser.password).toString()
       this.axios.post(API.requireAuth.updateUser, { 
@@ -151,12 +159,14 @@ export default {
         this.editFormVisible = false
         this.initData()
       }).catch(err => {
+        this.sentry.captureException(err)
         err && this.$message.error(err.data.errMsg || err.data)
       })
     },
 
     // 在某一行点击删除
     clickDeleteItem(row, index) {
+      this.sentry.addBreadcrumb('views/admin/user.vue --> methods: clickDeleteItem', row)
       this.$confirm('确认删除选中记录吗？', '提示', {
         type: 'warning'
       }).then(() => {
@@ -164,14 +174,17 @@ export default {
       }).catch(() => {})
     },
     deleteUserItem(ids){
+      this.sentry.addBreadcrumb('views/admin/user.vue --> methods: deleteUserItem', ids)
       this.axios.post(API.requireAuth.deleteUser, { ids: ids }).then(response => {
         this.$message.success(response.data.successMsg)
         this.initData()
       }).catch(err => {
+        this.sentry.captureException(err)
         err && this.$message.error(err.data.errMsg || err.data)
       })
     },
     clickDeleteAll() {
+      this.sentry.addBreadcrumb('views/admin/user.vue --> methods: clickDeleteAll')
       this.$confirm('确认删除选中记录吗？', '提示', {
         type: 'warning'
       }).then(() => {
@@ -184,22 +197,26 @@ export default {
 
     // 点击新增按钮，显示Form表单
     showAddForm() {
+      this.sentry.addBreadcrumb('views/admin/user.vue --> methods: showAddForm')
       this.addFormVisible = true
       this.addForm = Object.assign({}, this.formTemplate)
     },
     // 点击取消按钮，关闭Form表单
     closeAddForm() {
+      this.sentry.addBreadcrumb('views/admin/user.vue --> methods: closeAddForm')
       this.$confirm('确认放弃添加吗？', '提示', {}).then(() => {
         this.addFormVisible = false
-      })
+      }).catch(() => {})
     },
     // 点击确定，增加店铺
     clickAddUser() {
+      this.sentry.addBreadcrumb('views/admin/user.vue --> methods: clickAddUser')
       this.$confirm('确认提交吗？', '提示', {}).then(() => {
         this.addUser(this.addForm)
-      })
+      }).catch(() => {})
     },
     addUser(user) {
+      this.sentry.addBreadcrumb('views/admin/user.vue --> methods: addUser', user)
       this.axios.post(API.notRequireAuth.register, {
         username: user.username,
         password: SHA256(user.password).toString()
@@ -208,18 +225,21 @@ export default {
         this.addFormVisible = false
         this.initData()
       }).catch(err => {
+        this.sentry.captureException(err)
         err && this.$message.error(err.data.errMsg || err.data)
       })
     },
 
     // 改变每页的条数
     sizeChangeHandle (val) {
+      this.sentry.addBreadcrumb('views/admin/user.vue --> methods: sizeChangeHandle', val)
       this.pageSize = val
       this.pageIndex = 1
       this.tableData = this.userList.slice(0, this.pageSize)
     },
     // 改变当前页
     currentChangeHandle (val) {
+      this.sentry.addBreadcrumb('views/admin/user.vue --> methods: currentChangeHandle', val)
       this.pageIndex = val
       let currentPageArrIndexStart = (val - 1) * this.pageSize
       let currentPageArrIndexEnd = (val - 1) * this.pageSize + this.pageSize

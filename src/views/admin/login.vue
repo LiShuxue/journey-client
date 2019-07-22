@@ -29,6 +29,8 @@ export default {
   },
   methods: {
     login () {
+      this.sentry.addBreadcrumb('views/admin/login.vue --> methods: login');
+
       this.loading = true
       this.axios.post(API.notRequireAuth.login, {
         username: this.username,
@@ -50,6 +52,8 @@ export default {
           this.$router.push('/admin')
         }
       }).catch(err => {
+        this.sentry.captureException(err)
+
         this.loading = false
         err && this.$message.error(err.data.errMsg || err.data)
       })
