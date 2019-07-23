@@ -8,7 +8,10 @@
 
 <script>
 export default {
-    
+  created() {
+    var a = null
+    a.log = 'test'
+  }
 }
 </script>
 
