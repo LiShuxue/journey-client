@@ -7,6 +7,7 @@ if (process.env.NODE_ENV === 'production') {
   Sentry.init({
     dsn: 'https://0668ca599951485d95b38caf784f0ffe@sentry.io/1508750',
     environment: 'prod',
+    release: process.env.SENTRY_RELEASE_VERSION,
     integrations: [
       new Integrations.Vue({
         Vue,
