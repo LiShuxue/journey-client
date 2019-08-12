@@ -80,7 +80,7 @@ export default {
       subTitle: '',
       htmlContent: '',
       markdownContent: '',
-      image: null,
+      image: {},
       isOriginal: true,
       category: '',
       tags: [],
@@ -117,7 +117,9 @@ export default {
         this[key] = editBlog[key]
       })
       this.initContent = editBlog.markdownContent
-      this.uploadImageList.push(Object.assign({}, this.image))
+      if (this.image) {
+        this.uploadImageList.push(Object.assign({}, this.image))
+      }
     }
   },
 
@@ -156,7 +158,7 @@ export default {
         await this.$confirm(`确定移除 ${filename}？`)
         let response = await this.axios.post(API.requireAuth.removeImage, { filename })
         this.$message.success(response.data.successMsg)
-        this.image = null
+        this.image = {}
         this.uploadImageList.pop()
         return Promise.resolve()
       } catch (err) {
