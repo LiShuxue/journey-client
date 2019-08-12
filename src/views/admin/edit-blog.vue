@@ -117,7 +117,7 @@ export default {
         this[key] = editBlog[key]
       })
       this.initContent = editBlog.markdownContent
-      if (this.image) {
+      if (this.image && this.image.name && this.image.url) {
         this.uploadImageList.push(Object.assign({}, this.image))
       }
     }
