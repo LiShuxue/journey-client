@@ -155,7 +155,7 @@ export default {
       this.sentry.addBreadcrumb('views/admin/edit-blog.vue --> methods: removeImage', this.image)
       try {
         let filename = this.image.name
-        await this.$confirm(`确定移除 ${filename}？`)
+        await this.$confirm(`确定移除 ${filename}？`).catch(() => {})
         let response = await this.axios.post(API.requireAuth.removeImage, { filename })
         this.$message.success(response.data.successMsg)
         this.image = {}
