@@ -17,9 +17,9 @@
         :limit="1"
         accept="image/*"
         list-type="picture">
-        <el-button v-if="!image" size="small">点击上传文章插图</el-button>
+        <el-button v-if="!image.url" size="small">点击上传文章插图</el-button>
       </el-upload>
-      <el-button v-if="image" size="small" @click="removeImage">点击修改文章插图</el-button>
+      <el-button v-if="image.url" size="small" @click="removeImage">点击修改文章插图</el-button>
     </div>
 
     <div class="blog-content">
