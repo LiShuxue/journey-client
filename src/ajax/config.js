@@ -24,9 +24,9 @@ axios.interceptors.response.use(response => {
   if (response.status === 200 && response.data.errMsg) {
     return Promise.reject(response)
   }
-  if (response.status === 200 && response.data.new_access_token && response.data.new_refresh_token) {
-    store.dispatch('saveAccessTokenAction', response.data.new_access_token)
-    store.dispatch('saveRefreshTokenAction', response.data.new_refresh_token)
+  if (response.status === 200 && response.headers['new-access-token'] && response.headers['new-refresh-token']) {
+    store.dispatch('saveAccessTokenAction', response.headers['new-access-token'])
+    store.dispatch('saveRefreshTokenAction', response.headers['new-refresh-token'])
   }
   return response
 }, error => {
