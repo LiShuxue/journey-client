@@ -74,6 +74,7 @@ export default {
       this.tableData.forEach(value => {
         let item = Object.assign({}, value)
         item.isOriginal = value.isOriginal ? '是' : '否'
+        item.tags = value.tags.join('、')
         refactorData.push(item)
       })
       return refactorData
