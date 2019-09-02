@@ -23,7 +23,7 @@
           <recommend-box></recommend-box>
         </keep-alive>
         <keep-alive>
-          <category-box></category-box>
+          <tag-box></tag-box>
         </keep-alive>
       </aside>
     </div>
@@ -36,7 +36,7 @@
 import NavBar from '@/components/NavBar.vue'
 import MainHeader from '@/components/header.vue'
 import SearchBox from '@/components/search.vue'
-import CategoryBox from '@/components/category.vue'
+import TagBox from '@/components/TagBox.vue'
 import RecommendBox from '@/components/recommend.vue'
 import MainFooter from '@/components/footer.vue'
 
@@ -45,7 +45,7 @@ export default {
     NavBar,
     MainHeader,
     SearchBox,
-    CategoryBox,
+    TagBox,
     RecommendBox,
     MainFooter
   },

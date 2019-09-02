@@ -1,11 +1,11 @@
 <template>
-  <div class="category-wrapper">
+  <div class="tag-wrapper">
     <p class="title">
-      <span class="iconfont icon-list"></span>
+      <span class="iconfont icon-tag"></span>
       <span>标签</span>
     </p>
-    <p class="category">
-      <span class="category-item" v-for="(item, index) in tagList" :key="index" @click="clickTag(item)">
+    <p class="tag">
+      <span class="tag-item" v-for="(item, index) in tagList" :key="index" @click="clickTag(item)">
         {{item}}
       </span>
     </p>
@@ -24,13 +24,13 @@ export default {
   mounted() {
     window.onscroll = function() {
       // $(window).scrollTop() // html卷入浏览器的距离
-      // $('.category-wrapper').offsetTop // 元素距离文档顶端的距离 490px，这个是固定的
-      // $('.category-wrapper').offsetTop - $(window).scrollTop() // 元素距离浏览器顶端的距离
-      // if($('.category-wrapper').offsetTop - $(window).scrollTop() <= 70){ // 判断距离小于等于70，可以反过来判断卷入距离大于等于420
+      // $('.tag-wrapper').offsetTop // 元素距离文档顶端的距离 490px，这个是固定的
+      // $('.tag-wrapper').offsetTop - $(window).scrollTop() // 元素距离浏览器顶端的距离
+      // if($('.tag-wrapper').offsetTop - $(window).scrollTop() <= 70){ // 判断距离小于等于70，可以反过来判断卷入距离大于等于420
       if($(window).scrollTop() >= 420){
-        !$('.category-wrapper').hasClass('sticky-top') && $('.category-wrapper').addClass('sticky-top')
+        !$('.tag-wrapper').hasClass('sticky-top') && $('.tag-wrapper').addClass('sticky-top')
       }else{
-        $('.category-wrapper').hasClass('sticky-top') && $('.category-wrapper').removeClass('sticky-top')
+        $('.tag-wrapper').hasClass('sticky-top') && $('.tag-wrapper').removeClass('sticky-top')
       }
     }
   },
@@ -56,7 +56,7 @@ export default {
   width: $right-width;
   box-sizing: border-box;
 }
-.category-wrapper{
+.tag-wrapper{
   display: flex;
   flex-direction: column;
   margin-top: 15px;
@@ -75,12 +75,12 @@ export default {
     margin-right: 5px;
   }
 }
-.category{
+.tag{
   display: flex;
   flex-wrap: wrap;
   margin-top: 10px;
 }
-.category-item{
+.tag-item{
   background: $shen-hui;
   padding: 5px;
   margin: 0 10px 10px 0;
