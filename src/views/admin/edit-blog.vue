@@ -29,7 +29,7 @@
     <div class="category-radio-box">
       <span class="box-title">分类：</span>
       <el-radio-group v-model="category" size="small">
-        <el-radio v-for="(category, index) in categoryList" :key="index" :label="category.name" border>{{category.name}}</el-radio>
+        <el-radio v-for="(category, index) in categoryList" :key="index" :label="category" border>{{category}}</el-radio>
       </el-radio-group>
       <el-button @click="addCategory" size="small">+ 创建新分类</el-button>
     </div>
@@ -71,7 +71,7 @@
 import { mavonEditor } from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import API from '@/ajax/api.js'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   data () {
@@ -85,7 +85,6 @@ export default {
       category: '',
       tags: [],
       
-      categoryList: [],
       uploadImageList: [],
       inputVisible: false,
       inputValue: '',
@@ -101,7 +100,10 @@ export default {
     }),
     isEdit() {
       return this.$route.params.isEdit
-    }
+    },
+    ...mapGetters([
+      'categoryList'
+    ])
   },
 
   components: {
@@ -110,7 +112,6 @@ export default {
 
   created () {
     this.sentry.addBreadcrumb('views/visitor/Home.vue --> lifecycle: created', this.isEdit)
-    this.getAllCategory()
     if (this.isEdit) {
       let editBlog = Object.assign({}, this.chooseBlog)
       Object.keys(editBlog).forEach(key => {
@@ -180,18 +181,8 @@ export default {
     addCategory () {
       this.sentry.addBreadcrumb('views/admin/edit-blog.vue --> methods: addCategory')
       this.$prompt('请输入要添加的类别：').then(({ value }) => {
-        this.axios.post(API.requireAuth.addCategory, {
-          category: {
-            name: value
-          }
-        }).then(response => {
-          this.categoryList.push({ name: value })
-          this.category = value
-          this.$message.success(response.data.successMsg)
-        }).catch(err => {
-          this.sentry.captureException(err)
-          err && this.$message.error(err.data.errMsg || err.data)
-        })
+        this.categoryList.push(value)
+        this.category = value
       }).catch(() => {})
     },
 
@@ -251,16 +242,6 @@ export default {
         }
       }).then(response => {
         this.$message.success(response.data.successMsg)
-      }).catch(err => {
-        this.sentry.captureException(err)
-        err && this.$message.error(err.data.errMsg || err.data)
-      })
-    },
-
-    getAllCategory () {
-      this.sentry.addBreadcrumb('views/admin/edit-blog.vue --> methods: getAllCategory')
-      this.axios.get(API.notRequireAuth.categoryList).then(response => {
-        this.categoryList = response.data.categoryList
       }).catch(err => {
         this.sentry.captureException(err)
         err && this.$message.error(err.data.errMsg || err.data)

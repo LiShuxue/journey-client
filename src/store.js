@@ -30,6 +30,15 @@ export default new Vuex.Store({
         tagList = [...tagList, ...item.tags]
       })
       return [...new Set(tagList)]
+    },
+    categoryList: state => {
+      let categoryList = []
+      state.blogList.forEach(item => {
+        if(item.category) {
+          categoryList.push(item.category)
+        }
+      })
+      return categoryList
     }
   },
   mutations: {
