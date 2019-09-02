@@ -37,10 +37,14 @@ export default {
 
 <style lang="scss">
 .category{
+  position: fixed;
+  overflow: scroll;
+  width: 700px;
+  /*总高度 - 内容padding-top - more button margin-top - more button height - more button margin-bottom - footer height*/
+  height: calc(100vh - 70px - 10px - 36px - 15px - 60px);
   box-sizing: border-box;
   border-radius: 10px;
   padding: 20px 20px 20px 20px;
-  margin-bottom: 40px;
   background: $hui-bai;
   color: $hui-hei;
 
@@ -65,5 +69,11 @@ export default {
       margin-right: 5px;
     }
   }
+}
+
+.is-mobile .category{
+  position: relative;
+  width: auto;
+  height: auto;
 }
 </style>
