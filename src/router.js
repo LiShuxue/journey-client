@@ -25,9 +25,9 @@ const router = new Router({
       component: () => import('./views/visitor/Main.vue'),
       redirect: '/home',
       children: [
-        { path: 'home', component: () => import('./views/visitor/Home.vue'), meta: { keepAlive: true } },
-        { path: 'category', component: () => import('./views/visitor/Category.vue') },
-        { path: 'about', component: () => import('./views/visitor/About.vue') },
+        { path: 'home', name: 'home', component: () => import('./views/visitor/Home.vue'), meta: { keepAlive: true } },
+        { path: 'category', name: 'category', component: () => import('./views/visitor/Category.vue') },
+        { path: 'about', name: 'about', component: () => import('./views/visitor/About.vue') },
         { path: 'blog', name: 'blog', component: () => import('./views/visitor/Blog.vue') },
         { path: 'bloglist', name: 'bloglist', component: () => import('./views/visitor/BlogList.vue') }
       ]
