@@ -38,7 +38,7 @@ export default new Vuex.Store({
           categoryList.push(item.category)
         }
       })
-      return categoryList
+      return [...new Set(categoryList)]
     }
   },
   mutations: {
