@@ -17,7 +17,7 @@
           <router-view v-if="!$route.meta.keepAlive"></router-view>
         </transition>
       </div>
-      <aside class="right">
+      <aside v-if="this.$route.name !== 'about'" class="right">
         <search-box></search-box>
         <keep-alive>
           <recommend-box></recommend-box>

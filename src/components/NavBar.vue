@@ -28,6 +28,7 @@ export default{
       if(this.$store.state.isMenuOpen){
         this.$store.commit('openOrCloseMenuMutation', false);
       }
+      window.scrollTo(0, 0)
     }
   }
 }
