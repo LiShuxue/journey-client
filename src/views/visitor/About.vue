@@ -4,7 +4,7 @@
       <div class="about-me">
         <h2>关于我</h2>
         <p>前端工程师</p>
-        <p>熟悉Vue，React，移动开发，混合开发</p>
+        <p>熟悉Ember，Vue，移动开发，混合开发</p>
         <p>热爱编程，喜欢探索，追求技术</p>
       </div>
       <div class="contact-me">
