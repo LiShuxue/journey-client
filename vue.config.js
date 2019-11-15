@@ -4,7 +4,7 @@ const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 process.env.SENTRY_RELEASE_VERSION = gitSha
 
 module.exports = {
-  baseUrl: './',
+  publicPath: './',
   css: {
     loaderOptions: {
       // 引入全局的scss
