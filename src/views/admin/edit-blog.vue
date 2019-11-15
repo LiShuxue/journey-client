@@ -7,6 +7,14 @@
       <template slot="prepend">文章摘要：</template>
     </el-input>
 
+    <div class="category-radio-box">
+      <span class="box-title">分类：</span>
+      <el-radio-group v-model="category" size="small">
+        <el-radio v-for="(category, index) in categoryList" :key="index" :label="category" border>{{category}}</el-radio>
+      </el-radio-group>
+      <el-button @click="addCategory" size="small">+ 创建新分类</el-button>
+    </div>
+
     <div class="upload-box">
       <el-upload
         class="upload-box-content"
@@ -22,16 +30,15 @@
       <el-button v-if="image.url" size="small" @click="removeImage">点击修改文章插图</el-button>
     </div>
 
+    <el-input placeholder="图片name" v-model="image.name" class="input-box">
+      <template slot="prepend">图片name：</template>
+    </el-input>
+    <el-input placeholder="图片url" v-model="image.url" class="input-box">
+      <template slot="prepend">图片url：</template>
+    </el-input>
+
     <div class="blog-content">
       <mavon-editor class="markdown-editor-wrapper" @change="markdownContentChange" @save="markdownContentSave" :subfield="showParseText" placeholder=" " :value="initContent"></mavon-editor>
-    </div>
-
-    <div class="category-radio-box">
-      <span class="box-title">分类：</span>
-      <el-radio-group v-model="category" size="small">
-        <el-radio v-for="(category, index) in categoryList" :key="index" :label="category" border>{{category}}</el-radio>
-      </el-radio-group>
-      <el-button @click="addCategory" size="small">+ 创建新分类</el-button>
     </div>
 
     <div class="tags-box">
@@ -80,7 +87,10 @@ export default {
       subTitle: '',
       htmlContent: '',
       markdownContent: '',
-      image: {},
+      image: {
+        name: '',
+        url: ''
+      },
       isOriginal: true,
       category: '',
       tags: [],
@@ -138,17 +148,24 @@ export default {
         let formdata = new FormData()
         formdata.append('file', content.file)
         formdata.append('token', tokenResponse.data.qiniuUploadToken)
-        formdata.append('key', content.file.name)
-        // 上传到七牛云
-        let response = await this.axios.post(tokenResponse.data.uploadDomain, formdata, config)
+        if (this.category) {
+          formdata.append('key', `blog/image/${this.category}/` + content.file.name)
+          // 上传到七牛云
+          let response = await this.axios.post(tokenResponse.data.uploadDomain, formdata, config)
 
-        this.$message.success(response.data.key + '上传成功！')
-        let url = tokenResponse.data.downloadDomain + response.data.key
-        this.image = { name: response.data.key, url }
-        this.uploadImageList.push({ name: response.data.key, url })
+          this.$message.success(response.data.key + '上传成功！')
+          let url = tokenResponse.data.downloadDomain + response.data.key
+          this.image = { name: response.data.key, url }
+          this.uploadImageList.push({ name: response.data.key, url })
+          return Promise.resolve()
+        } else {
+          this.$message.error('请先选择类别')
+          return Promise.reject(new Error('请先选择类别'))
+        }
       } catch (err) {
         this.sentry.captureException(err)
-        err && this.$message.error(err.data.errMsg || err.data)
+        err && this.$message.error(err.data.errMsg || err.data || err)
+        return Promise.reject(err)
       }
     },
 
@@ -256,6 +273,7 @@ export default {
   margin-bottom: 10px;
 }
 .upload-box{
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 .markdown-editor-wrapper{
