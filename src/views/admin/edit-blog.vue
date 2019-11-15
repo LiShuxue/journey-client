@@ -30,12 +30,12 @@
       <el-button v-if="image.url" size="small" @click="removeImage">点击修改文章插图</el-button>
     </div>
 
-    <el-input placeholder="图片name" v-model="image.name" class="input-box">
+    <!-- <el-input placeholder="图片name" v-model="image.name" class="input-box">
       <template slot="prepend">图片name：</template>
     </el-input>
     <el-input placeholder="图片url" v-model="image.url" class="input-box">
       <template slot="prepend">图片url：</template>
-    </el-input>
+    </el-input> -->
 
     <div class="blog-content">
       <mavon-editor class="markdown-editor-wrapper" @change="markdownContentChange" @save="markdownContentSave" :subfield="showParseText" placeholder=" " :value="initContent"></mavon-editor>
