@@ -37,19 +37,20 @@ const router = new Router({
       path: '/admin',
       component: () => import('./views/admin/Admin.vue'),
       redirect: '/admin/home',
+      meta: { requireAuth: true }, // 添加requireAuth，表示进入这个路由是需要登录的，在父路由添加，则下面的子路由都需要验证
       children: [
-        { path: 'home', component: () => import('./views/admin/home.vue'), meta: { requireAuth: true } }, // 添加requireAuth，表示进入这个路由是需要登录的
-        { path: 'user', component: () => import('./views/admin/user.vue'), meta: { requireAuth: true } },
-        { path: 'manage-blog', component: () => import('./views/admin/manage-blog.vue'), meta: { requireAuth: true } },
+        { path: 'home', component: () => import('./views/admin/home.vue') },
+        { path: 'user', component: () => import('./views/admin/user.vue') },
+        { path: 'manage-blog', component: () => import('./views/admin/manage-blog.vue') },
         { path: 'view-blog', component: () => import('./views/visitor/Blog.vue') },
-        { name: 'edit-blog', path: 'edit-blog', component: () => import('./views/admin/edit-blog.vue'), meta: { requireAuth: true } }
+        { name: 'edit-blog', path: 'edit-blog', component: () => import('./views/admin/edit-blog.vue') }
       ]
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requireAuth)) {
+  if (to.matched.some(record => record.meta.requireAuth)) { // to.matched可以拿到父路由，所以可以直接判断父路由的权限。子路由可以无需添加。
     if (store.state.access_token || sessionStorage.getItem('access_token')) {
       next()
     } else {
