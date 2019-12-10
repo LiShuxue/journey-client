@@ -9,7 +9,7 @@
 
     <div class="category-radio-box">
       <span class="box-title">分类：</span>
-      <el-radio-group v-model="category" size="small">
+      <el-radio-group v-model="category" size="small" :disabled="isEdit">
         <el-radio v-for="(category, index) in categoryList" :key="index" :label="category" border>{{category}}</el-radio>
       </el-radio-group>
       <el-button @click="addCategory" size="small">+ 创建新分类</el-button>
