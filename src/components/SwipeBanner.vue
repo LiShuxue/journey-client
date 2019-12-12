@@ -84,10 +84,11 @@ export default {
       if(this.$store.state.isMenuOpen){
         this.$store.commit('openOrCloseMenuMutation', false);
       }
-      this.$store.commit('chooseBlog', blog)
-      if (this.$route.name !== 'blog') {
-        this.$router.push('/blog')
-      }
+      this.$store.dispatch('chooseBlogAction', blog).then(() => {
+        if (this.$route.name !== 'blog') {
+          this.$router.push('/blog')
+        }
+      })
     }
   }
 }

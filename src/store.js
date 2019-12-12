@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { isMobile } from './utils/device'
+import axios from '@/ajax/config'
+import API from '@/ajax/api.js'
+import sentry from '@/utils/sentry'
+import { Message } from 'element-ui'
 
 Vue.use(Vuex)
 
@@ -76,6 +80,20 @@ export default new Vuex.Store({
     saveUsernameAction ({ commit }, payload) {
       sessionStorage.setItem('username', payload)
       commit('saveUsernameMutation', payload)
+    },
+    chooseBlogAction({ commit }, payload) {
+      sentry.addBreadcrumb('store.js --> action: chooseBlogAction')
+      return new Promise((resolve, reject) => {
+        axios.get(`${API.notRequireAuth.blogDetail}?id=${payload._id}`).then(response => {
+          let blog = response.data.blog
+          commit('chooseBlog', blog)
+          resolve(blog)
+        }).catch(err => {
+          sentry.captureException(err)
+          err && Message.error(err.data.errMsg || err.data)
+          reject(err)
+        })
+      });
     }
   }
 })

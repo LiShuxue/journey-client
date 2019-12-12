@@ -3,7 +3,7 @@
     <!-- 工具条 -->
     <el-form :inline="true" :model="filterForm">
       <el-form-item>
-        <el-input v-model="filterForm.keywords" placeholder="请输入关键字"></el-input>
+        <el-input v-model="filterForm.keywords" @keyup.enter.native="queryBlog" placeholder="请输入关键字"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button @click="queryBlog">查询</el-button>
@@ -113,8 +113,7 @@ export default {
           value.title.toUpperCase().includes(keywords) ||
           value.subTitle.toUpperCase().includes(keywords) ||
           value.category.toUpperCase().includes(keywords) ||
-          value.tags.join('').toUpperCase().includes(keywords) ||
-          value.markdownContent.toUpperCase().includes(keywords)
+          value.tags.join('').toUpperCase().includes(keywords)
         )
       })
       this.queryList = arr
@@ -158,8 +157,9 @@ export default {
       let blog = this.blogList.filter(value => {
         return value._id === row._id
       })
-      this.$store.commit('chooseBlog', blog[0])
-      this.$router.push('view-blog')
+      this.$store.dispatch('chooseBlogAction', blog[0]).then(() => {
+        this.$router.push('view-blog')
+      })
     },
 
     // 在某一行点击编辑
@@ -168,12 +168,13 @@ export default {
       let blog = this.blogList.filter(value => {
         return value._id === row._id
       })
-      this.$store.commit('chooseBlog', blog[0])
-      this.$router.push({
-        name: 'edit-blog',
-        params: {
-          isEdit: true
-        }
+      this.$store.dispatch('chooseBlogAction', blog[0]).then(() => {
+        this.$router.push({
+          name: 'edit-blog',
+          params: {
+            isEdit: true
+          }
+        })
       })
     },
 

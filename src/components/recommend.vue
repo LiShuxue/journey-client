@@ -22,10 +22,11 @@ export default {
   },
   methods: {
     showBlogDetail (blog) {
-      this.$store.commit('chooseBlog', blog)
-      if (this.$route.name !== 'blog') {
-        this.$router.push('/blog')
-      }
+      this.$store.dispatch('chooseBlogAction', blog).then(() => {
+        if (this.$route.name !== 'blog') {
+          this.$router.push('/blog')
+        }
+      })
     }
   }
 }
