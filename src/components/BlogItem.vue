@@ -79,7 +79,7 @@ export default {
       })
     },
     clickCategory () {
-      console.log('category')
+      this.$router.push('/category')
     }
   }
 }
