@@ -15,6 +15,7 @@ const register = `admin/register`
 const categoryList = `blog/category/list`
 const blogList = `blog/list`
 const blogDetail = `blog/detail`
+const likeBlog = `blog/like`
 
 export default {
   requireAuth: {
@@ -33,6 +34,7 @@ export default {
     register,
     categoryList,
     blogList,
-    blogDetail
+    blogDetail,
+    likeBlog
   }
 }

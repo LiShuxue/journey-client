@@ -12,7 +12,7 @@
         <span class="iconfont icon-clock"></span><span class="content">{{blog.publishTime.substring(0, 10)}}</span>
         <span class="iconfont icon-eye"></span><span class="content">{{blog.see}}</span>
         <div @click.stop="clickComments" style="display: inline"><span class="iconfont icon-comment"></span><span class="content">{{blog.comments.length}}</span></div>
-        <div @click.stop="clickLike" style="display: inline"><span class="iconfont icon-like"></span><span class="content">{{blog.like}}</span></div>
+        <div @click.stop="clickLike" style="display: inline" v-bind:class="[{'liked': isLiked}]"><span class="iconfont icon-like"></span><span class="content">{{blog.like}}</span></div>
         <div @click.stop="clickCategory" style="display: inline"><span class="iconfont icon-list"></span><span class="content">{{blog.category}}</span></div>
       </div>
     </div>
@@ -20,9 +20,22 @@
 </template>
 
 <script>
+import API from '@/ajax/api.js'
+
 export default {
   props: {
     blog: Object
+  },
+  data() {
+    return {
+      isLiked: false
+    }
+  },
+  created() {
+    // 将点赞过的文章显示出来
+    if (Object.keys(localStorage).includes(this.blog._id) && localStorage.getItem(this.blog._id) === 'true') {
+      this.isLiked = true;
+    }
   },
   methods: {
     showBlogDetail (blog) {
@@ -39,7 +52,31 @@ export default {
       console.log('comments')
     },
     clickLike () {
-      console.log('like')
+      this.sentry.addBreadcrumb('components/BlogItem.vue --> method: clickLike')
+
+      // 点赞后存在本地，下次进来的时候显示点赞过
+      if (!this.isLiked) {
+        this.isLiked = true;
+        localStorage.setItem(this.blog._id, this.isLiked);
+      } else {
+        this.isLiked = false;
+        localStorage.removeItem(this.blog._id);
+      }
+      
+      this.axios.post(API.notRequireAuth.likeBlog, {
+        id: this.blog._id,
+        isLiked: this.isLiked
+      }).then(response => {
+        // 刷新页面显示
+        if (this.isLiked) {
+          this.blog.like++;
+        } else {
+          this.blog.like--;
+        }
+      }).catch(err => {
+        this.sentry.captureException(err)
+        err && this.$message.error(err.data.errMsg || err.data)
+      })
     },
     clickCategory () {
       console.log('category')
@@ -126,6 +163,10 @@ export default {
 
     .content{
       margin-right: 20px;
+    }
+
+    .liked {
+      color: #2192F5;
     }
   }
 }
