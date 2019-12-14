@@ -5,6 +5,8 @@ process.env.SENTRY_RELEASE_VERSION = gitSha
 
 module.exports = {
   publicPath: './',
+  // 关闭production 的sourcemap
+  // productionSourceMap: false,
   css: {
     loaderOptions: {
       // 引入全局的scss
