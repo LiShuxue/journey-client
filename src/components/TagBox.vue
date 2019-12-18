@@ -49,7 +49,11 @@ export default {
         return value.tags.includes(tag)
       })
       this.$store.commit('saveFilterBlogList', blogListWithSameTag)
-      this.$router.push('/bloglist')
+      if (this.$route.name !== 'bloglist') {
+        this.$router.push('/bloglist')
+      } else {
+        window.scrollTo(0, 0)
+      }
     }
   }
 }

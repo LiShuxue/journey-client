@@ -26,7 +26,11 @@ export default {
                value.subTitle.toUpperCase().indexOf(keywords.toUpperCase()) > -1
       })
       this.$store.commit('saveFilterBlogList', blogListWithKeywords)
-      this.$router.push('/bloglist')
+      if (this.$route.name !== 'bloglist') {
+        this.$router.push('/bloglist')
+      } else {
+        window.scrollTo(0, 0)
+      }
     }
   }
 }
