@@ -1,5 +1,5 @@
 <template>
-  <div class="tag-wrapper">
+  <div class="tag-wrapper" ref="tagWrapper">
     <p class="title">
       <span class="iconfont icon-tag"></span>
       <span>标签</span>
@@ -16,18 +16,26 @@
 import { mapGetters } from 'vuex'
 import $ from 'jquery'
 export default {
+  data() {
+    return {
+      offsetTop: 0
+    }
+  },
   computed: {
     ...mapGetters([
       'tagList'
     ])
   },
   mounted() {
-    window.onscroll = function() {
+    setTimeout(() => {
+      // 设置元素渲染之后的距离文档顶端的距离
+      this.offsetTop = this.$refs.tagWrapper.offsetTop;
+    }, 1000);
+
+    window.onscroll = () => {
       // $(window).scrollTop() // html卷入浏览器的距离
-      // $('.tag-wrapper').offsetTop // 元素距离文档顶端的距离 490px，这个是固定的
-      // $('.tag-wrapper').offsetTop - $(window).scrollTop() // 元素距离浏览器顶端的距离
-      // if($('.tag-wrapper').offsetTop - $(window).scrollTop() <= 70){ // 判断距离小于等于70，可以反过来判断卷入距离大于等于420
-      if($(window).scrollTop() >= 420){
+      // this.offsetTop // 元素距离文档顶端的距离
+      if($(window).scrollTop() >= (this.offsetTop - 70)){
         !$('.tag-wrapper').hasClass('sticky-top') && $('.tag-wrapper').addClass('sticky-top')
       }else{
         $('.tag-wrapper').hasClass('sticky-top') && $('.tag-wrapper').removeClass('sticky-top')
