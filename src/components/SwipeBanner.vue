@@ -1,7 +1,7 @@
 <template>
   <div class="banner" :style="sizeStyle"  @mouseenter="enter()" @mouseleave="leave()">
     <swiper :options="swiperOption" ref="mySwiper">
-      <swiper-slide v-for="(blog, index) in hotBlogList" :key="index">
+      <swiper-slide v-for="(blog, index) in newBlogList" :key="index">
         <img :src="blog.image.url" :alt="blog.image.name" :style="sizeStyle" @click="showBlogDetail(blog)">
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
@@ -36,7 +36,7 @@ export default {
       return this.$refs.mySwiper.swiper
     },
     ...mapGetters([
-      'hotBlogList'
+      'newBlogList'
     ])
   },
 

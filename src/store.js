@@ -43,6 +43,13 @@ export default new Vuex.Store({
         }
       })
       return [...new Set(categoryList)]
+    },
+    newBlogList: state => {
+      let blogList = [...state.blogList]
+      blogList.sort((obj1, obj2) => {
+        return new Date(obj2.publishTime).getTime() - new Date(obj1.publishTime).getTime() // 逆序从大到小
+      })
+      return blogList.slice(0, 10)
     }
   },
   mutations: {
