@@ -1,6 +1,7 @@
 import axios from 'axios'
 import API from './api'
 import store from '../store'
+import { Message } from 'element-ui'
 
 axios.defaults.timeout = 60 * 1000
 axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? 'http://lishuxue.site/blog-api/' : (process.env.VUE_APP_TARGET === 'mobile' ? 'http://lishuxue.site/blog-api/' : 'http://localhost:4000/blog-api/')
@@ -28,6 +29,7 @@ axios.interceptors.response.use(response => {
     store.dispatch('saveAccessTokenAction', response.headers['new-access-token'])
     store.dispatch('saveRefreshTokenAction', response.headers['new-refresh-token'])
   }
+  response.data.successMsg && Message.success(response.data.successMsg)
   return response
 }, error => {
   return Promise.reject(error.response)

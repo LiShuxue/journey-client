@@ -107,7 +107,6 @@ export default {
       this.sentry.addBreadcrumb('views/admin/user.vue --> methods: initData')
 
       this.axios.get(API.requireAuth.userList).then(response => {
-        this.$message.success(response.data.successMsg)
         this.userList = response.data.userList
         this.totalItem = this.userList.length
         this.tableData = this.userList.slice(0, this.pageSize)
@@ -155,7 +154,6 @@ export default {
       this.axios.post(API.requireAuth.updateUser, { 
         user: hashUser 
       }).then(response => {
-        this.$message.success(response.data.successMsg)
         this.editFormVisible = false
         this.initData()
       }).catch(err => {
@@ -176,7 +174,6 @@ export default {
     deleteUserItem(ids){
       this.sentry.addBreadcrumb('views/admin/user.vue --> methods: deleteUserItem', ids)
       this.axios.post(API.requireAuth.deleteUser, { ids: ids }).then(response => {
-        this.$message.success(response.data.successMsg)
         this.initData()
       }).catch(err => {
         this.sentry.captureException(err)
@@ -221,7 +218,6 @@ export default {
         username: user.username,
         password: SHA256(user.password).toString()
       }).then(response => {
-        this.$message.success(response.data.successMsg)
         this.addFormVisible = false
         this.initData()
       }).catch(err => {

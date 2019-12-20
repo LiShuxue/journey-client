@@ -90,7 +90,6 @@ export default {
     initData() {
       this.sentry.addBreadcrumb('views/admin/manage-blog.vue --> methods: initData')
       this.axios.get(API.notRequireAuth.blogList).then(response => {
-        this.$message.success(response.data.successMsg)
         this.blogList = response.data.blogList
         this.$store.commit('saveBlogListMutation', this.blogList)
         this.totalItem = this.blogList.length
@@ -137,7 +136,6 @@ export default {
     deleteBlogItem(ids){
       this.sentry.addBreadcrumb('views/admin/manage-blog.vue --> methods: deleteBlogItem')
       this.axios.post(API.requireAuth.deleteBlog, { ids }).then(response => {
-        this.$message.success(response.data.successMsg)
         this.initData()
       }).catch(err => {
         this.sentry.captureException(err)

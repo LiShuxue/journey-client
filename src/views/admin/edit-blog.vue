@@ -174,8 +174,7 @@ export default {
       try {
         let filename = this.image.name
         await this.$confirm(`确定移除 ${filename}？`).catch(() => {})
-        let response = await this.axios.post(API.requireAuth.removeImage, { filename })
-        this.$message.success(response.data.successMsg)
+        await this.axios.post(API.requireAuth.removeImage, { filename })
         this.image = {}
         this.uploadImageList.pop()
         return Promise.resolve()
@@ -236,8 +235,6 @@ export default {
           category: this.category,
           tags: this.tags
         }
-      }).then(response => {
-        this.$message.success(response.data.successMsg)
       }).catch(err => {
         this.sentry.captureException(err)
         err && this.$message.error(err.data.errMsg || err.data)
@@ -257,8 +254,6 @@ export default {
           category: this.category,
           tags: this.tags
         }
-      }).then(response => {
-        this.$message.success(response.data.successMsg)
       }).catch(err => {
         this.sentry.captureException(err)
         err && this.$message.error(err.data.errMsg || err.data)

@@ -37,7 +37,6 @@ export default {
         password: SHA256(this.password).toString()
       }).then(response => {
         this.loading = false
-        this.$message.success(response.data.successMsg)
         if (response.data.access_token && response.data.refresh_token && response.data.username) {
           this.$store.dispatch('saveAccessTokenAction', response.data.access_token)
           this.$store.dispatch('saveRefreshTokenAction', response.data.refresh_token)
