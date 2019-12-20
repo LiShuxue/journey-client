@@ -1,5 +1,5 @@
 <template>
-  <div class="tag-wrapper" ref="tagWrapper">
+  <div v-bind:class="['tag-wrapper', {'sticky-top': stickyTop}]" ref="tagWrapper">
     <p class="title">
       <span class="iconfont icon-tag"></span>
       <span>标签</span>
@@ -14,11 +14,11 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import $ from 'jquery'
 export default {
   data() {
     return {
-      offsetTop: 0
+      offsetTop: 0,
+      stickyTop: false
     }
   },
   computed: {
@@ -30,18 +30,11 @@ export default {
     setTimeout(() => {
       // 设置元素渲染之后的距离文档顶端的距离
       this.offsetTop = this.$refs.tagWrapper.offsetTop;
+      // 设置滚动事件
+      window.addEventListener('scroll', this.handleScroll)
     }, 1000);
-
-    window.onscroll = () => {
-      // $(window).scrollTop() // html卷入浏览器的距离
-      // this.offsetTop // 元素距离文档顶端的距离
-      if($(window).scrollTop() >= (this.offsetTop - 70)){
-        !$('.tag-wrapper').hasClass('sticky-top') && $('.tag-wrapper').addClass('sticky-top')
-      }else{
-        $('.tag-wrapper').hasClass('sticky-top') && $('.tag-wrapper').removeClass('sticky-top')
-      }
-    }
   },
+
   methods: {
     clickTag (tag) {
       let blogList = [...this.$store.state.blogList]
@@ -53,6 +46,15 @@ export default {
         this.$router.push('/bloglist')
       } else {
         window.scrollTo(0, 0)
+      }
+    },
+
+    handleScroll() {
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      if (scrollTop >= this.offsetTop - 70) {
+        this.stickyTop = true
+      } else {
+        this.stickyTop = false
       }
     }
   }
@@ -91,6 +93,8 @@ export default {
   display: flex;
   flex-wrap: wrap;
   margin-top: 10px;
+  max-height: 400px;
+  overflow: scroll;
 }
 .tag-item{
   background: $shen-hui;
