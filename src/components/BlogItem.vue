@@ -74,8 +74,7 @@ export default {
           this.blog.like--;
         }
       }).catch(err => {
-        this.sentry.captureException(err)
-        err && this.$message.error(err.data.errMsg || err.data)
+        this.handleError(err)
       })
     },
     clickCategory () {

@@ -98,8 +98,7 @@ export default {
         this.selectRows = []
         this.pageIndex = 1
       }).catch(err => {
-        this.sentry.captureException(err)
-        err && this.$message.error(err.data.errMsg || err.data)
+        this.handleError(err)
       })
     },
 
@@ -138,8 +137,7 @@ export default {
       this.axios.post(API.requireAuth.deleteBlog, { ids }).then(response => {
         this.initData()
       }).catch(err => {
-        this.sentry.captureException(err)
-        err && this.$message.error(err.data.errMsg || err.data || err.message)
+        this.handleError(err)
       })
     },
 

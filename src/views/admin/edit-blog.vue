@@ -163,8 +163,7 @@ export default {
           return Promise.reject(new Error('请先选择类别'))
         }
       } catch (err) {
-        this.sentry.captureException(err)
-        err && this.$message.error(err.data.errMsg || err.data || err)
+        this.handleError(err)
         return Promise.reject(err)
       }
     },
@@ -179,8 +178,7 @@ export default {
         this.uploadImageList.pop()
         return Promise.resolve()
       } catch (err) {
-        this.sentry.captureException(err)
-        err && err.data && this.$message.error(err.data.errMsg || err.data)
+        this.handleError(err)
         return Promise.reject(err)
       }
     },
@@ -236,8 +234,7 @@ export default {
           tags: this.tags
         }
       }).catch(err => {
-        this.sentry.captureException(err)
-        err && this.$message.error(err.data.errMsg || err.data)
+        this.handleError(err)
       })
     },
     editBlog () {
@@ -255,8 +252,7 @@ export default {
           tags: this.tags
         }
       }).catch(err => {
-        this.sentry.captureException(err)
-        err && this.$message.error(err.data.errMsg || err.data)
+        this.handleError(err)
       })
     }
   }

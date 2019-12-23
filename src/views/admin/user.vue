@@ -113,8 +113,7 @@ export default {
         this.selectRows = []
         this.pageIndex = 1
       }).catch(err => {
-        this.sentry.captureException(err)
-        err && this.$message.error(err.data.errMsg || err.data)
+        this.handleError(err)
       })
     },
 
@@ -157,8 +156,7 @@ export default {
         this.editFormVisible = false
         this.initData()
       }).catch(err => {
-        this.sentry.captureException(err)
-        err && this.$message.error(err.data.errMsg || err.data)
+        this.handleError(err)
       })
     },
 
@@ -176,8 +174,7 @@ export default {
       this.axios.post(API.requireAuth.deleteUser, { ids: ids }).then(response => {
         this.initData()
       }).catch(err => {
-        this.sentry.captureException(err)
-        err && this.$message.error(err.data.errMsg || err.data)
+        this.handleError(err)
       })
     },
     clickDeleteAll() {
@@ -221,8 +218,7 @@ export default {
         this.addFormVisible = false
         this.initData()
       }).catch(err => {
-        this.sentry.captureException(err)
-        err && this.$message.error(err.data.errMsg || err.data)
+        this.handleError(err)
       })
     },
 

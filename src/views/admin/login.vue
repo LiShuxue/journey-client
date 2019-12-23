@@ -51,10 +51,8 @@ export default {
           this.$router.push('/admin')
         }
       }).catch(err => {
-        this.sentry.captureException(err)
-
         this.loading = false
-        err && this.$message.error(err.data.errMsg || err.data)
+        this.handleError(err)
       })
     }
   }

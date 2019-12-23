@@ -4,7 +4,7 @@ import { isMobile } from './utils/device'
 import axios from '@/ajax/config'
 import API from '@/ajax/api.js'
 import sentry from '@/utils/sentry'
-import { Message } from 'element-ui'
+import handleError from '@/utils/handleError'
 
 Vue.use(Vuex)
 
@@ -96,8 +96,7 @@ export default new Vuex.Store({
           commit('chooseBlog', blog)
           resolve(blog)
         }).catch(err => {
-          sentry.captureException(err)
-          err && Message.error(err.data.errMsg || err.data)
+          handleError(err)
           reject(err)
         })
       });
