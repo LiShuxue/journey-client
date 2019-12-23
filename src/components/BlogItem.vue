@@ -9,7 +9,7 @@
       <div class="title">{{blog.title}}</div>
       <div class="sub-title">{{blog.subTitle}}</div>
       <div class="tool">
-        <span class="iconfont icon-clock"></span><span class="content">{{blog.publishTime.substring(0, 10)}}</span>
+        <div class="time-zone"><span class="iconfont icon-clock"></span><span class="content">{{blog.publishTime.substring(0, 10)}}</span></div>
         <span class="iconfont icon-eye"></span><span class="content">{{blog.see}}</span>
         <div @click.stop="clickComments" style="display: inline"><span class="iconfont icon-comment"></span><span class="content">{{blog.comments.length}}</span></div>
         <div @click.stop="clickLike" style="display: inline" v-bind:class="[{'liked': isLiked}]"><span class="iconfont icon-like"></span><span class="content">{{blog.like}}</span></div>
@@ -154,6 +154,10 @@ export default {
     position: absolute;
     bottom: 10px;
 
+    .time-zone{
+      display: inline;
+    }
+
     span{
       display: inline-block;
       margin-right: 5px;
@@ -167,6 +171,12 @@ export default {
     .liked {
       color: #2192F5;
     }
+  }
+}
+
+.is-mobile .blog-list .blog-item{
+  .time-zone{
+    display: none;
   }
 }
 </style>
