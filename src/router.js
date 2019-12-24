@@ -4,7 +4,7 @@ import store from './store'
 
 Vue.use(Router)
 
-// 页面刷新时，重新赋值token 和 username
+// 页面刷新时，重新赋值
 if (window.sessionStorage) {
   if (window.sessionStorage.getItem('access_token')) {
     store.commit('saveAccessTokenMutation', window.sessionStorage.getItem('access_token'))
@@ -14,6 +14,15 @@ if (window.sessionStorage) {
   }
   if (window.sessionStorage.getItem('username')) {
     store.commit('saveUsernameMutation', window.sessionStorage.getItem('username'))
+  }
+  if (window.sessionStorage.getItem('saveBlogListMutation')) {
+    store.commit('saveBlogListMutation', JSON.parse(window.sessionStorage.getItem('saveBlogListMutation')))
+  }
+  if (window.sessionStorage.getItem('chooseBlog')) {
+    store.commit('chooseBlog', JSON.parse(window.sessionStorage.getItem('chooseBlog')))
+  }
+  if (window.sessionStorage.getItem('saveFilterBlogList')) {
+    store.commit('saveFilterBlogList', JSON.parse(window.sessionStorage.getItem('saveFilterBlogList')))
   }
 }
 

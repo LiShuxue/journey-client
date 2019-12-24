@@ -63,12 +63,15 @@ export default new Vuex.Store({
       state.username = username
     },
     saveBlogListMutation (state, blogList) {
+      sessionStorage.setItem('saveBlogListMutation', JSON.stringify(blogList))
       state.blogList = blogList
     },
     chooseBlog (state, blog) {
+      sessionStorage.setItem('chooseBlog', JSON.stringify(blog))
       state.chooseBlog = blog
     },
     saveFilterBlogList (state, blogList) {
+      sessionStorage.setItem('saveFilterBlogList', JSON.stringify(blogList))
       state.filterBlogList = blogList
     },
     openOrCloseMenuMutation (state, isMenuOpen) {
