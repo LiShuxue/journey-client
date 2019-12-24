@@ -81,7 +81,7 @@ export default {
   .blog-img {
     position: relative; /*容器所有子元素需要绝对定位*/
     height: 0; /*容器高度是由padding来控制*/
-    padding-top: 35.7%; /* 250 / 700 = 0.357 */
+    padding-top: 37.5%; /* 300 / 800 = 0.375 */
     margin-bottom: 15px;
     border: 5px solid $shen-hui;
     border-radius: 5px;
