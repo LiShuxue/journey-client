@@ -178,5 +178,8 @@ export default {
   .time-zone{
     display: none;
   }
+  .content{
+    margin-right: 17px;
+  }
 }
 </style>

@@ -49,7 +49,6 @@ export default {
     margin: 25px 0 30px 0;
     display: flex;
     justify-content: center;
-    font-size: $super-large-size;
   }
 
   .blog-content{ 
@@ -69,6 +68,12 @@ export default {
           font-size: 12px;
         }
       }
+    }
+
+    .markdown-body {
+      box-sizing: border-box;
+      margin: 0 auto;
+      padding: 20px 10px 0 10px;
     }
   }
   
@@ -94,5 +99,12 @@ export default {
       transition: all .25s;
     }
   }
+}
+
+.is-mobile .blog .markdown-body{
+  padding: 15px 5px 0 5px
+}
+.is-mobile .blog {
+  padding: 0 10px 20px 10px
 }
 </style>

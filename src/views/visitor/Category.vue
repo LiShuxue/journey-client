@@ -39,12 +39,12 @@ export default {
 .category{
   position: fixed;
   overflow: scroll;
-  width: 700px;
+  width: $center-width;
   /*总高度 - 内容padding-top - more button margin-top - more button height - more button margin-bottom - footer height*/
   height: calc(100vh - 70px - 10px - 36px - 15px - 60px);
   box-sizing: border-box;
   border-radius: 10px;
-  padding: 20px 20px 20px 20px;
+  padding: 20px;
   background: $hui-bai;
   color: $hui-hei;
 
@@ -75,5 +75,6 @@ export default {
   position: relative;
   width: auto;
   height: auto;
+  padding: 10px 10px 10px 15px;
 }
 </style>

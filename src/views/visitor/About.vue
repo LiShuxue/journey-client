@@ -42,14 +42,14 @@ export default {
 <style lang="scss">
 .about{
   display: flex;
-  width: 950px;
+  width: 1050px;
   height: calc(100vh - 70px - 10px - 36px - 15px - 60px);
   box-sizing: border-box;
   border-radius: 10px;
   color: $hui-hei;
 
   .intro{
-    width: 640px;
+    width: 740px;
     box-sizing: border-box;
     margin-right: 10px;
     background: $hui-bai;
@@ -98,7 +98,7 @@ export default {
         cursor: pointer;
       }
       .title-2{
-        font-size: $small-size;
+        font-size: $super-small-size;
       }
     }
   }
