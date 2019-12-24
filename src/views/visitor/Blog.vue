@@ -54,6 +54,7 @@ export default {
 
   .blog-content{ 
     @import "../../assets/style/markdown"; 
+    @import "../../assets/style/highlight"; 
     
     .html-body {
       pre {
