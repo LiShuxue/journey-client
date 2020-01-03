@@ -50,7 +50,7 @@ const router = new Router({
       children: [
         { path: 'home', component: () => import('./views/admin/home.vue') },
         { path: 'user', component: () => import('./views/admin/user.vue') },
-        { path: 'manage-blog', component: () => import('./views/admin/manage-blog.vue') },
+        { name: 'manage-blog', path: 'manage-blog', component: () => import('./views/admin/manage-blog.vue') },
         { path: 'view-blog', component: () => import('./views/visitor/Blog.vue') },
         { name: 'edit-blog', path: 'edit-blog', component: () => import('./views/admin/edit-blog.vue') }
       ]
