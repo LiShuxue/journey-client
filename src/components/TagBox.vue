@@ -1,5 +1,5 @@
 <template>
-  <div v-bind:class="['tag-wrapper', {'sticky-top': stickyTop}]" ref="tagWrapper">
+  <div class="tag-wrapper">
     <p class="title">
       <span class="iconfont icon-tag"></span>
       <span>标签</span>
@@ -15,26 +15,11 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  data() {
-    return {
-      offsetTop: 0,
-      stickyTop: false
-    }
-  },
   computed: {
     ...mapGetters([
       'tagList'
     ])
   },
-  mounted() {
-    setTimeout(() => {
-      // 设置元素渲染之后的距离文档顶端的距离
-      this.offsetTop = this.$refs.tagWrapper.offsetTop;
-      // 设置滚动事件
-      window.addEventListener('scroll', this.handleScroll)
-    }, 1000);
-  },
-
   methods: {
     clickTag (tag) {
       let blogList = [...this.$store.state.blogList]
@@ -47,34 +32,17 @@ export default {
       } else {
         window.scrollTo(0, 0)
       }
-    },
-
-    handleScroll() {
-      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-      if (scrollTop >= this.offsetTop - 70) {
-        this.stickyTop = true
-      } else {
-        this.stickyTop = false
-      }
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.sticky-top{
-  position: fixed;
-  /* position: sticky; 未来可以用这个属性值*/
-  top: 70px;
-  margin-top: 0 !important;
-  width: $right-width;
-  box-sizing: border-box;
-}
 .tag-wrapper{
   display: flex;
   flex-direction: column;
   margin-top: 15px;
-  padding: 10px 10px 0 10px;
+  padding: 10px;
   background: $hui-bai;
   border-radius: 5%;
   color: $hui-hei;

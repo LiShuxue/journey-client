@@ -20,10 +20,10 @@
       <aside v-if="this.$route.name !== 'about'" class="right">
         <search-box></search-box>
         <keep-alive>
-          <recommend-box></recommend-box>
+          <tag-box></tag-box>
         </keep-alive>
         <keep-alive>
-          <tag-box></tag-box>
+          <recommend-box></recommend-box>
         </keep-alive>
       </aside>
     </div>
