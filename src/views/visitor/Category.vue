@@ -1,7 +1,7 @@
 <template>
   <div class="category">
     <h3>知识，要靠一点一滴的积累</h3>
-    <div>
+    <div :class="{ 'category-list': !this.$store.state.isMobile }">
       <p v-for="(category, index) in categoryList" :key="index" @click="clickCategory(category)">
         <span class="icon iconfont icon-category"></span>
         <span>{{category}}</span>
@@ -68,6 +68,12 @@ export default {
     :nth-child(2){
       margin-right: 5px;
     }
+  }
+  .category-list{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 300px;
   }
 }
 
