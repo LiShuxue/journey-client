@@ -45,10 +45,9 @@ const router = new Router({
     {
       path: '/admin',
       component: () => import('./views/admin/Admin.vue'),
-      redirect: '/admin/home',
+      redirect: '/admin/edit-blog',
       meta: { requireAuth: true }, // 添加requireAuth，表示进入这个路由是需要登录的，在父路由添加，则下面的子路由都需要验证
       children: [
-        { path: 'home', component: () => import('./views/admin/home.vue') },
         { path: 'user', component: () => import('./views/admin/user.vue') },
         { name: 'manage-blog', path: 'manage-blog', component: () => import('./views/admin/manage-blog.vue') },
         { path: 'view-blog', component: () => import('./views/visitor/Blog.vue') },

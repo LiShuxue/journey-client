@@ -7,10 +7,6 @@
       background-color="#545c64"
       text-color="#fff"
       active-text-color="#409EFF">
-      <el-menu-item index="home">
-        <i class="el-icon-menu"></i>
-        <span class="nav-item-title" slot="title">导航一</span>
-      </el-menu-item>
       <el-menu-item index="edit-blog">
         <i class="el-icon-menu"></i>
         <span class="nav-item-title" slot="title">写博客</span>
