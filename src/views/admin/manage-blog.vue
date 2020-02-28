@@ -1,7 +1,7 @@
 <template>
   <div class="blog">
     <!-- 工具条 -->
-    <el-form :inline="true" :model="filterForm">
+    <el-form :inline="true" :model="filterForm" @submit.native.prevent>
       <el-form-item>
         <el-input v-model="filterForm.keywords" @keyup.enter.native="queryBlog" placeholder="请输入关键字"></el-input>
       </el-form-item>
