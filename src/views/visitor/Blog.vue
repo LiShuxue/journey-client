@@ -201,11 +201,11 @@ export default {
         }
       })
 
-      if (this.preBlog === null && currentIndex - 1 >= 0) {
-        this.preBlog = searchList[currentIndex - 1]
+      if (this.nextBlog === null && currentIndex - 1 >= 0) {
+        this.nextBlog = searchList[currentIndex - 1]
       }
-      if (this.nextBlog === null && currentIndex + 1 < searchList.length) {
-        this.nextBlog = searchList[currentIndex + 1]
+      if (this.preBlog === null && currentIndex + 1 < searchList.length) {
+        this.preBlog = searchList[currentIndex + 1]
       }
     },
     getBlogFromAll() {
@@ -217,11 +217,11 @@ export default {
         }
       })
 
-      if (this.preBlog === null && currentIndex - 1 >= 0) {
-        this.preBlog = searchList[currentIndex - 1]
+      if (this.nextBlog === null && currentIndex - 1 >= 0) {
+        this.nextBlog = searchList[currentIndex - 1]
       }
-      if (this.nextBlog === null && currentIndex + 1 < searchList.length) {
-        this.nextBlog = searchList[currentIndex + 1]
+      if (this.preBlog === null && currentIndex + 1 < searchList.length) {
+        this.preBlog = searchList[currentIndex + 1]
       }
     },
 
