@@ -2,12 +2,13 @@
   <footer class="footer">
     <div class="ft"></div>
     <div v-if="this.$store.state.isMobile" class="content">
-      <span class="other">永不止步</span>
+      <span class="name">进阶之路</span>
+      <span class="power">Powered by Vue</span>
     </div>
     <div v-else class="content">
-      <span class="copyright">Copyright © 2018 LSX</span>
+      <span class="name">进阶之路</span>
       <span class="power">Powered by Vue</span>
-      <span class="other">永不止步</span>
+      <a  class="beian" href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备19022227号-1</a>
     </div>
     <div class="fr"></div>
   </footer>
@@ -45,7 +46,7 @@
   align-items: center;
   box-sizing: border-box;
 }
-.copyright{
+.name{
   border-right: 1px dashed $shen-hui;
   padding: 0 20px
 }
@@ -53,7 +54,7 @@
   border-right: 1px dashed $shen-hui;
   padding: 0 20px
 }
-.other{
+.beian{
   padding: 0 20px
 }
 
@@ -61,8 +62,11 @@
   .ft, .fr{
     display: none;
   }
-  .copyright, .power, .other{
+  .name, .power{
     padding: 0 10px;
+  }
+  .power {
+    border: none;
   }
 }
 .is-mobile .menu-open .footer{
