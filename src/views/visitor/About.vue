@@ -9,7 +9,7 @@
       </div>
       <div class="contact-me">
         <h2>联系我</h2>
-        <p>Blog： <a href="http://lishuxue.site" target="_blank">http://lishuxue.site</a></p>
+        <p>Blog： <a href="https://lishuxue.site" target="_blank">https://lishuxue.site</a></p>
         <p>Github： <a href="https://github.com/LiShuxue" target="_blank">https://github.com/LiShuxue</a></p>
         <p>Email： <a href="#">1149926505@qq.com</a></p>
       </div>
