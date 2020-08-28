@@ -27,18 +27,18 @@ if (window.sessionStorage) {
 }
 
 const router = new Router({
-  mode: 'hash',
+  mode: 'history',
   routes: [
     {
       path: '/',
       component: () => import('./views/visitor/Main.vue'),
       redirect: '/home',
       children: [
-        { path: 'home', name: 'home', component: () => import('./views/visitor/Home.vue'), meta: { keepAlive: true } },
-        { path: 'category', name: 'category', component: () => import('./views/visitor/Category.vue') },
-        { path: 'about', name: 'about', component: () => import('./views/visitor/About.vue') },
-        { path: 'blog', name: 'blog', component: () => import('./views/visitor/Blog.vue') },
-        { path: 'bloglist', name: 'bloglist', component: () => import('./views/visitor/BlogList.vue') }
+        { path: '/home', name: 'home', component: () => import('./views/visitor/Home.vue'), meta: { keepAlive: true } },
+        { path: '/category', name: 'category', component: () => import('./views/visitor/Category.vue') },
+        { path: '/about', name: 'about', component: () => import('./views/visitor/About.vue') },
+        { path: '/blog', name: 'blog', component: () => import('./views/visitor/Blog.vue') },
+        { path: '/bloglist', name: 'bloglist', component: () => import('./views/visitor/BlogList.vue') }
       ]
     },
     { path: '/login', component: () => import('./views/admin/login.vue') },
@@ -48,10 +48,10 @@ const router = new Router({
       redirect: '/admin/edit-blog',
       meta: { requireAuth: true }, // 添加requireAuth，表示进入这个路由是需要登录的，在父路由添加，则下面的子路由都需要验证
       children: [
-        { path: 'user', component: () => import('./views/admin/user.vue') },
-        { name: 'manage-blog', path: 'manage-blog', component: () => import('./views/admin/manage-blog.vue') },
-        { path: 'view-blog', component: () => import('./views/visitor/Blog.vue') },
-        { name: 'edit-blog', path: 'edit-blog', component: () => import('./views/admin/edit-blog.vue') }
+        { path: '/admin/user', name: 'user', component: () => import('./views/admin/user.vue') },
+        { path: '/admin/manage-blog', name: 'manage-blog', component: () => import('./views/admin/manage-blog.vue') },
+        { path: '/admin/view-blog', name: 'view-blog', component: () => import('./views/visitor/Blog.vue') },
+        { path: '/admin/edit-blog', name: 'edit-blog', component: () => import('./views/admin/edit-blog.vue') }
       ]
     }
   ]

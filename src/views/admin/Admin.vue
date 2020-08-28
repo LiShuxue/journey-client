@@ -32,8 +32,10 @@
 <script>
 export default {
   methods: {
-    handleSelect (key, keyPath) {
-      this.$router.push(key)
+    handleSelect(key, keyPath) {
+      if (this.$route.name !== key) {
+        this.$router.push({ name: key });
+      }
     }
   }
 }

@@ -5,7 +5,9 @@ const CompressionPlugin = require('compression-webpack-plugin');
 process.env.SENTRY_RELEASE_VERSION = gitSha
 
 module.exports = {
-  publicPath: './',
+  // publicPath: './',
+  // 之前使用 “./” 为了支持cordova打包后可以运行。 现在router用history模式， 导致二级路由报错。所以暂时修改为 “/”
+  publicPath: '/', 
   // 关闭production 的sourcemap
   // productionSourceMap: false,
   css: {
