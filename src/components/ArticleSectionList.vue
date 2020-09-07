@@ -6,20 +6,25 @@
     </p>
     <div class="title-list">
       <ul>
-        <li v-for="(item, index) in titleList" :key="index" :class="'title_' + item.domName">
-          <a :href="'#' + item.id">{{item.text}}</a>
+        <li v-for="(item, index) in titleList" :key="index" :class="'title_' + item.domName" @click.stop="handlePosition(item.id)">
+          {{item.text}}
           <ul>
-            <li v-for="(item2, index) in item.children" :key="index" :class="'title_' + item2.domName">
-              <a :href="'#' + item2.id">{{item2.text}}</a>
+            <li v-for="(item2, index) in item.children" :key="index" :class="'title_' + item2.domName" @click.stop="handlePosition(item2.id)">
+              {{item2.text}}
               <ul>
-                <li v-for="(item3, index) in item2.children" :key="index" :class="'title_' + item3.domName">
-                  <a :href="'#' + item3.id">{{item3.text}}</a>
+                <li v-for="(item3, index) in item2.children" :key="index" :class="'title_' + item3.domName" @click.stop="handlePosition(item3.id)">
+                  {{item3.text}}
                   <ul>
-                    <li v-for="(item4, index) in item3.children" :key="index" :class="'title_' + item4.domName">
-                      <a :href="'#' + item4.id">{{item4.text}}</a>
+                    <li v-for="(item4, index) in item3.children" :key="index" :class="'title_' + item4.domName" @click.stop="handlePosition(item4.id)">
+                      {{item4.text}}
                       <ul>
-                        <li v-for="(item5, index) in item4.children" :key="index" :class="'title_' + item5.domName">
-                          <a :href="'#' + item5.id">{{item5.text}}</a>
+                        <li v-for="(item5, index) in item4.children" :key="index" :class="'title_' + item5.domName" @click.stop="handlePosition(item5.id)">
+                          {{item5.text}}
+                          <ul>
+                            <li v-for="(item6, index) in item5.children" :key="index" :class="'title_' + item6.domName" @click.stop="handlePosition(item6.id)">
+                              {{item6.text}}
+                            </li>
+                          </ul>
                         </li>
                       </ul>
                     </li>
@@ -150,6 +155,14 @@ export default {
           this.createChildren(newParentList, nodeList)
         })
       }
+    },
+
+    handlePosition(target) {
+      window.scroll({
+        top: $(`#${target}`).offset().top - 80,
+        left: 0,
+        behavior: 'smooth'
+      });
     }
   }
 }
@@ -188,9 +201,9 @@ export default {
 
 ul {
   padding-left: 20px;
-}
-a {
-  text-decoration: none;
-  color: #2192F5;
+  li {
+    color: #2192F5;
+    cursor: pointer;
+  }
 }
 </style>
