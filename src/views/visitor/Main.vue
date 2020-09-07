@@ -84,6 +84,7 @@ export default {
 }
 .wrapper{
   opacity: 0.9;
+  overflow: hidden;
 }
 .content{
   display: flex;
