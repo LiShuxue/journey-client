@@ -111,7 +111,11 @@ export default {
 
   methods: {
     backToTop() {
-      window.scrollTo(0, 0)
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      })
     },
     editBlog() {
       this.$store.dispatch('chooseBlogAction', this.blog).then(() => {
@@ -227,12 +231,12 @@ export default {
 
     clickPreBlog() {
       this.$store.dispatch('chooseBlogAction', this.preBlog).then(() => {
-        this.backToTop()
+        window.scrollTo(0, 0)
       })
     },
     clickNextBlog() {
       this.$store.dispatch('chooseBlogAction', this.nextBlog).then(() => {
-        this.backToTop()
+        window.scrollTo(0, 0)
       })
     }
   }
