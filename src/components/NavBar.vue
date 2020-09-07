@@ -39,7 +39,7 @@ export default{
   position: fixed;
   top: 70px;
   width: $left-width;
-  height: calc(100% - 70px - 75px - 45px);
+  height: calc(100vh - 70px - 75px - 45px);
   color: $hui-hei;
   background: $hui-bai;
   border-radius: 10px;

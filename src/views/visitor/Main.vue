@@ -19,12 +19,17 @@
       </div>
       <aside v-if="this.$route.name !== 'about'" class="right">
         <search-box></search-box>
-        <keep-alive>
-          <tag-box></tag-box>
-        </keep-alive>
-        <keep-alive>
-          <recommend-box></recommend-box>
-        </keep-alive>
+        <template v-if="this.$route.name === 'blog'">
+          <article-section-list></article-section-list>
+        </template>
+        <template v-else>
+          <keep-alive>
+            <tag-box></tag-box>
+          </keep-alive>
+          <keep-alive>
+            <recommend-box></recommend-box>
+          </keep-alive>
+        </template>
       </aside>
     </div>
 
@@ -39,6 +44,7 @@ import SearchBox from '@/components/search.vue'
 import TagBox from '@/components/TagBox.vue'
 import RecommendBox from '@/components/recommend.vue'
 import MainFooter from '@/components/footer.vue'
+import ArticleSectionList from '@/components/ArticleSectionList'
 
 export default {
   components: {
@@ -47,7 +53,8 @@ export default {
     SearchBox,
     TagBox,
     RecommendBox,
-    MainFooter
+    MainFooter,
+    ArticleSectionList
   },
 
   methods: {
