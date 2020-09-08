@@ -55,18 +55,14 @@ export default {
       'chooseBlog'
     ])
   },
+  watch: {
+    chooseBlog() {
+      this.setTitleList()
+    }
+  },
+
   created() {
-    const tempDocument = $(`<div>${this.chooseBlog.htmlContent}</div>`);
-    let nodeList = []
-    nodeList = [
-      ...this.generateDomList(tempDocument, 'h1', undefined, 'h2'),
-      ...this.generateDomList(tempDocument, 'h2', 'h1', 'h3'),
-      ...this.generateDomList(tempDocument, 'h3', 'h2', 'h4'),
-      ...this.generateDomList(tempDocument, 'h4', 'h3', 'h5'),
-      ...this.generateDomList(tempDocument, 'h5', 'h4', 'h6'),
-      ...this.generateDomList(tempDocument, 'h6', 'h5', undefined)
-    ]
-    this.titleList = this.generateTitleList(nodeList)
+    this.setTitleList()
   },
 
   mounted() {
@@ -78,6 +74,20 @@ export default {
     }, 1000);
   },
   methods: {
+    setTitleList() {
+      const tempDocument = $(`<div>${this.chooseBlog.htmlContent}</div>`);
+      let nodeList = []
+      nodeList = [
+        ...this.generateDomList(tempDocument, 'h1', undefined, 'h2'),
+        ...this.generateDomList(tempDocument, 'h2', 'h1', 'h3'),
+        ...this.generateDomList(tempDocument, 'h3', 'h2', 'h4'),
+        ...this.generateDomList(tempDocument, 'h4', 'h3', 'h5'),
+        ...this.generateDomList(tempDocument, 'h5', 'h4', 'h6'),
+        ...this.generateDomList(tempDocument, 'h6', 'h5', undefined)
+      ]
+      this.titleList = this.generateTitleList(nodeList)
+    },
+
     handleScroll() {
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
       if (scrollTop >= this.offsetTop - 70) {
