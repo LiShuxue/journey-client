@@ -38,7 +38,7 @@ export default {
     showBlogDetail (blog) {
       this.$store.dispatch('chooseBlogAction', blog).then(() => {
         if (this.$route.name !== 'blog') {
-          this.$router.push('/blog')
+          this.$router.push(`/blog/${blog._id}`)
         }
       })
     },

@@ -1,6 +1,6 @@
 <template>
   <div class="blog">
-    <div class="blog-wrapper">
+    <div class="blog-wrapper" v-if="Object.keys(blog).length > 0">
       <div v-if="blog.isOriginal" class="blog-mark">原创</div>
       <div v-else class="blog-mark">转载</div>
       <h1 class="blog-title">{{blog.title}}</h1>
@@ -28,7 +28,7 @@
       </el-form>
     </div>
 
-    <div class="tool-wrapper" v-if="!isAdmin">
+    <div class="tool-wrapper" v-if="!isAdmin && Object.keys(blog).length > 0">
       <div @click.stop="backToTop" class="iconfont icon-top back-to-top"></div>
       
       <div class="time-info">
@@ -93,23 +93,35 @@ export default {
 
   watch: {
     blog () {
-      this.isLiked = false
-      if (Object.keys(localStorage).includes(this.blog._id) && localStorage.getItem(this.blog._id) === 'true') {
-        this.isLiked = true
-      }
+      this.setLike()
       this.getLastNextBlog()
     }
   },
 
-  created() {
-    this.isLiked = false
-    if (Object.keys(localStorage).includes(this.blog._id) && localStorage.getItem(this.blog._id) === 'true') {
-      this.isLiked = true;
+  async created() {
+    if (!this.blogList || this.blogList.length <= 0) {
+      const response = await this.axios.get(API.notRequireAuth.blogList)
+      const blogList = response.data.blogList
+      this.$store.commit('saveBlogListMutation', blogList)
     }
+    if (!this.blogList || !this.blog._id) {
+      const response = await this.axios.get(`${API.notRequireAuth.blogDetail}?id=${this.$route.params.id}`)
+      const blog = response.data.blog
+      this.$store.commit('chooseBlog', blog)
+    }
+    
+    this.setLike()
     this.getLastNextBlog()
   },
 
   methods: {
+    setLike() {
+      this.isLiked = false
+      if (Object.keys(localStorage).includes(this.blog._id) && localStorage.getItem(this.blog._id) === 'true') {
+        this.isLiked = true
+      }
+    },
+
     backToTop() {
       window.scroll({
         top: 0,
