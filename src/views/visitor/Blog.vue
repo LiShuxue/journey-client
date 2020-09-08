@@ -243,12 +243,20 @@ export default {
 
     clickPreBlog() {
       this.$store.dispatch('chooseBlogAction', this.preBlog).then(() => {
-        window.scrollTo(0, 0)
+        if (this.isAdmin) {
+          window.scrollTo(0, 0)
+        } else {
+          this.$router.push(`/blog/${this.preBlog._id}`)
+        }
       })
     },
     clickNextBlog() {
       this.$store.dispatch('chooseBlogAction', this.nextBlog).then(() => {
-        window.scrollTo(0, 0)
+        if (this.isAdmin) {
+          window.scrollTo(0, 0)
+        } else {
+          this.$router.push(`/blog/${this.nextBlog._id}`)
+        } 
       })
     }
   }
