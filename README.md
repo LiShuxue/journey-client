@@ -1,6 +1,6 @@
 # Journey-client
 
-This blog can be visited at <a href="http://lishuxue.site" target="_blank">http://lishuxue.site</a>
+This blog can be visited at <a href="https://lishuxue.site" target="_blank">https://lishuxue.site</a>
 
 ## Project setup
 ```
