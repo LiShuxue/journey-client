@@ -64,4 +64,7 @@ input, button{
   cursor: pointer;
   padding-top: 4px;
 }
+.is-mobile .search{
+  display: none;
+}
 </style>

@@ -1,7 +1,7 @@
 <template>
-  <div class="wrapper" v-bind:class="{'menu-open': this.$store.state.isMenuOpen}">
+  <div class="wrapper" v-bind:class="{'menu-open': this.$store.state.isMenuOpen, 'directory-open': this.$store.state.isDirectoryOpen}">
     <!-- <div v-if="!this.$store.state.isMobile" class="global-background"></div> -->
-    <main-header @clickMenu="clickMenu"></main-header>
+    <main-header @clickMenu="clickMenu" @clickDirectory="clickDirectory"></main-header>
 
     <div class="content">
       <div class="left">
@@ -63,6 +63,14 @@ export default {
         this.$store.commit('openOrCloseMenuMutation', false);
       }else{
         this.$store.commit('openOrCloseMenuMutation', true);
+      }
+    },
+
+    clickDirectory(){
+      if(this.$store.state.isDirectoryOpen){
+        this.$store.commit('openOrCloseDirectoryMutation', false);
+      }else{
+        this.$store.commit('openOrCloseDirectoryMutation', true);
       }
     }
   }
@@ -142,7 +150,10 @@ export default {
     width: 0;
   }
   .right{
-    display: none;
+    position: fixed;
+    top: 70px;
+    right: -$right-width;
+    transition: right 0.5s;
   }
   .center{
     width: 100vw;
@@ -152,5 +163,11 @@ export default {
 }
 .is-mobile .menu-open .center{
   left: $left-width;
+}
+.is-mobile .directory-open .center{
+  left: -$right-width;
+}
+.is-mobile .directory-open .right{
+  right: 0;
 }
 </style>

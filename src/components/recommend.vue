@@ -99,4 +99,8 @@ export default {
   cursor: pointer;
   font-size: $mediu-size;
 }
+
+.is-mobile .recommend-wrapper{
+  display: none;
+}
 </style>

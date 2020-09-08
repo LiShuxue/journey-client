@@ -72,4 +72,7 @@ export default {
   cursor: pointer;
   font-size: $mediu-size;
 }
+.is-mobile .tag-wrapper{
+  display: none;
+}
 </style>

@@ -3,6 +3,9 @@
     <div class="nav-menu" v-if="this.$store.state.isMobile" @click="clickMenu">
       <span class="iconfont icon-menu"></span>
     </div>
+    <div class="directory-btn" v-if="this.$store.state.isMobile && this.$route.name === 'blog'" @click="clickDirectory">
+      <span class="iconfont icon-tag"></span>
+    </div>
     <!-- 为了解决在fixed定位下，flex不生效的问题，得在flex上面再包裹一层dom，并设置其宽高-->
     <div class="fix-flex-issue">
       <div class="content">
@@ -22,6 +25,10 @@ export default {
   methods: {
     clickMenu(){
       this.$emit('clickMenu');
+    },
+
+    clickDirectory(){
+      this.$emit('clickDirectory');
     }
   }
 }
@@ -43,6 +50,18 @@ export default {
   position: absolute;
   top: 50%;
   left: 20px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  transform: translateY(-50%);
+  .icon-menu{
+    font-size: $super-large-size;
+  }
+}
+.directory-btn{
+  position: absolute;
+  top: 50%;
+  right: 0;
   width: 40px;
   height: 40px;
   line-height: 40px;

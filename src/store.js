@@ -12,6 +12,7 @@ export default new Vuex.Store({
   state: {
     isMobile: isMobile,
     isMenuOpen: false,
+    isDirectoryOpen: false,
     username: '',
     access_token: '',
     refresh_token: '',
@@ -75,7 +76,16 @@ export default new Vuex.Store({
       state.filterBlogList = blogList
     },
     openOrCloseMenuMutation (state, isMenuOpen) {
-      state.isMenuOpen = isMenuOpen;
+      state.isMenuOpen = isMenuOpen
+      if (isMenuOpen && state.isDirectoryOpen) {
+        state.isDirectoryOpen = false
+      }
+    },
+    openOrCloseDirectoryMutation (state, isDirectoryOpen) {
+      state.isDirectoryOpen = isDirectoryOpen;
+      if (isDirectoryOpen && state.isMenuOpen) {
+        state.isMenuOpen = false
+      }
     }
   },
   actions: {

@@ -158,6 +158,12 @@ export default {
     },
 
     handlePosition(target) {
+      if(this.$store.state.isDirectoryOpen){
+        this.$store.commit('openOrCloseDirectoryMutation', false);
+      }else{
+        this.$store.commit('openOrCloseDirectoryMutation', true);
+      }
+
       window.scroll({
         top: $(`#${target}`).offset().top - 80,
         left: 0,
@@ -204,6 +210,11 @@ ul {
   li {
     color: #2192F5;
     cursor: pointer;
+    padding-top: 10px;
   }
+}
+
+.is-mobile .article-section-list-wrapper {
+  margin-top: 0;
 }
 </style>
