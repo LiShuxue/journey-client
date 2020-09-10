@@ -19,9 +19,8 @@ hue-6-2: #e6c07b
 */
 
 .hljs {
-  overflow-x: auto;
-  color: #abb2bf;
-  background: #282c34;
+  overflow: auto;
+  max-height: 1000px;
 }
 
 .hljs-comment,
