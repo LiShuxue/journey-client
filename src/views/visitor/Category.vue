@@ -13,6 +13,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
+import API from '@/ajax/api.js'
 
 export default {
   computed: {
@@ -23,6 +24,15 @@ export default {
       'categoryList'
     ])
   },
+
+  async created() {
+    if (!this.blogList || this.blogList.length <= 0) {
+      const response = await this.axios.get(API.notRequireAuth.blogList)
+      const blogList = response.data.blogList
+      this.$store.commit('saveBlogListMutation', blogList)
+    }
+  },
+
   methods: {
     clickCategory(category) {
       let blogListWithSameCategory = this.blogList.filter((value) => {
