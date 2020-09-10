@@ -104,7 +104,7 @@ export default {
       const blogList = response.data.blogList
       this.$store.commit('saveBlogListMutation', blogList)
     }
-    if (!this.blogList || !this.blog._id) {
+    if (!this.blog || !this.blog._id) {
       const response = await this.axios.get(`${API.notRequireAuth.blogDetail}?id=${this.$route.params.id}`)
       const blog = response.data.blog
       this.$store.commit('chooseBlog', blog)

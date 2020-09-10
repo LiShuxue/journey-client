@@ -4,28 +4,6 @@ import store from './store'
 
 Vue.use(Router)
 
-// 页面刷新时，重新赋值
-if (window.sessionStorage) {
-  if (window.sessionStorage.getItem('access_token')) {
-    store.commit('saveAccessTokenMutation', window.sessionStorage.getItem('access_token'))
-  }
-  if (window.sessionStorage.getItem('refresh_token')) {
-    store.commit('saveRefreshTokenMutation', window.sessionStorage.getItem('refresh_token'))
-  }
-  if (window.sessionStorage.getItem('username')) {
-    store.commit('saveUsernameMutation', window.sessionStorage.getItem('username'))
-  }
-  if (window.sessionStorage.getItem('saveBlogListMutation')) {
-    store.commit('saveBlogListMutation', JSON.parse(window.sessionStorage.getItem('saveBlogListMutation')))
-  }
-  if (window.sessionStorage.getItem('chooseBlog')) {
-    store.commit('chooseBlog', JSON.parse(window.sessionStorage.getItem('chooseBlog')))
-  }
-  if (window.sessionStorage.getItem('saveFilterBlogList')) {
-    store.commit('saveFilterBlogList', JSON.parse(window.sessionStorage.getItem('saveFilterBlogList')))
-  }
-}
-
 const router = new Router({
   mode: 'history',
   routes: [
@@ -59,7 +37,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requireAuth)) { // to.matched可以拿到父路由，所以可以直接判断父路由的权限。子路由可以无需添加。
-    if (store.state.access_token || sessionStorage.getItem('access_token')) {
+    if (store.state.access_token) {
       next()
     } else {
       next({
