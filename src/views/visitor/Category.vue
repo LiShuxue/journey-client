@@ -35,11 +35,12 @@ export default {
 
   methods: {
     clickCategory(category) {
-      let blogListWithSameCategory = this.blogList.filter((value) => {
-        return value.category === category
+      this.$router.push({
+        name: 'bloglist',
+        query: {
+          category
+        }
       })
-      this.$store.commit('saveFilterBlogList', blogListWithSameCategory)
-      this.$router.push('/bloglist')
     }
   }
 }

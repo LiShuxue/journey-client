@@ -183,18 +183,20 @@ export default {
       })
     },
     clickCategory(category) {
-      let blogListWithSameCategory = this.blogList.filter((value) => {
-        return value.category === category
+      this.$router.push({
+        name: 'bloglist',
+        query: {
+          category
+        }
       })
-      this.$store.commit('saveFilterBlogList', blogListWithSameCategory)
-      this.$router.push('/bloglist')
     },
     clickTag (tag) {
-      let blogListWithSameTag = this.blogList.filter((value) => {
-        return value.tags.includes(tag)
+      this.$router.push({
+        name: 'bloglist',
+        query: {
+          tag
+        }
       })
-      this.$store.commit('saveFilterBlogList', blogListWithSameTag)
-      this.$router.push('/bloglist')
     },
 
     getLastNextBlog() {
@@ -242,22 +244,31 @@ export default {
     },
 
     clickPreBlog() {
-      this.$store.dispatch('chooseBlogAction', this.preBlog).then(() => {
-        if (this.isAdmin) {
-          window.scrollTo(0, 0)
-        } else {
-          this.$router.push(`/blog/${this.preBlog._id}`)
-        }
-      })
+      if (this.isAdmin) {
+        window.scrollTo(0, 0)
+        this.$store.dispatch('chooseBlogAction', this.preBlog)
+      } else {
+        let url = window.location.href;
+        let arr = url.split('/')
+        arr.splice(arr.length - 1, 1, this.preBlog._id)
+        this.$store.dispatch('chooseBlogAction', this.preBlog)
+        let newUrl = arr.join('/')
+        window.location.href = newUrl
+      }
     },
+
     clickNextBlog() {
-      this.$store.dispatch('chooseBlogAction', this.nextBlog).then(() => {
-        if (this.isAdmin) {
-          window.scrollTo(0, 0)
-        } else {
-          this.$router.push(`/blog/${this.nextBlog._id}`)
-        } 
-      })
+      if (this.isAdmin) {
+        window.scrollTo(0, 0)
+        this.$store.dispatch('chooseBlogAction', this.nextBlog)
+      } else {
+        let url = window.location.href;
+        let arr = url.split('/')
+        arr.splice(arr.length - 1, 1, this.nextBlog._id)
+        this.$store.dispatch('chooseBlogAction', this.nextBlog)
+        let newUrl = arr.join('/')
+        window.location.href = newUrl
+      }
     }
   }
 }

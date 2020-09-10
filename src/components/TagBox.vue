@@ -22,16 +22,12 @@ export default {
   },
   methods: {
     clickTag (tag) {
-      let blogList = [...this.$store.state.blogList]
-      let blogListWithSameTag = blogList.filter((value) => {
-        return value.tags.includes(tag)
+      this.$router.push({
+        name: 'bloglist',
+        query: {
+          tag
+        }
       })
-      this.$store.commit('saveFilterBlogList', blogListWithSameTag)
-      if (this.$route.name !== 'bloglist') {
-        this.$router.push('/bloglist')
-      } else {
-        window.scrollTo(0, 0)
-      }
     }
   }
 }

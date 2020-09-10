@@ -8,9 +8,12 @@
 <script>
 import BlogItem from '@/components/BlogItem.vue'
 import { mapState } from 'vuex'
+import API from '@/ajax/api.js'
+
 export default {
   data () {
     return {
+      filterBlogList: [],
       msg: '',
       blogList: [],
       startArrIndex: 0,
@@ -21,15 +24,67 @@ export default {
       timer: null
     }
   },
+
   computed: {
-    ...mapState([
-      'filterBlogList'
-    ])
+    ...mapState({
+      allBlogList: 'blogList'
+    })
   },
+
   watch: {
-    filterBlogList () {
-      this.startArrIndex = 0
-      this.endArrIndex = 6
+    $route (to, from) {
+      this.setFilterBlogList()
+      this.setBlogList()
+    }
+  },
+
+  components: {
+    BlogItem
+  },
+
+  async created () {
+    if (!this.allBlogList || this.allBlogList.length <= 0) {
+      const response = await this.axios.get(API.notRequireAuth.blogList)
+      const blogList = response.data.blogList
+      this.$store.commit('saveBlogListMutation', blogList)
+    }
+
+    this.setFilterBlogList()
+    this.setBlogList()
+  },
+
+  methods: {
+    setFilterBlogList() {
+      if (this.$route.query.keywords !== undefined) {
+        let keywords = this.$route.query.keywords
+        let blogListWithKeywords = this.allBlogList.filter((value) => {
+          // tags中包含 或者 category中包含 或者 title中包含 或者 subTitle中包含
+          return value.tags.join('').toUpperCase().indexOf(keywords.toUpperCase()) > -1 || 
+                value.category.toUpperCase().indexOf(keywords.toUpperCase()) > -1 || 
+                value.title.toUpperCase().indexOf(keywords.toUpperCase()) > -1 || 
+                value.subTitle.toUpperCase().indexOf(keywords.toUpperCase()) > -1
+        })
+        this.filterBlogList = blogListWithKeywords
+      }
+
+      if (this.$route.query.tag !== undefined) {
+        let tag = this.$route.query.tag
+        let blogListWithSameTag = this.allBlogList.filter((value) => {
+          return value.tags.includes(tag)
+        })
+        this.filterBlogList = blogListWithSameTag
+      }
+
+      if (this.$route.query.category !== undefined) {
+        let category = this.$route.query.category
+        let blogListWithSameCategory = this.allBlogList.filter((value) => {
+          return value.category === category
+        })
+        this.filterBlogList = blogListWithSameCategory
+      }
+    },
+
+    setBlogList() {
       this.blogList = this.filterBlogList.slice(this.startArrIndex, this.endArrIndex)
       if (this.blogList.length < this.filterBlogList.length) {
         this.msg = '点击加载更多'
@@ -40,25 +95,8 @@ export default {
         this.cursor = ''
         this.canGetMore = false
       }
-    }
-  },
-  created () {
-    this.blogList = this.filterBlogList.slice(this.startArrIndex, this.endArrIndex)
-    if (this.blogList.length < this.filterBlogList.length) {
-      this.msg = '点击加载更多'
-      this.cursor = 'cursor: pointer;'
-      this.canGetMore = true
-    } else {
-      this.msg = '没有更多了'
-      this.cursor = ''
-      this.canGetMore = false
-    }
-  },
-  components: {
-    BlogItem
-  },
+    },
 
-  methods: {
     getMore () {
       if (this.canGetMore) {
         this.msg = 'loading...'

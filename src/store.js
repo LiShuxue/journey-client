@@ -17,8 +17,7 @@ export default new Vuex.Store({
     access_token: sessionStorage.getItem('access_token') || '',
     refresh_token: sessionStorage.getItem('access_token') || '',
     blogList: [],
-    chooseBlog: {},
-    filterBlogList: []
+    chooseBlog: {}
   },
   getters: {
     hotBlogList: state => {
@@ -68,9 +67,6 @@ export default new Vuex.Store({
     },
     chooseBlog (state, blog) {
       state.chooseBlog = blog
-    },
-    saveFilterBlogList (state, blogList) {
-      state.filterBlogList = blogList
     },
     openOrCloseMenuMutation (state, isMenuOpen) {
       state.isMenuOpen = isMenuOpen

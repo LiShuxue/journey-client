@@ -16,21 +16,12 @@ export default {
   },
   methods: {
     searchBlog() {
-      let keywords = this.keywords
-      let blogList = [...this.$store.state.blogList]
-      let blogListWithKeywords = blogList.filter((value) => {
-        // tags中包含 或者 category中包含 或者 title中包含 或者 subTitle中包含
-        return value.tags.join('').toUpperCase().indexOf(keywords.toUpperCase()) > -1 || 
-               value.category.toUpperCase().indexOf(keywords.toUpperCase()) > -1 || 
-               value.title.toUpperCase().indexOf(keywords.toUpperCase()) > -1 || 
-               value.subTitle.toUpperCase().indexOf(keywords.toUpperCase()) > -1
+      this.$router.push({
+        name: 'bloglist',
+        query: {
+          keywords: this.keywords
+        }
       })
-      this.$store.commit('saveFilterBlogList', blogListWithKeywords)
-      if (this.$route.name !== 'bloglist') {
-        this.$router.push('/bloglist')
-      } else {
-        window.scrollTo(0, 0)
-      }
     }
   }
 }
