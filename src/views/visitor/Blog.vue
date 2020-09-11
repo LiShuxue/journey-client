@@ -95,6 +95,14 @@ export default {
     blog () {
       this.setLike()
       this.getLastNextBlog()
+    },
+
+    $route (to, from) {
+      this.axios.get(`${API.notRequireAuth.blogDetail}?id=${to.params.id}`).then((response) => {
+        const blog = response.data.blog
+        window.scrollTo(0, 0)
+        this.$store.commit('chooseBlog', blog)
+      })
     }
   },
 
@@ -130,13 +138,11 @@ export default {
       })
     },
     editBlog() {
-      this.$store.dispatch('chooseBlogAction', this.blog).then(() => {
-        this.$router.push({
-          name: 'edit-blog',
-          params: {
-            isEdit: true
-          }
-        })
+      this.$router.push({
+        name: 'edit-blog',
+        params: {
+          isEdit: true
+        }
       })
     },
     deleteBlog() {
@@ -248,12 +254,7 @@ export default {
         window.scrollTo(0, 0)
         this.$store.dispatch('chooseBlogAction', this.preBlog)
       } else {
-        let url = window.location.href;
-        let arr = url.split('/')
-        arr.splice(arr.length - 1, 1, this.preBlog._id)
-        this.$store.dispatch('chooseBlogAction', this.preBlog)
-        let newUrl = arr.join('/')
-        window.location.href = newUrl
+        this.$router.push(`/blog/${this.preBlog._id}`)
       }
     },
 
@@ -262,12 +263,7 @@ export default {
         window.scrollTo(0, 0)
         this.$store.dispatch('chooseBlogAction', this.nextBlog)
       } else {
-        let url = window.location.href;
-        let arr = url.split('/')
-        arr.splice(arr.length - 1, 1, this.nextBlog._id)
-        this.$store.dispatch('chooseBlogAction', this.nextBlog)
-        let newUrl = arr.join('/')
-        window.location.href = newUrl
+        this.$router.push(`/blog/${this.nextBlog._id}`)
       }
     }
   }
@@ -277,7 +273,7 @@ export default {
 .blog{
   .blog-wrapper{
     position: relative;
-    overflow: scroll;
+    overflow: hidden;
     box-sizing: border-box;
     border-radius: 10px;
     padding: 0 20px 40px 20px;
