@@ -6,7 +6,7 @@
       <el-table-column prop="_id" label="ID" width="300" align="center"></el-table-column>
       <el-table-column prop="username" label="username" width="200" align="center"></el-table-column>
       <el-table-column prop="password" label="password" width="600" align="center"></el-table-column>
-      <el-table-column label="操作" align="center">
+      <el-table-column label="操作" align="center" width="200" fixed="right">
       <template slot-scope="scope">
         <el-button size="mini" @click="clickEditItem(scope.row, scope.$index)">编辑</el-button>
         <el-button size="mini" type="danger" @click="clickDeleteItem(scope.row, scope.$index)">删除</el-button>

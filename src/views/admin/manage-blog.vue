@@ -14,7 +14,7 @@
     </el-form>
 
     <!-- 列表 -->
-    <el-table :data="refactorTableData" stripe border style="width: 100%" @selection-change="selectionChange">
+    <el-table :data="refactorTableData" stripe border style="width: 100%" @selection-change="selectionChange" @row-dblclick="clickSeeItem">
       <el-table-column type="selection" width="40"></el-table-column>
       <el-table-column prop="title" label="标题" width="250" align="center"></el-table-column>
       <el-table-column prop="category" label="类别" width="150" align="center" sortable></el-table-column>
@@ -24,8 +24,8 @@
       <el-table-column prop="tags" label="标签" width="300" align="center"></el-table-column>
       <el-table-column prop="publishTime" label="发表时间" width="220" align="center" sortable></el-table-column>
       <el-table-column prop="updateTime" label="修改时间" width="220" align="center" sortable></el-table-column>
-      <el-table-column label="操作" align="center" width="300">
-      <template slot-scope="scope">
+      <el-table-column label="操作" align="center" width="300" fixed="right">
+      <template slot-scope="scope" >
         <el-button size="mini" type="primary" @click="clickSeeItem(scope.row, scope.$index)">查看</el-button>
         <el-button size="mini" @click="clickEditItem(scope.row, scope.$index)">编辑</el-button>
         <el-button size="mini" type="danger" @click="clickDeleteItem(scope.row, scope.$index)">删除</el-button>
