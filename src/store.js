@@ -15,7 +15,7 @@ export default new Vuex.Store({
     isDirectoryOpen: false,
     username: sessionStorage.getItem('username') || '', // sessionStorage是为了页面刷新时，重新赋值
     access_token: sessionStorage.getItem('access_token') || '',
-    refresh_token: sessionStorage.getItem('access_token') || '',
+    refresh_token: sessionStorage.getItem('refresh_token') || '',
     blogList: [],
     chooseBlog: {}
   },
