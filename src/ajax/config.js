@@ -1,7 +1,8 @@
 import axios from 'axios'
 import API from './api'
 import store from '../store'
-import { Message } from 'element-ui'
+import router from '../router'
+import { Message, MessageBox } from 'element-ui'
 
 axios.defaults.timeout = 60 * 1000
 axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? 'https://lishuxue.site/blog-api/' : (process.env.VUE_APP_TARGET === 'mobile' ? 'https://lishuxue.site/blog-api/' : 'http://localhost:4000/blog-api/')
@@ -32,6 +33,18 @@ axios.interceptors.response.use(response => {
   response.data.successMsg && Message.success(response.data.successMsg)
   return response
 }, error => {
+  if (error.response && error.response.status === 401) {
+    MessageBox.alert('Token无效，请重新登录', '401', {
+      confirmButtonText: '确定',
+      showClose: false,
+      callback: action => {
+        store.dispatch('saveAccessTokenAction', '')
+        store.dispatch('saveRefreshTokenAction', '')
+        store.dispatch('saveUsernameAction', '')
+        router.push('/login')
+      }
+    });
+  }
   return Promise.reject(error.response)
 })
 
