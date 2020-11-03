@@ -33,13 +33,13 @@
       
       <div class="time-info">
         本文于
-        <span><u>{{blog.publishTime.substring(0, 10)}}</u></span>
+        <span><u>{{displayPublishTime}}</u></span>
         日发表在
         <span @click.stop="clickCategory(blog.category)" style="cursor: pointer;"><u><b>{{blog.category}}</b></u></span>
         分类下
-        <span v-if="blog.updateTime.substring(0, 10) !== blog.publishTime.substring(0, 10)">
+        <span v-if="blog.updateTime !== blog.publishTime">
           ，修改于
-          <u>{{blog.updateTime.substring(0, 10)}}</u>
+          <u>{{displayUpdateTime}}</u>
           日
         </span>
       </div>
@@ -103,6 +103,7 @@
 </template>
 <script>
 import { mapState } from 'vuex'
+import dayjs from 'dayjs'
 import API from '@/ajax/api.js'
 
 export default {
@@ -124,6 +125,12 @@ export default {
     }),
     isAdmin() {
       return this.$route.path === '/admin/view-blog' && !!this.$store.state.access_token
+    },
+    displayPublishTime() {
+      return dayjs(this.blog.publishTime).format('YYYY-MM-DD')
+    },
+    displayUpdateTime() {
+      return dayjs(this.blog.updateTime).format('YYYY-MM-DD')
     }
   },
 

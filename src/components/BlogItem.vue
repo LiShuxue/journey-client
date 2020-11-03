@@ -9,7 +9,7 @@
       <div class="title">{{blog.title}}</div>
       <div class="sub-title">{{blog.subTitle}}</div>
       <div class="tool">
-        <div class="time-zone"><span class="iconfont icon-clock"></span><span class="content">{{blog.publishTime.substring(0, 10)}}</span></div>
+        <div class="time-zone"><span class="iconfont icon-clock"></span><span class="content">{{displayPublishTime}}</span></div>
         <span class="iconfont icon-eye"></span><span class="content">{{blog.see}}</span>
         <!-- Sample list not include comments -->
         <!-- <div @click.stop="clickComments" style="display: inline"><span class="iconfont icon-comment"></span><span class="content">{{blog.comments.length}}</span></div> -->
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import dayjs from 'dayjs'
 import API from '@/ajax/api.js'
 
 export default {
@@ -30,6 +31,11 @@ export default {
   data() {
     return {
       isLiked: false
+    }
+  },
+  computed: {
+    displayPublishTime() {
+      return dayjs(this.blog.publishTime).format('YYYY-MM-DD')
     }
   },
   created() {
