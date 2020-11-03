@@ -69,6 +69,11 @@ export default {
     BlogItem
   },
 
+  mounted() {
+    console.clear();
+    console.log('%c'.concat('这是一个彩蛋'), 'color:#666;font-size:3em');
+  },
+
   methods: {
     getMore () {
       if (this.canGetMore) {
