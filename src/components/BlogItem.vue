@@ -11,7 +11,8 @@
       <div class="tool">
         <div class="time-zone"><span class="iconfont icon-clock"></span><span class="content">{{blog.publishTime.substring(0, 10)}}</span></div>
         <span class="iconfont icon-eye"></span><span class="content">{{blog.see}}</span>
-        <div @click.stop="clickComments" style="display: inline"><span class="iconfont icon-comment"></span><span class="content">{{blog.comments.length}}</span></div>
+        <!-- Sample list not include comments -->
+        <!-- <div @click.stop="clickComments" style="display: inline"><span class="iconfont icon-comment"></span><span class="content">{{blog.comments.length}}</span></div> -->
         <div @click.stop="clickLike" style="display: inline" v-bind:class="[{'liked': isLiked}]"><span class="iconfont icon-like"></span><span class="content">{{blog.like}}</span></div>
         <div @click.stop="clickCategory" style="display: inline"><span class="iconfont icon-list"></span><span class="content">{{blog.category}}</span></div>
       </div>
