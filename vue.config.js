@@ -18,6 +18,9 @@ module.exports = {
       }
     }
   },
+  devServer: {
+    port: 8000
+  },
   chainWebpack: config => {
     if (process.env.NODE_ENV === 'production') {
       // sentry upload sourcemap
