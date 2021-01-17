@@ -16,8 +16,8 @@ module.exports = {
   css: {
     loaderOptions: {
       // 引入全局的scss
-      scss: {
-        additionalData: `@import "~@/assets/style/base.scss";`
+      sass: {
+        prependData: `@import "@/assets/style/base.scss";`
       }
     }
   },
