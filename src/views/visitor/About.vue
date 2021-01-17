@@ -16,7 +16,7 @@
     </div>
     <div class="others">
       <div class="qrcode">
-        <img src="http://cdn.lishuxue.site/blog/about-me/MyWechat.png">
+        <img src="https://cdn.lishuxue.site/blog/about-me/MyWechat.png">
       </div>
       <div class="resume">
         <div class="title" @click="getResume()">
@@ -33,7 +33,7 @@
 export default {
   methods: {
     getResume() {
-      window.open('http://cdn.lishuxue.site/blog/about-me/MyResume.pdf')
+      window.open('https://cdn.lishuxue.site/blog/about-me/MyResume.pdf')
     }
   }
 }
