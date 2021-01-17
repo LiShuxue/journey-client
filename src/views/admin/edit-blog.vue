@@ -106,7 +106,8 @@ export default {
 
   computed: {
     ...mapState({
-      chooseBlog: 'chooseBlog'
+      chooseBlog: 'chooseBlog',
+      blogList: 'blogList'
     }),
     isEdit() {
       return this.$route.params.isEdit
@@ -120,7 +121,7 @@ export default {
     mavonEditor
   },
 
-  created () {
+  async created () {
     this.sentry.addBreadcrumb('views/visitor/Home.vue --> lifecycle: created', this.isEdit)
     if (this.isEdit) {
       let editBlog = Object.assign({}, this.chooseBlog)
@@ -131,6 +132,12 @@ export default {
       if (this.image && this.image.name && this.image.url) {
         this.uploadImageList.push(Object.assign({}, this.image))
       }
+    }
+
+    if (!this.blogList || this.blogList.length <= 0) {
+      const response = await this.axios.get(API.notRequireAuth.blogList)
+      const blogList = response.data.blogList
+      this.$store.commit('saveBlogListMutation', blogList)
     }
   },
 
