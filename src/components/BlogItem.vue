@@ -61,9 +61,9 @@ export default {
         }
       });
     },
-    clickComments() {
-      console.log('comments');
-    },
+    // clickComments() {
+    //   console.log('comments');
+    // },
     clickLike() {
       this.sentry.addBreadcrumb('components/BlogItem.vue --> method: clickLike');
 

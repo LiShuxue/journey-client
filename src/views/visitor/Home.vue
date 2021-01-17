@@ -73,7 +73,9 @@ export default {
   },
 
   mounted() {
+    // eslint-disable-next-line
     console.clear();
+    // eslint-disable-next-line
     console.log('%c'.concat('这是一个彩蛋'), 'color:#666;font-size:3em');
   },
 
