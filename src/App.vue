@@ -7,27 +7,25 @@
 </template>
 
 <script>
-export default {
-    
-}
+export default {};
 </script>
 
 <style lang="scss">
-.app{
-    background-color: $qian-hui;
+.app {
+  background-color: $qian-hui;
 }
-.router-fade-enter{
-    opacity: 0;
+.router-fade-enter {
+  opacity: 0;
 }
-.router-fade-enter-active{
-    transition-property: opacity;
-    transition-duration: 0.3s;
+.router-fade-enter-active {
+  transition-property: opacity;
+  transition-duration: 0.3s;
 }
-.router-fade-leave-active{
-    transition-property: opacity;
-    transition-duration: 0.3s;
+.router-fade-leave-active {
+  transition-property: opacity;
+  transition-duration: 0.3s;
 }
-.router-fade-leave-to{
-    opacity: 0;
+.router-fade-leave-to {
+  opacity: 0;
 }
 </style>

@@ -6,7 +6,8 @@
       @select="handleSelect"
       background-color="#545c64"
       text-color="#fff"
-      active-text-color="#409EFF">
+      active-text-color="#409EFF"
+    >
       <el-menu-item index="edit-blog">
         <i class="el-icon-menu"></i>
         <span class="nav-item-title" slot="title">写博客</span>
@@ -32,17 +33,17 @@
 <script>
 export default {
   methods: {
-    handleSelect(key, keyPath) {
+    handleSelect(key) {
       if (this.$route.name !== key) {
         this.$router.push({ name: key });
       }
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-.nav-list{
+.nav-list {
   position: fixed;
   top: 0;
   left: 0;
@@ -50,27 +51,27 @@ export default {
   height: 100vh;
 }
 
-.content-wrapper{
+.content-wrapper {
   padding: 10px 20px 10px 20px;
   margin-left: 17vw;
 }
 
-.router-fade-enter{
-    opacity: 0;
+.router-fade-enter {
+  opacity: 0;
 }
-.router-fade-enter-active{
-    transition-property: opacity;
-    transition-duration: 0.3s;
+.router-fade-enter-active {
+  transition-property: opacity;
+  transition-duration: 0.3s;
 }
-.router-fade-leave-active{
-    transition-property: opacity;
-    transition-duration: 0.3s;
+.router-fade-leave-active {
+  transition-property: opacity;
+  transition-duration: 0.3s;
 }
-.router-fade-leave-to{
-    opacity: 0;
+.router-fade-leave-to {
+  opacity: 0;
 }
 
-.is-mobile .nav-item-title{
+.is-mobile .nav-item-title {
   display: none;
 }
 </style>

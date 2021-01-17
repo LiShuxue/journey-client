@@ -23,19 +23,19 @@
 <script>
 export default {
   methods: {
-    clickMenu(){
+    clickMenu() {
       this.$emit('clickMenu');
     },
 
-    clickDirectory(){
+    clickDirectory() {
       this.$emit('clickDirectory');
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-.header{
+.header {
   position: fixed;
   top: 0;
   left: 0;
@@ -46,7 +46,7 @@ export default {
   box-sizing: border-box;
   transition: left 0.5s;
 }
-.nav-menu{
+.nav-menu {
   position: absolute;
   top: 50%;
   left: 20px;
@@ -54,11 +54,11 @@ export default {
   height: 40px;
   line-height: 40px;
   transform: translateY(-50%);
-  .icon-menu{
+  .icon-menu {
     font-size: $super-large-size;
   }
 }
-.directory-btn{
+.directory-btn {
   position: absolute;
   top: 50%;
   right: 0;
@@ -66,21 +66,21 @@ export default {
   height: 40px;
   line-height: 40px;
   transform: translateY(-50%);
-  .icon-menu{
+  .icon-menu {
     font-size: $super-large-size;
   }
 }
-.fix-flex-issue{
+.fix-flex-issue {
   width: 100%;
   height: 60px;
 }
-.content{
+.content {
   display: flex;
   flex-direction: row;
   justify-content: center;
   box-sizing: border-box;
 }
-.logo{
+.logo {
   order: 0;
   flex-basis: $left-width;
   height: 23px;
@@ -90,7 +90,7 @@ export default {
   background-size: contain;
   background-position: center;
 }
-.title{
+.title {
   order: 1;
   flex-basis: $center-width;
   box-sizing: border-box;
@@ -100,19 +100,19 @@ export default {
   font-size: $super-large-size;
   position: relative;
 }
-.other{
+.other {
   order: 2;
   flex-basis: $right-width;
   box-sizing: border-box;
 }
-.blink{
+.blink {
   position: absolute;
   top: 0px;
   left: 0px;
   height: 100%;
   width: 240px;
   animation: blink 5s infinite;
-  &::after{
+  &::after {
     content: '';
     height: 70px;
     width: 15px;
@@ -124,16 +124,21 @@ export default {
   }
 }
 @keyframes blink {
-  0% { transform: translateX(-5%); }
-  100% { transform: translateX(150%); }
+  0% {
+    transform: translateX(-5%);
+  }
+  100% {
+    transform: translateX(150%);
+  }
 }
 
-.is-mobile{
-  .title, .other{
+.is-mobile {
+  .title,
+  .other {
     display: none;
   }
 }
-.is-mobile .menu-open .header{
+.is-mobile .menu-open .header {
   left: $left-width;
 }
 </style>

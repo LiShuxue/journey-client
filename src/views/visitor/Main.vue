@@ -1,5 +1,8 @@
 <template>
-  <div class="wrapper" v-bind:class="{'menu-open': this.$store.state.isMenuOpen, 'directory-open': this.$store.state.isDirectoryOpen}">
+  <div
+    class="wrapper"
+    v-bind:class="{ 'menu-open': this.$store.state.isMenuOpen, 'directory-open': this.$store.state.isDirectoryOpen }"
+  >
     <!-- <div v-if="!this.$store.state.isMobile" class="global-background"></div> -->
     <main-header @clickMenu="clickMenu" @clickDirectory="clickDirectory"></main-header>
 
@@ -10,7 +13,7 @@
       <div class="center">
         <transition name="router-fade" mode="out-in">
           <keep-alive>
-              <router-view v-if="$route.meta.keepAlive"></router-view>
+            <router-view v-if="$route.meta.keepAlive"></router-view>
           </keep-alive>
         </transition>
         <transition name="router-fade" mode="out-in">
@@ -38,13 +41,13 @@
 </template>
 
 <script>
-import NavBar from '@/components/NavBar.vue'
-import MainHeader from '@/components/header.vue'
-import SearchBox from '@/components/search.vue'
-import TagBox from '@/components/TagBox.vue'
-import RecommendBox from '@/components/recommend.vue'
-import MainFooter from '@/components/footer.vue'
-import ArticleSectionList from '@/components/ArticleSectionList'
+import NavBar from '@/components/NavBar.vue';
+import MainHeader from '@/components/header.vue';
+import SearchBox from '@/components/search.vue';
+import TagBox from '@/components/TagBox.vue';
+import RecommendBox from '@/components/recommend.vue';
+import MainFooter from '@/components/footer.vue';
+import ArticleSectionList from '@/components/ArticleSectionList';
 
 export default {
   components: {
@@ -58,27 +61,27 @@ export default {
   },
 
   methods: {
-    clickMenu(){
-      if(this.$store.state.isMenuOpen){
+    clickMenu() {
+      if (this.$store.state.isMenuOpen) {
         this.$store.commit('openOrCloseMenuMutation', false);
-      }else{
+      } else {
         this.$store.commit('openOrCloseMenuMutation', true);
       }
     },
 
-    clickDirectory(){
-      if(this.$store.state.isDirectoryOpen){
+    clickDirectory() {
+      if (this.$store.state.isDirectoryOpen) {
         this.$store.commit('openOrCloseDirectoryMutation', false);
-      }else{
+      } else {
         this.$store.commit('openOrCloseDirectoryMutation', true);
       }
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-.global-background{
+.global-background {
   position: fixed;
   top: 0;
   left: 0;
@@ -90,11 +93,11 @@ export default {
   background-size: cover;
   z-index: -1;
 }
-.wrapper{
+.wrapper {
   opacity: 0.9;
   overflow: hidden;
 }
-.content{
+.content {
   display: flex;
   flex-direction: row;
   width: $total-width;
@@ -104,13 +107,13 @@ export default {
   min-height: calc(100vh - 75px);
 }
 
-.left{
+.left {
   width: $left-width;
   box-sizing: border-box;
   flex-shrink: 0;
 }
 
-.center{
+.center {
   position: relative;
   left: 0;
   width: $center-width;
@@ -121,53 +124,53 @@ export default {
   transition: left 0.5s;
 }
 
-.right{
+.right {
   width: $right-width;
   box-sizing: border-box;
   flex-shrink: 0;
 }
 
-.router-fade-enter{
-    opacity: 0;
+.router-fade-enter {
+  opacity: 0;
 }
-.router-fade-enter-active{
-    transition-property: opacity;
-    transition-duration: 0.3s;
+.router-fade-enter-active {
+  transition-property: opacity;
+  transition-duration: 0.3s;
 }
-.router-fade-leave-active{
-    transition-property: opacity;
-    transition-duration: 0.3s;
+.router-fade-leave-active {
+  transition-property: opacity;
+  transition-duration: 0.3s;
 }
-.router-fade-leave-to{
-    opacity: 0;
+.router-fade-leave-to {
+  opacity: 0;
 }
 
-.is-mobile{
-  .content{
+.is-mobile {
+  .content {
     width: 100vw;
   }
-  .left{
+  .left {
     width: 0;
   }
-  .right{
+  .right {
     position: fixed;
     top: 70px;
     right: -$right-width;
     transition: right 0.5s;
   }
-  .center{
+  .center {
     width: 100vw;
     padding: 0 10px 0 10px;
     margin: 0;
   }
 }
-.is-mobile .menu-open .center{
+.is-mobile .menu-open .center {
   left: $left-width;
 }
-.is-mobile .directory-open .center{
+.is-mobile .directory-open .center {
   left: -$right-width;
 }
-.is-mobile .directory-open .right{
+.is-mobile .directory-open .right {
   right: 0;
 }
 </style>

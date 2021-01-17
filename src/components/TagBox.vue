@@ -6,35 +6,33 @@
     </p>
     <p class="tag">
       <span class="tag-item" v-for="(item, index) in tagList" :key="index" @click="clickTag(item)">
-        {{item}}
+        {{ item }}
       </span>
     </p>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex';
 export default {
   computed: {
-    ...mapGetters([
-      'tagList'
-    ])
+    ...mapGetters(['tagList'])
   },
   methods: {
-    clickTag (tag) {
+    clickTag(tag) {
       this.$router.push({
         name: 'bloglist',
         query: {
           tag
         }
-      })
+      });
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-.tag-wrapper{
+.tag-wrapper {
   display: flex;
   flex-direction: column;
   margin-top: 15px;
@@ -44,23 +42,23 @@ export default {
   color: $hui-hei;
 }
 
-.title{
+.title {
   padding: 5px 10px 6px 0;
   border-bottom: 1px dashed $shen-hui;
   font-size: $large-size;
 
-  span{
+  span {
     margin-right: 5px;
   }
 }
-.tag{
+.tag {
   display: flex;
   flex-wrap: wrap;
   margin-top: 10px;
   max-height: 400px;
   overflow: scroll;
 }
-.tag-item{
+.tag-item {
   background: $shen-hui;
   padding: 5px;
   margin: 0 10px 10px 0;
@@ -68,7 +66,7 @@ export default {
   cursor: pointer;
   font-size: $mediu-size;
 }
-.is-mobile .tag-wrapper{
+.is-mobile .tag-wrapper {
   display: none;
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
-  <div class="banner" :style="sizeStyle"  @mouseenter="enter()" @mouseleave="leave()">
+  <div class="banner" :style="sizeStyle" @mouseenter="enter()" @mouseleave="leave()">
     <swiper :options="swiperOption" ref="mySwiper">
       <swiper-slide v-for="(blog, index) in newBlogList" :key="index">
-        <img :src="blog.image.url" :alt="blog.image.name" :style="sizeStyle" @click="showBlogDetail(blog)">
+        <img :src="blog.image.url" :alt="blog.image.name" :style="sizeStyle" @click="showBlogDetail(blog)" />
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
     </swiper>
@@ -10,11 +10,11 @@
 </template>
 
 <script>
-import 'swiper/dist/css/swiper.css'
-import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import { mapGetters } from 'vuex'
+import 'swiper/dist/css/swiper.css';
+import { swiper, swiperSlide } from 'vue-awesome-swiper';
+import { mapGetters } from 'vuex';
 export default {
-  data () {
+  data() {
     return {
       swiperOption: {
         spaceBetween: 20, // 切换图片时中间的白条
@@ -29,15 +29,13 @@ export default {
         }
       },
       sizeStyle: ''
-    }
+    };
   },
   computed: {
-    swiper () {
-      return this.$refs.mySwiper.swiper
+    swiper() {
+      return this.$refs.mySwiper.swiper;
     },
-    ...mapGetters([
-      'newBlogList'
-    ])
+    ...mapGetters(['newBlogList'])
   },
 
   components: {
@@ -45,63 +43,64 @@ export default {
     swiperSlide
   },
 
-  mounted () {
+  mounted() {
     // 首次渲染之后设置swiper宽度
-    this.setStyle(this)
-    const _self = this
-    let timer = null
+    this.setStyle(this);
+    const _self = this;
+    let timer = null;
     // 屏幕宽度变化时重新设置swiper宽度
     window.onresize = () => {
-      if (timer !== null) { // 使用函数防抖原理，防止频繁触发window resize事件
-        clearTimeout(timer)
+      if (timer !== null) {
+        // 使用函数防抖原理，防止频繁触发window resize事件
+        clearTimeout(timer);
       }
       timer = setTimeout(() => {
-        _self.setStyle(_self)
-      }, 200)
-    }
+        _self.setStyle(_self);
+      }, 200);
+    };
   },
 
   methods: {
-    setStyle (self) {
-      let imgWidth
-      let imgHeight
+    setStyle(self) {
+      let imgWidth;
+      let imgHeight;
       if (this.$store.state.isMobile) {
-        imgWidth = document.body.clientWidth - 20
-        imgHeight = 300 / 800 * imgWidth
+        imgWidth = document.body.clientWidth - 20;
+        imgHeight = (300 / 800) * imgWidth;
       } else {
-        imgWidth = 800
-        imgHeight = 300
+        imgWidth = 800;
+        imgHeight = 300;
       }
-      self.sizeStyle = `width: ${imgWidth}px; height: ${imgHeight}px`
+      self.sizeStyle = `width: ${imgWidth}px; height: ${imgHeight}px`;
     },
-    enter () {
+    enter() {
       // this.swiper.autoplay.pause()
     },
-    leave () {
+    leave() {
       // this.swiper.autoplay.run()
     },
-    showBlogDetail (blog) {
-      if(this.$store.state.isMenuOpen){
+    showBlogDetail(blog) {
+      if (this.$store.state.isMenuOpen) {
         this.$store.commit('openOrCloseMenuMutation', false);
       }
       this.$store.dispatch('chooseBlogAction', blog).then(() => {
         if (this.$route.name !== 'blog') {
-          this.$router.push(`/blog/${blog._id}`)
+          this.$router.push(`/blog/${blog._id}`);
         }
-      })
+      });
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-.banner{
+.banner {
   box-sizing: border-box;
 }
 
-.swiper-slide img{
+.swiper-slide img {
   object-fit: cover;
-  &:hover{
+  &:hover {
     transform: scale(1.2);
     transition: all 1s;
   }

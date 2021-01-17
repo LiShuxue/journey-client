@@ -1,8 +1,14 @@
 <template>
   <div class="search">
-    <input v-model="keywords" @keyup.enter="searchBlog" type="search" placeholder="请输入关键字查找" class="search-box"/>
+    <input
+      v-model="keywords"
+      @keyup.enter="searchBlog"
+      type="search"
+      placeholder="请输入关键字查找"
+      class="search-box"
+    />
     <button class="search-icon" @click="searchBlog">
-        <i class="iconfont icon-search"></i>
+      <i class="iconfont icon-search"></i>
     </button>
   </div>
 </template>
@@ -12,7 +18,7 @@ export default {
   data() {
     return {
       keywords: ''
-    }
+    };
   },
   methods: {
     searchBlog() {
@@ -21,41 +27,42 @@ export default {
         query: {
           keywords: this.keywords
         }
-      })
+      });
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-.search{
+.search {
   display: flex;
   padding: 5px 10px;
   background: $hui-bai;
   border-radius: 5%;
   font-size: $mediu-size;
 }
-input, button{
+input,
+button {
   border: none;
   outline: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   -o-appearance: none;
 }
-.search-box{
+.search-box {
   flex-basis: 175px;
   height: 25px;
   background: $qian-hui;
   color: $hui-hei;
 }
-.search-icon{
+.search-icon {
   flex-basis: 25px;
   height: 25px;
-  background: #C5C5C5;
+  background: #c5c5c5;
   cursor: pointer;
   padding-top: 4px;
 }
-.is-mobile .search{
+.is-mobile .search {
   display: none;
 }
 </style>

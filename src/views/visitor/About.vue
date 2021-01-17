@@ -16,7 +16,7 @@
     </div>
     <div class="others">
       <div class="qrcode">
-        <img src="https://cdn.lishuxue.site/blog/about-me/MyWechat.png">
+        <img src="https://cdn.lishuxue.site/blog/about-me/MyWechat.png" />
       </div>
       <div class="resume">
         <div class="title" @click="getResume()">
@@ -33,14 +33,14 @@
 export default {
   methods: {
     getResume() {
-      window.open('https://cdn.lishuxue.site/blog/about-me/MyResume.pdf')
+      window.open('https://cdn.lishuxue.site/blog/about-me/MyResume.pdf');
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
-.about{
+.about {
   display: flex;
   width: 1050px;
   height: calc(100vh - 70px - 10px - 36px - 15px - 60px);
@@ -48,7 +48,7 @@ export default {
   border-radius: 10px;
   color: $hui-hei;
 
-  .intro{
+  .intro {
     width: 740px;
     box-sizing: border-box;
     margin-right: 10px;
@@ -56,37 +56,38 @@ export default {
     border-radius: 10px;
     padding: 20px;
 
-    .about-me{
+    .about-me {
       margin-bottom: 50px;
     }
 
-    .about-me, .contact-me{
+    .about-me,
+    .contact-me {
       font-size: $mediu-large-size;
-      h2{
+      h2 {
         border-bottom: 1px solid $shen-hui;
       }
     }
   }
 
-  .others{
-    .qrcode{
+  .others {
+    .qrcode {
       width: 300px;
       padding: 10px;
       margin-bottom: 20px;
       background: $hui-bai;
       border-radius: 10px;
-      img{
+      img {
         width: 100%;
         height: 100%;
       }
     }
 
-    .resume{
+    .resume {
       width: 300px;
       padding: 10px;
-      background: #F8F8F8;
+      background: #f8f8f8;
       border-radius: 10px;
-      .title{
+      .title {
         height: 100px;
         box-sizing: border-box;
         text-align: center;
@@ -97,24 +98,25 @@ export default {
         font-weight: 700;
         cursor: pointer;
       }
-      .title-2{
+      .title-2 {
         font-size: $super-small-size;
       }
     }
   }
 }
 
-.is-mobile .about{
+.is-mobile .about {
   flex-direction: column;
   width: auto;
   height: auto;
 
-  .intro{
+  .intro {
     width: auto;
     margin: 0 0 20px 0;
   }
 
-  .qrcode, .resume{
+  .qrcode,
+  .resume {
     width: auto;
   }
 }

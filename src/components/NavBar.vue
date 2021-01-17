@@ -2,40 +2,40 @@
   <nav class="nav">
     <div v-if="this.$store.state.isMobile" class="logo"></div>
     <div v-for="(item, index) in navList" :key="index">
-        <router-link v-bind:to="item.path" @click.native="closeMenu">
-          <div class="nav-item">
-            <span class="nav-icon iconfont" v-bind:class="item.style"></span>
-            <span class="nav-title">{{item.name}}</span>
-          </div>
-        </router-link>
+      <router-link v-bind:to="item.path" @click.native="closeMenu">
+        <div class="nav-item">
+          <span class="nav-icon iconfont" v-bind:class="item.style"></span>
+          <span class="nav-title">{{ item.name }}</span>
+        </div>
+      </router-link>
     </div>
   </nav>
 </template>
 
 <script>
-export default{
-  data () {
+export default {
+  data() {
     return {
       navList: [
         { path: '/home', name: '主页', style: 'icon-home' },
         { path: '/category', name: '分类', style: 'icon-list' },
         { path: '/about', name: '关于', style: 'icon-user' }
       ]
-    }
+    };
   },
   methods: {
     closeMenu() {
-      if(this.$store.state.isMenuOpen){
+      if (this.$store.state.isMenuOpen) {
         this.$store.commit('openOrCloseMenuMutation', false);
       }
-      window.scrollTo(0, 0)
+      window.scrollTo(0, 0);
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-.nav{
+.nav {
   position: fixed;
   top: 70px;
   width: $left-width;
@@ -49,7 +49,7 @@ export default{
   font-size: $large-size;
 }
 
-.logo{
+.logo {
   position: relative;
   top: 12px;
   left: -19px;
@@ -61,43 +61,43 @@ export default{
   background-position: center;
 }
 
-.nav-item{
+.nav-item {
   color: $hui-hei;
   padding: 10px 10px 10px 10px;
   margin-bottom: 10px;
   border-radius: 20%;
-  &:hover{
+  &:hover {
     background: $shen-hui;
   }
 }
-.nav-icon{
+.nav-icon {
   margin-right: 15px;
 }
-.nav-title{
+.nav-title {
   font-weight: bold;
 }
 
-.router-link-exact-active{
-  & .nav-item{
+.router-link-exact-active {
+  & .nav-item {
     background: $shen-hui;
     color: $qian-lan;
   }
 }
 
-a{
+a {
   text-decoration: none;
   color: $hui-hei;
   cursor: pointer;
   outline: none;
 }
-.is-mobile .nav{
+.is-mobile .nav {
   top: 0;
   height: 100vh;
   left: -$left-width;
   border-radius: 0;
   transition: left 0.5s;
 }
-.is-mobile .menu-open .nav{
+.is-mobile .menu-open .nav {
   left: 0;
 }
 </style>

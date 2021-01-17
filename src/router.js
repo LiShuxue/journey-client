@@ -1,8 +1,8 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import store from './store'
+import Vue from 'vue';
+import Router from 'vue-router';
+import store from './store';
 
-Vue.use(Router)
+Vue.use(Router);
 
 const router = new Router({
   mode: 'history',
@@ -33,22 +33,23 @@ const router = new Router({
       ]
     }
   ]
-})
+});
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requireAuth)) { // to.matched可以拿到父路由，所以可以直接判断父路由的权限。子路由可以无需添加。
+  if (to.matched.some(record => record.meta.requireAuth)) {
+    // to.matched可以拿到父路由，所以可以直接判断父路由的权限。子路由可以无需添加。
     if (store.state.access_token) {
-      next()
+      next();
     } else {
       next({
         path: '/login',
         query: { redirect: to.fullPath } // 把要跳转的地址作为参数传到下一步
-      })
+      });
     }
   } else {
-    next()
+    next();
   }
-  window.scrollTo(0, 0)
-})
+  window.scrollTo(0, 0);
+});
 
-export default router
+export default router;
