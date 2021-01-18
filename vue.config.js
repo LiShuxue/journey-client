@@ -22,7 +22,15 @@ module.exports = {
     }
   },
   devServer: {
-    port: 8000
+    port: 8000,
+    proxy: {
+      '/blog-api': {
+        target: 'http://localhost:4000',
+        // pathRewrite: { '^/blog-api': '' },
+        secure: false,
+        changOrigin: true
+      }
+    }
   },
   chainWebpack: config => {
     if (process.env.NODE_ENV === 'production') {

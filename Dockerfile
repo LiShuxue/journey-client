@@ -19,7 +19,10 @@ RUN rm -rf $CODE_PATH/*
 COPY ./nginx/nginx.conf $WORK_PATH/
 
 # 复制证书
-COPY ./nginx/cert/* $WORK_PATH/cert/
+COPY ./nginx/cert/ $WORK_PATH/cert/
 
 # 复制源码
-COPY ./dist/* $CODE_PATH/
+COPY ./dist/ $CODE_PATH/
+
+# 可以通过 docker build -t journey-client:latest . 来创建本地镜像
+# 通过 docker run -itd --rm -p 8000:8000 --name nginx-test journey-client:latest 来运行此镜像来测试

@@ -5,12 +5,7 @@ import router from '../router';
 import { Message, MessageBox } from 'element-ui';
 
 axios.defaults.timeout = 60 * 1000;
-axios.defaults.baseURL =
-  process.env.NODE_ENV === 'production'
-    ? 'https://lishuxue.site/blog-api/'
-    : process.env.VUE_APP_TARGET === 'mobile'
-    ? 'https://lishuxue.site/blog-api/'
-    : 'http://localhost:4000/blog-api/';
+axios.defaults.baseURL = process.env.VUE_APP_TARGET === 'mobile' ? 'https://lishuxue.site/blog-api/' : '/blog-api';
 
 axios.interceptors.request.use(
   config => {
