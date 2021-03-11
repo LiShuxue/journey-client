@@ -29,8 +29,22 @@
       <el-table-column prop="see" label="查看次数" width="120" align="center" sortable></el-table-column>
       <el-table-column prop="like" label="点赞次数" width="120" align="center" sortable></el-table-column>
       <el-table-column prop="tags" label="标签" width="300" align="center"></el-table-column>
-      <el-table-column prop="publishTime" label="发表时间" width="220" align="center" sortable></el-table-column>
-      <el-table-column prop="updateTime" label="修改时间" width="220" align="center" sortable></el-table-column>
+      <el-table-column
+        prop="publishTime"
+        label="发表时间"
+        width="220"
+        align="center"
+        sortable
+        :formatter="formatDate"
+      ></el-table-column>
+      <el-table-column
+        prop="updateTime"
+        label="修改时间"
+        width="220"
+        align="center"
+        sortable
+        :formatter="formatDate"
+      ></el-table-column>
       <el-table-column label="操作" align="center" width="300" fixed="right">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="clickSeeItem(scope.row, scope.$index)">查看</el-button>
@@ -58,6 +72,7 @@
 
 <script>
 import API from '@/ajax/api';
+import dayjs from 'dayjs';
 export default {
   data() {
     return {
@@ -227,6 +242,10 @@ export default {
       } else {
         this.tableData = this.blogList.slice(currentPageArrIndexStart, currentPageArrIndexEnd);
       }
+    },
+
+    formatDate(row, col, cellValue) {
+      return dayjs(cellValue).format('YYYY-MM-DD');
     }
   }
 };
