@@ -84,7 +84,7 @@
 import { mapState } from 'vuex';
 import dayjs from 'dayjs';
 import API from '@/ajax/api.js';
-import ArticleComments from '@/components/ArticleComments.vue';
+import ArticleComments from '@/components/ArticleComments';
 
 export default {
   components: {
@@ -401,6 +401,7 @@ export default {
       position: fixed;
       bottom: 90px;
       right: calc(50vw - 400px + 40px);
+      z-index: 1000;
     }
 
     .time-info,
