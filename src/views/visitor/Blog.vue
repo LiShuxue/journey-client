@@ -399,7 +399,7 @@ export default {
       padding: 5px;
       border-radius: 50%;
       position: fixed;
-      bottom: 90px;
+      bottom: 140px;
       right: calc(50vw - 400px + 40px);
       z-index: 1000;
     }

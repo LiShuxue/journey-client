@@ -52,11 +52,13 @@ export default {
   },
 
   methods: {
-    addComments({ parentId, replyName, comment }) {
+    addComments({ parentId, replyName, replyEmail, replyContent, comment }) {
       this.axios
         .post(API.notRequireAuth.addComments, {
           blog_id: this.blog._id,
           replyName,
+          replyEmail,
+          replyContent,
           parent_id: parentId,
           comment
         })

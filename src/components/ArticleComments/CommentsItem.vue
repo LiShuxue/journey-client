@@ -69,7 +69,9 @@ export default {
       this.$emit('addComments', {
         comment,
         parentId: this.parent ? this.parent.id : this.comment.id,
-        replyName: this.comment.arthur
+        replyName: this.comment.arthur,
+        replyEmail: this.comment.email,
+        replyContent: this.comment.content
       });
       this.show = false;
     },
