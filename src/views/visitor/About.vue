@@ -42,7 +42,7 @@ export default {
 <style lang="scss">
 .about {
   display: flex;
-  width: 1050px;
+  width: $center-right;
   height: calc(100vh - 70px - 10px - 36px - 15px - 60px);
   box-sizing: border-box;
   border-radius: 10px;

@@ -10,8 +10,9 @@ const router = new Router({
     {
       path: '/',
       component: () => import('./views/visitor/Main.vue'),
-      redirect: '/home',
+      redirect: '/one',
       children: [
+        { path: '/one', name: 'one', component: () => import('./views/visitor/One.vue') },
         { path: '/home', name: 'home', component: () => import('./views/visitor/Home.vue'), meta: { keepAlive: true } },
         { path: '/category', name: 'category', component: () => import('./views/visitor/Category.vue') },
         { path: '/about', name: 'about', component: () => import('./views/visitor/About.vue') },

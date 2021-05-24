@@ -20,7 +20,7 @@
           <router-view v-if="!$route.meta.keepAlive"></router-view>
         </transition>
       </div>
-      <aside v-if="this.$route.name !== 'about'" class="right">
+      <aside v-if="this.$route.name !== 'about' && this.$route.name !== 'one'" class="right">
         <search-box></search-box>
         <template v-if="this.$route.name === 'blog'">
           <article-section-list></article-section-list>

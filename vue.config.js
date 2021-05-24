@@ -29,6 +29,17 @@ module.exports = {
         // pathRewrite: { '^/blog-api': '' },
         secure: false,
         changOrigin: true
+      },
+      // 因为one上的图片设置了防外链，所以我们通过反向代理+手动设置host referer来获取图片
+      '/oneinfo': {
+        target: 'http://image.wufazhuce.com',
+        pathRewrite: { '^/oneinfo': '' },
+        secure: false,
+        changOrigin: true,
+        headers: {
+          host: 'http://image.wufazhuce.com',
+          referer: 'http://image.wufazhuce.com'
+        }
       }
     }
   },
