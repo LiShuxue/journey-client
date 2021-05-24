@@ -17,7 +17,7 @@ export default {
   data() {
     return {
       navList: [
-        { path: '/one', name: 'One', style: 'icon-eye' },
+        { path: '/one', name: '发现', style: 'icon-eye' },
         { path: '/home', name: '博客', style: 'icon-home' },
         { path: '/category', name: '分类', style: 'icon-list' },
         { path: '/about', name: '关于', style: 'icon-user' }

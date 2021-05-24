@@ -17,7 +17,7 @@ const blogDetail = `blog/detail`;
 const likeBlog = `blog/like`;
 const hideComments = `blog/comment/hide`;
 const deleteComments = `blog/comment/delete`;
-const getOneInfo = `common/oneinfo`;
+const getHomeInfo = `common/homeinfo`;
 
 export default {
   requireAuth: {
@@ -39,6 +39,6 @@ export default {
     blogDetail,
     likeBlog,
     addComments,
-    getOneInfo
+    getHomeInfo
   }
 };
