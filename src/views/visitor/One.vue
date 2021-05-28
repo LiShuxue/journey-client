@@ -14,7 +14,7 @@
         <span>{{ displayDay }}</span>
       </div>
       <div class="time">{{ displayTime }}</div>
-      <div class="wea">今日天气：{{ wea.wea }}</div>
+      <div class="wea">{{ wea.city }}今日天气：{{ wea.wea }}</div>
       <div class="temp">{{ wea.tem }}<span>℃</span></div>
       <div class="win">{{ wea.win }}： {{ wea.win_speed }}</div>
     </div>
@@ -59,8 +59,10 @@ export default {
   },
 
   created() {
+    const city = window.returnCitySN.cname.replace('市', '');
+    const url = `${API.notRequireAuth.getHomeInfo}?city=${city}`;
     this.axios
-      .get(API.notRequireAuth.getHomeInfo)
+      .get(encodeURI(url))
       .then(res => {
         // 因为Chrome不支持http请求，所以直接请求图片连接被屏蔽。
         // 又因为one上的图片设置了防外链，所以我们通过反向代理+手动设置host referer来获取图片
