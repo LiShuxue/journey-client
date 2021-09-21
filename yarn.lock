@@ -2568,7 +2568,7 @@ check-types@^8.0.3:
   resolved "https://registry.npm.taobao.org/check-types/download/check-types-8.0.3.tgz?cache=0&sync_timestamp=1571636874740&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcheck-types%2Fdownload%2Fcheck-types-8.0.3.tgz#3356cca19c889544f2d7a95ed49ce508a0ecf552"
   integrity sha1-M1bMoZyIlUTy16le1JzlCKDs9VI=
 
-"chokidar@>=2.0.0 <4.0.0", "chokidar@>=3.0.0 <4.0.0":
+"chokidar@>=3.0.0 <4.0.0":
   version "3.5.2"
   resolved "https://registry.nlark.com/chokidar/download/chokidar-3.5.2.tgz#dba3976fcadb016f66fd365021d91600d01c1e75"
   integrity sha1-26OXb8rbAW9m/TZQIdkWANAcHnU=
@@ -3285,13 +3285,6 @@ cyclist@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npm.taobao.org/cyclist/download/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
-
-dart-sass@^1.25.0:
-  version "1.25.0"
-  resolved "https://registry.nlark.com/dart-sass/download/dart-sass-1.25.0.tgz#e00c0348118916e9d81cb485297184c131af1dad"
-  integrity sha1-4AwDSBGJFunYHLSFKXGEwTGvHa0=
-  dependencies:
-    chokidar ">=2.0.0 <4.0.0"
 
 dashdash@^1.12.0:
   version "1.14.1"
@@ -7865,9 +7858,9 @@ semver-compare@^1.0.0:
   integrity sha1-De4hahyUGrN+nvsXiPavxf9VN/w=
 
 semver-regex@^3.1.2:
-  version "3.1.2"
-  resolved "https://registry.npm.taobao.org/semver-regex/download/semver-regex-3.1.2.tgz#34b4c0d361eef262e07199dbef316d0f2ab11807"
-  integrity sha1-NLTA02Hu8mLgcZnb7zFtDyqxGAc=
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/semver-regex/-/semver-regex-3.1.3.tgz#b2bcc6f97f63269f286994e297e229b6245d0dc3"
+  integrity sha512-Aqi54Mk9uYTjVexLnR67rTyBusmwd04cLkHy9hNvk3+G3nT2Oyg7E0l4XVbOaNwIvQ3hHeYxGcyEy+mKreyBFQ==
 
 "semver@2 || 3 || 4 || 5", semver@^5.3.0, semver@^5.4.1, semver@^5.5.0, semver@^5.5.1, semver@^5.6.0:
   version "5.7.1"
