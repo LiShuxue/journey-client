@@ -14,11 +14,17 @@
         <span>{{ displayDay }}</span>
       </div>
       <div class="time">{{ displayTime }}</div>
-      <div class="address">{{ `${address.city} ${address.district}` }}</div>
-      <div v-if="wea.observe" class="wea">今日天气：{{ wea.observe.weather }}</div>
-      <div v-if="wea.observe" class="temp">{{ wea.observe.degree }}<span>℃</span></div>
-      <div v-if="wea.observe" class="win">{{ displayWind }}： {{ wea.observe.wind_power }}级</div>
-      <div v-if="wea.tips.observe" class="tips">{{ wea.tips.observe[0] }}</div>
+      <div v-if="Object.keys(address).length > 0" class="address">{{ `${address.city} ${address.district}` }}</div>
+      <div v-if="wea.observe && Object.keys(wea.observe).length > 0" class="wea">
+        今日天气：{{ wea.observe.weather }}
+      </div>
+      <div v-if="wea.observe && Object.keys(wea.observe).length > 0" class="temp">
+        {{ wea.observe.degree }}<span>℃</span>
+      </div>
+      <div v-if="wea.observe && Object.keys(wea.observe).length > 0" class="win">
+        {{ displayWind }}： {{ wea.observe.wind_power }}级
+      </div>
+      <div v-if="wea.tips && wea.tips.observe" class="tips">{{ wea.tips.observe[0] }}</div>
     </div>
   </div>
 </template>
