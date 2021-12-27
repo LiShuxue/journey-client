@@ -14,9 +14,11 @@
         <span>{{ displayDay }}</span>
       </div>
       <div class="time">{{ displayTime }}</div>
-      <div class="wea">{{ wea.city }}今日天气：{{ wea.wea }}</div>
-      <div class="temp">{{ wea.tem }}<span>℃</span></div>
-      <div class="win">{{ wea.win }}： {{ wea.win_speed }}</div>
+      <div class="address">{{ `${address.city} ${address.district}` }}</div>
+      <div v-if="wea.observe" class="wea">今日天气：{{ wea.observe.weather }}</div>
+      <div v-if="wea.observe" class="temp">{{ wea.observe.degree }}<span>℃</span></div>
+      <div v-if="wea.observe" class="win">{{ displayWind }}： {{ wea.observe.wind_power }}级</div>
+      <div v-if="wea.tips.observe" class="tips">{{ wea.tips.observe[0] }}</div>
     </div>
   </div>
 </template>
@@ -32,7 +34,8 @@ export default {
       text: '',
       date: new Date(),
       timer: null,
-      wea: {}
+      wea: {},
+      address: {}
     };
   },
 
@@ -55,6 +58,19 @@ export default {
       };
       const day = dayjs(this.date).format('d');
       return dayMap[day];
+    },
+    displayWind() {
+      const windMap = {
+        1: '东北风',
+        2: '东风',
+        3: '东南风',
+        4: '南风',
+        5: '西南风',
+        6: '西风',
+        7: '西北风',
+        8: '北风'
+      };
+      return windMap[this.wea.observe?.wind_direction];
     }
   },
 
@@ -69,6 +85,7 @@ export default {
         this.imageUrl = url;
         this.text = res.data.one.text;
         this.wea = res.data.wea;
+        this.address = res.data.address;
       })
       .catch(() => {});
   },
@@ -150,6 +167,11 @@ export default {
       font-size: 25px;
     }
 
+    .address {
+      margin-top: 20px;
+    }
+
+    .tips,
     .wea,
     .win,
     .day {
