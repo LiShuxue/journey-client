@@ -29,7 +29,8 @@ module.exports = {
         target: 'http://localhost:4000',
         // pathRewrite: { '^/blog-api': '' },
         secure: false,
-        changOrigin: true
+        changOrigin: true,
+        xfwd: true // 添加x-forward headers
       },
       // 因为one上的图片设置了防外链，所以我们通过反向代理+手动设置host referer来获取图片
       '/oneinfo': {
