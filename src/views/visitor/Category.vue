@@ -64,7 +64,7 @@ export default {
   p {
     display: flex;
     align-items: center;
-    width: 150px;
+    width: 170px;
     background: $qian-hui;
     padding: 5px;
     margin: 0 10px 10px 0;
