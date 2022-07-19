@@ -96,7 +96,7 @@ export default {
           this.blogList = newList;
           this.msg = '点击加载更多';
           this.cursor = 'cursor: pointer;';
-          if (this.endArrIndex >= this.allBlogList.length - 1) {
+          if (this.endArrIndex >= this.allBlogList.length) {
             this.msg = '没有更多了';
             this.cursor = '';
             this.canGetMore = false;
