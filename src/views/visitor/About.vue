@@ -33,9 +33,7 @@
 export default {
   methods: {
     getResume() {
-      window.open(
-        'https://raw.githubusercontent.com/LiShuxue/resume/master/%E6%9D%8E%E6%A0%91%E9%9B%AA%20-%20%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88.pdf'
-      );
+      window.open('https://raw.githubusercontent.com/LiShuxue/resume/master/李树雪 - 前端工程师.pdf');
     }
   }
 };
