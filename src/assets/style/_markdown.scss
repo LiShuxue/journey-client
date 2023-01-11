@@ -703,11 +703,11 @@
   position: relative;
   z-index: 0;
   overflow: auto;
-  padding: 0.5em;
-  color: #abb2bf;
-  background: #282c34;
+  padding: 16px;
   border-radius: 10px;
   max-height: 1050px;
+  font-size: 85%;
+  background-color: #eeeeee;
 }
 
 .markdown-body .commit-tease-sha {
