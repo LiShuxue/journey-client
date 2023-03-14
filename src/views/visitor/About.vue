@@ -4,14 +4,14 @@
       <div class="about-me">
         <h2>关于我</h2>
         <p>前端工程师</p>
-        <p>熟悉React，Vue，移动开发，混合开发</p>
+        <p>熟悉Vue，React，移动开发，混合开发</p>
         <p>热爱编程，喜欢探索，追求技术</p>
       </div>
       <div class="contact-me">
         <h2>联系我</h2>
+        <p>Email： <a href="#">1149926505@qq.com</a></p>
         <p>Blog： <a href="https://lishuxue.site" target="_blank">https://lishuxue.site</a></p>
         <p>Github： <a href="https://github.com/LiShuxue" target="_blank">https://github.com/LiShuxue</a></p>
-        <p>Email： <a href="#">1149926505@qq.com</a></p>
       </div>
     </div>
     <div class="others">
@@ -21,7 +21,7 @@
       <div class="resume">
         <div class="title" @click="getResume()">
           <div class="title-1">GET MY RESUME</div>
-          <div class="title-2">点击文字下载</div>
+          <div class="title-2">点击下载简历</div>
         </div>
         <p>如果您愿意为我提供更好的工作机会，欢迎 Email 或者微信联系我！</p>
       </div>
@@ -33,7 +33,7 @@
 export default {
   methods: {
     getResume() {
-      window.open('https://raw.githubusercontent.com/LiShuxue/resume/master/李树雪 - 前端工程师.pdf');
+      window.open('https://raw.githubusercontent.com/LiShuxue/resume/master/README.pdf');
     }
   }
 };
