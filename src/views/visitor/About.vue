@@ -16,7 +16,7 @@
     </div>
     <div class="others">
       <div class="qrcode">
-        <img src="https://raw.githubusercontent.com/LiShuxue/resume/master/MyWechat.png" />
+        <img src="https://raw.githubusercontent.com/LiShuxue/resume/master/images/MyWechat.png" />
       </div>
       <div class="resume">
         <div class="title" @click="getResume()">
