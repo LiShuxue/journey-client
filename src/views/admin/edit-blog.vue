@@ -16,8 +16,9 @@
       </el-radio-group>
       <el-button @click="addCategory" size="small">+ 创建新分类</el-button>
     </div>
+    <br />
 
-    <div class="upload-box">
+    <!-- <div class="upload-box">
       <el-upload
         class="upload-box-content"
         action=""
@@ -31,14 +32,18 @@
         <el-button v-if="!image.url" size="small">点击上传文章插图</el-button>
       </el-upload>
       <el-button v-if="image.url" size="small" @click="removeImage">点击修改文章插图</el-button>
-    </div>
+    </div> -->
 
-    <!-- <el-input placeholder="图片name" v-model="image.name" class="input-box">
-      <template slot="prepend">图片name：</template>
+    <el-input placeholder="例如：blog/image/面试/vue.jpg" v-model="image.name" class="input-box">
+      <template slot="prepend">主图name：</template>
     </el-input>
-    <el-input placeholder="图片url" v-model="image.url" class="input-box">
-      <template slot="prepend">图片url：</template>
-    </el-input> -->
+    <el-input
+      placeholder="例如：https://cdn.lishuxue.site/blog/image/面试/vue.jpg"
+      v-model="image.url"
+      class="input-box"
+    >
+      <template slot="prepend">主图url：</template>
+    </el-input>
 
     <div class="blog-content">
       <mavon-editor

@@ -30,7 +30,8 @@ const router = new Router({
         { path: '/admin/user', name: 'user', component: () => import('./views/admin/user.vue') },
         { path: '/admin/manage-blog', name: 'manage-blog', component: () => import('./views/admin/manage-blog.vue') },
         { path: '/admin/view-blog', name: 'view-blog', component: () => import('./views/visitor/Blog.vue') },
-        { path: '/admin/edit-blog', name: 'edit-blog', component: () => import('./views/admin/edit-blog.vue') }
+        { path: '/admin/edit-blog', name: 'edit-blog', component: () => import('./views/admin/edit-blog.vue') },
+        { path: '/admin/upload-file', name: 'upload-file', component: () => import('./views/admin/upload-file.vue') }
       ]
     }
   ]

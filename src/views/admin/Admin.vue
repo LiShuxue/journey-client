@@ -20,6 +20,10 @@
         <i class="el-icon-menu"></i>
         <span class="nav-item-title" slot="title">博客管理</span>
       </el-menu-item>
+      <el-menu-item index="upload-file">
+        <i class="el-icon-menu"></i>
+        <span class="nav-item-title" slot="title">上传文件</span>
+      </el-menu-item>
     </el-menu>
 
     <div class="content-wrapper">
