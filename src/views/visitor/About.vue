@@ -16,7 +16,7 @@
     </div>
     <div class="others">
       <div class="qrcode">
-        <img src="https://raw.githubusercontent.com/LiShuxue/resume/master/images/MyWechat.png" />
+        <img src="https://cdn.lishuxue.site/resume/images/MyWechat.png" />
       </div>
       <div class="resume">
         <div class="title" @click="getResume()">
@@ -33,7 +33,7 @@
 export default {
   methods: {
     getResume() {
-      window.open('https://raw.githubusercontent.com/LiShuxue/resume/master/README.pdf');
+      window.open('https://cdn.lishuxue.site/resume/李树雪-前端.pdf');
     }
   }
 };
