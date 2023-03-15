@@ -23,7 +23,8 @@ export default {
 
   methods: {
     uploadFile() {
-      this.axios.post('https://lishuxue.site:5555/upload', this.request);
+      // 5556是nginx端口，会重定向到 服务器本地的5555端口，即 http://47.93.18.226:5555
+      this.axios.post('https://lishuxue.site:5556/upload', this.request);
     }
   }
 };
