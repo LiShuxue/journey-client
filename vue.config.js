@@ -42,6 +42,11 @@ module.exports = {
           host: 'http://image.wufazhuce.com',
           referer: 'http://image.wufazhuce.com'
         }
+      },
+      '/upload': {
+        target: 'http://localhost:5555',
+        secure: false,
+        changOrigin: true
       }
     }
   },

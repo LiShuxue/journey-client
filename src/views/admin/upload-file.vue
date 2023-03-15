@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   data() {
     return {
@@ -23,8 +24,8 @@ export default {
 
   methods: {
     uploadFile() {
-      // 5556是nginx端口，会重定向到 服务器本地的5555端口，即 http://47.93.18.226:5555
-      this.axios.post('https://lishuxue.site:5556/upload', this.request);
+      // nginx 会重定向到 服务器本地的5555端口，即 http://47.93.18.226:5555
+      axios.post('/upload', this.request);
     }
   }
 };

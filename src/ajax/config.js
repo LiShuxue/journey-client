@@ -4,10 +4,12 @@ import store from '../store';
 import router from '../router';
 import { Message, MessageBox } from 'element-ui';
 
-axios.defaults.timeout = 60 * 1000;
-axios.defaults.baseURL = process.env.VUE_APP_TARGET === 'mobile' ? 'https://lishuxue.site/blog-api/' : '/blog-api';
+const instance = axios.create({
+  baseURL: process.env.VUE_APP_TARGET === 'mobile' ? 'https://lishuxue.site/blog-api/' : '/blog-api',
+  timeout: 60 * 1000
+});
 
-axios.interceptors.request.use(
+instance.interceptors.request.use(
   config => {
     for (let key in API.requireAuth) {
       // 需要携带token
@@ -25,7 +27,7 @@ axios.interceptors.request.use(
   }
 );
 
-axios.interceptors.response.use(
+instance.interceptors.response.use(
   response => {
     if (response.status === 200 && response.data.errMsg) {
       return Promise.reject(response);
@@ -54,4 +56,4 @@ axios.interceptors.response.use(
   }
 );
 
-export default axios;
+export default instance;
