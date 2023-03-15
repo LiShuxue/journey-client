@@ -23,7 +23,7 @@ export default {
 
   methods: {
     uploadFile() {
-      this.axios.post('http://lishuxue.site:5555/upload', this.request);
+      this.axios.post('https://lishuxue.site:5555/upload', this.request);
     }
   }
 };
