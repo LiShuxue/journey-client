@@ -68,11 +68,7 @@ export default {
           formdata.append('token', tokenResponse.data.qiniuUploadToken);
           formdata.append('key', key);
           // 上传到七牛云
-          //   let response = await this.axios.post(tokenResponse.data.uploadDomain, formdata, config);
-          let response = { data: {} };
-          console.log(tokenResponse.data.uploadDomain);
-          console.log(formdata);
-          console.log(config);
+          let response = await this.axios.post(tokenResponse.data.uploadDomain, formdata, config);
 
           this.$message.success(response.data.key + '上传成功！');
           let url = tokenResponse.data.downloadDomain + response.data.key;
