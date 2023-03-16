@@ -1,18 +1,31 @@
 <template>
   <div class="upload-wrapper">
-    <el-input v-model="request.project">
-      <template slot="prepend">project：</template>
-    </el-input>
-    <el-input v-model="request.fromPath">
-      <template slot="prepend">fromPath：</template>
-    </el-input>
-    <el-button size="small" @click="uploadFile">点击上传文件</el-button>
+    <div>
+      <p>1、服务器直传，需要先将文件同步到github，服务器会从github拉取并上传</p>
+      <el-input v-model="request.project">
+        <template slot="prepend">project：</template>
+      </el-input>
+      <el-input v-model="request.fromPath">
+        <template slot="prepend">fromPath：</template>
+      </el-input>
+      <el-button size="small" @click="uploadFile" type="primary">点击开始从服务端上传文件</el-button>
+    </div>
+
+    <div>
+      <p>2、客户端上传，可以直接选择文件进行上传，但是可能公司内网限制上传不了</p>
+      <upload />
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Upload from '@/components/Upload.vue';
 export default {
+  components: {
+    Upload
+  },
+
   data() {
     return {
       request: {

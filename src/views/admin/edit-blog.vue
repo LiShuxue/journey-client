@@ -18,21 +18,7 @@
     </div>
     <br />
 
-    <!-- <div class="upload-box">
-      <el-upload
-        class="upload-box-content"
-        action=""
-        :file-list="uploadImageList"
-        :http-request="uploadImage"
-        :before-remove="removeImage"
-        :limit="1"
-        accept="image/*"
-        list-type="picture"
-      >
-        <el-button v-if="!image.url" size="small">点击上传文章插图</el-button>
-      </el-upload>
-      <el-button v-if="image.url" size="small" @click="removeImage">点击修改文章插图</el-button>
-    </div> -->
+    <upload :ossPathByParent="`blog/image/${category}`" :disableInput="true" />
 
     <el-input placeholder="例如：blog/image/面试/vue.jpg" v-model="image.name" class="input-box">
       <template slot="prepend">主图name：</template>
@@ -90,6 +76,7 @@ import { mavonEditor } from 'mavon-editor';
 import 'mavon-editor/dist/css/index.css';
 import API from '@/ajax/api.js';
 import { mapState, mapGetters } from 'vuex';
+import Upload from '@/components/Upload.vue';
 
 export default {
   data() {
@@ -106,7 +93,6 @@ export default {
       category: '',
       tags: [],
 
-      uploadImageList: [],
       inputVisible: false,
       inputValue: '',
 
@@ -127,7 +113,8 @@ export default {
   },
 
   components: {
-    mavonEditor
+    mavonEditor,
+    Upload
   },
 
   async created() {
@@ -138,9 +125,6 @@ export default {
         this[key] = editBlog[key];
       });
       this.initContent = editBlog.markdownContent;
-      if (this.image && this.image.name && this.image.url) {
-        this.uploadImageList.push(Object.assign({}, this.image));
-      }
     }
 
     if (!this.blogList || this.blogList.length <= 0) {
@@ -151,54 +135,6 @@ export default {
   },
 
   methods: {
-    async uploadImage(content) {
-      this.sentry.addBreadcrumb('views/admin/edit-blog.vue --> methods: uploadImage');
-      let config = {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      };
-
-      try {
-        // 先获取七牛云的上传凭证
-        let tokenResponse = await this.axios.get(API.requireAuth.uploadToken);
-        // 上传文件参数
-        let formdata = new FormData();
-        formdata.append('file', content.file);
-        formdata.append('token', tokenResponse.data.qiniuUploadToken);
-        if (this.category) {
-          formdata.append('key', `blog/image/${this.category}/` + content.file.name);
-          // 上传到七牛云
-          let response = await this.axios.post(tokenResponse.data.uploadDomain, formdata, config);
-
-          this.$message.success(response.data.key + '上传成功！');
-          let url = tokenResponse.data.downloadDomain + response.data.key;
-          this.image = { name: response.data.key, url };
-          this.uploadImageList.push({ name: response.data.key, url });
-          return Promise.resolve();
-        } else {
-          this.$message.error('请先选择类别');
-          return Promise.reject(new Error('请先选择类别'));
-        }
-      } catch (err) {
-        this.handleError(err);
-        return Promise.reject(err);
-      }
-    },
-
-    async removeImage() {
-      this.sentry.addBreadcrumb('views/admin/edit-blog.vue --> methods: removeImage', this.image);
-      try {
-        let filename = this.image.name;
-        await this.$confirm(`确定移除 ${filename}？`).catch(() => {});
-        await this.axios.post(API.requireAuth.removeImage, { filename });
-        this.image = {};
-        this.uploadImageList.pop();
-        return Promise.resolve();
-      } catch (err) {
-        this.handleError(err);
-        return Promise.reject(err);
-      }
-    },
-
     markdownContentChange(markdown, html) {
       this.markdownContent = markdown;
       this.htmlContent = html;
@@ -283,10 +219,6 @@ export default {
 
 <style lang="scss">
 .input-box {
-  margin-bottom: 10px;
-}
-.upload-box {
-  margin-top: 10px;
   margin-bottom: 10px;
 }
 .markdown-editor-wrapper {
