@@ -132,10 +132,10 @@ export default {
 
   async created() {
     if (!this.blogList || this.blogList.length <= 0) {
-      this.refreshBlogList();
+      await this.refreshBlogList();
     }
     if (!this.blog || !this.blog._id) {
-      this.refreshBlog();
+      await this.refreshBlog();
     }
 
     this.setLike();
