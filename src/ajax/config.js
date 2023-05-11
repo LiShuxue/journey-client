@@ -5,7 +5,7 @@ import router from '../router';
 import { Message, MessageBox } from 'element-ui';
 
 const instance = axios.create({
-  baseURL: process.env.VUE_APP_TARGET === 'mobile' ? 'https://lishuxue.site/blog-api/' : '/blog-api',
+  baseURL: '/blog-api',
   timeout: 60 * 1000
 });
 
