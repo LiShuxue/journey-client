@@ -48,7 +48,7 @@ instance.interceptors.response.use(
           store.dispatch('saveAccessTokenAction', '');
           store.dispatch('saveRefreshTokenAction', '');
           store.dispatch('saveUsernameAction', '');
-          router.push('/login');
+          router.push('/loginlsx');
         }
       });
     }

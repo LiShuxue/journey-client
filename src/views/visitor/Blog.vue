@@ -105,7 +105,7 @@ export default {
       blogList: 'blogList'
     }),
     isAdmin() {
-      return this.$route.path === '/admin/view-blog' && !!this.$store.state.access_token;
+      return this.$route.path === '/adminlsx/view-blog' && !!this.$store.state.access_token;
     },
     displayPublishTime() {
       return dayjs(this.blog.publishTime).format('YYYY-MM-DD');
@@ -340,6 +340,7 @@ export default {
       padding: 23px 0 1px 0;
       opacity: 0.7;
     }
+
     .blog-title {
       margin: 25px 0 30px 0;
       display: flex;
@@ -359,13 +360,17 @@ export default {
 
     /*下面的方法实现长宽比*/
     .blog-img {
-      position: relative; /*容器所有子元素需要绝对定位*/
-      height: 0; /*容器高度是由padding来控制*/
-      padding-top: 37.5%; /* 300 / 800 = 0.375 */
+      position: relative;
+      /*容器所有子元素需要绝对定位*/
+      height: 0;
+      /*容器高度是由padding来控制*/
+      padding-top: 37.5%;
+      /* 300 / 800 = 0.375 */
       margin-bottom: 15px;
       border: 5px solid $shen-hui;
       border-radius: 5px;
     }
+
     .blog-img > img {
       /*子元素的宽高和容器一样*/
       position: absolute;
@@ -375,6 +380,7 @@ export default {
       height: 100%;
       object-fit: cover;
       opacity: 0.9;
+
       &:hover {
         opacity: 1;
         transition: all 0.25s;
@@ -410,6 +416,7 @@ export default {
     .tags {
       margin-bottom: 20px;
     }
+
     .time-info,
     .dianzan,
     .see-info {
@@ -418,6 +425,7 @@ export default {
 
     .tags {
       line-height: 32px;
+
       .tag-item {
         cursor: pointer;
         padding: 5px;
@@ -432,9 +440,11 @@ export default {
         cursor: pointer;
         font-size: 25px;
       }
+
       .liked {
         color: #2192f5;
       }
+
       .msg1,
       .msg2 {
         margin-right: 5px;
@@ -448,6 +458,7 @@ export default {
     background: $hui-bai;
     border-radius: 10px;
     color: $hui-hei;
+
     .item {
       color: #2192f5;
       text-decoration: underline;
@@ -459,9 +470,11 @@ export default {
 .is-mobile .blog-wrapper .markdown-body {
   padding: 15px 5px 0 5px;
 }
+
 .is-mobile .blog-wrapper {
   padding: 0 10px 20px 10px;
 }
+
 .is-mobile .back-to-top {
   bottom: 85px !important;
   right: 20px !important;
