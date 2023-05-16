@@ -38,7 +38,7 @@ export default {
   methods: {
     uploadFile() {
       // nginx 会重定向到 服务器本地的5555端口，即 http://47.93.18.226:5555
-      axios.post('/upload', this.request);
+      axios.post('/adminupload', this.request);
     }
   }
 };

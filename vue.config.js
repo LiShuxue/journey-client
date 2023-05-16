@@ -43,7 +43,7 @@ module.exports = {
           referer: 'http://image.wufazhuce.com'
         }
       },
-      '/upload': {
+      '/adminupload': {
         target: 'http://localhost:5555',
         secure: false,
         changOrigin: true
