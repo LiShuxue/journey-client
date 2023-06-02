@@ -105,7 +105,7 @@ export default {
       blogList: 'blogList'
     }),
     isAdmin() {
-      return this.$route.path === '/adminlsx/view-blog' && !!this.$store.state.access_token;
+      return this.$route.path === '/admin/view-blog' && !!this.$store.state.access_token;
     },
     displayPublishTime() {
       return dayjs(this.blog.publishTime).format('YYYY-MM-DD');

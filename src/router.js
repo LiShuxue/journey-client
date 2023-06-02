@@ -22,20 +22,20 @@ const router = new Router({
     },
     { path: '/loginlsx', component: () => import('./views/admin/login.vue') },
     {
-      path: '/adminlsx',
+      path: '/admin',
       component: () => import('./views/admin/Admin.vue'),
-      redirect: '/adminlsx/edit-blog',
+      redirect: '/admin/edit-blog',
       meta: { requireAuth: true }, // 添加requireAuth，表示进入这个路由是需要登录的，在父路由添加，则下面的子路由都需要验证
       children: [
-        { path: '/adminlsx/user', name: 'user', component: () => import('./views/admin/user.vue') },
+        { path: '/admin/user', name: 'user', component: () => import('./views/admin/user.vue') },
         {
-          path: '/adminlsx/manage-blog',
+          path: '/admin/manage-blog',
           name: 'manage-blog',
           component: () => import('./views/admin/manage-blog.vue')
         },
-        { path: '/adminlsx/view-blog', name: 'view-blog', component: () => import('./views/visitor/Blog.vue') },
-        { path: '/adminlsx/edit-blog', name: 'edit-blog', component: () => import('./views/admin/edit-blog.vue') },
-        { path: '/adminlsx/upload-file', name: 'upload-file', component: () => import('./views/admin/upload-file.vue') }
+        { path: '/admin/view-blog', name: 'view-blog', component: () => import('./views/visitor/Blog.vue') },
+        { path: '/admin/edit-blog', name: 'edit-blog', component: () => import('./views/admin/edit-blog.vue') },
+        { path: '/admin/upload-file', name: 'upload-file', component: () => import('./views/admin/upload-file.vue') }
       ]
     }
   ]
