@@ -355,6 +355,10 @@ export default {
         box-sizing: border-box;
         margin: 0 auto;
         padding: 20px 10px 0 10px;
+
+        .figure {
+          margin: 0 0 1em;
+        }
       }
     }
 
