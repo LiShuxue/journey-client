@@ -8,8 +8,6 @@
     <div class="comment-tool-wrapper">
       <div class="date">{{ dayjs(comment.date).format('YYYY-MM-DD') }}</div>
       <div @click="showAddComments" style="cursor: pointer;">回复</div>
-      <div v-if="isAdmin" @click="hideComments(comment.id)" style="cursor: pointer;">隐藏</div>
-      <div v-if="isAdmin" @click="deleteComments(comment.id)" style="cursor: pointer;">删除</div>
     </div>
     <comments-publish
       :showCancle="true"
@@ -38,10 +36,6 @@ export default {
     },
     comment: {
       type: Object,
-      required: true
-    },
-    isAdmin: {
-      type: Boolean,
       required: true
     },
     blog: {

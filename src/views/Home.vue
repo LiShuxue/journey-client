@@ -12,7 +12,7 @@
 import SwipeBanner from '@/components/SwipeBanner.vue';
 import BlogItem from '@/components/BlogItem.vue';
 import API from '@/ajax/api.js';
-import mockdata from '../../../mock/mock';
+import mockdata from '../../mock/mock';
 export default {
   data() {
     return {
@@ -29,10 +29,10 @@ export default {
   },
 
   created() {
-    this.sentry.addBreadcrumb('views/visitor/Home.vue --> lifecycle: created');
+    this.sentry.addBreadcrumb('views/Home.vue --> lifecycle: created');
 
     this.axios
-      .get(API.notRequireAuth.blogList)
+      .get(API.blogList)
       .then(response => {
         if (response.data.blogList && response.data.blogList.length > 0) {
           this.allBlogList = response.data.blogList;

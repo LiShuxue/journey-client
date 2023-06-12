@@ -77,7 +77,7 @@ export default {
       }
 
       this.axios
-        .post(API.notRequireAuth.likeBlog, {
+        .post(API.likeBlog, {
           id: this.blog._id,
           isLiked: this.isLiked
         })

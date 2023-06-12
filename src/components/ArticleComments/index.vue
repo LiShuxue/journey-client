@@ -6,7 +6,6 @@
       <div v-for="(comment, index) in blog.comments" :key="index">
         <comments-item
           :comment="comment"
-          :isAdmin="isAdmin"
           :blog="blog"
           @addComments="addComments"
           @refreshBlogFromChild="refreshBlogFromChild"
@@ -16,7 +15,6 @@
               <comments-item
                 :parent="comment"
                 :comment="item"
-                :isAdmin="isAdmin"
                 :blog="blog"
                 @addComments="addComments"
                 @refreshBlogFromChild="refreshBlogFromChild"
@@ -40,11 +38,6 @@ export default {
     CommentsPublish,
     CommentsItem
   },
-
-  props: {
-    isAdmin: Boolean
-  },
-
   computed: {
     ...mapState({
       blog: 'chooseBlog'
@@ -54,7 +47,7 @@ export default {
   methods: {
     addComments({ parentId, replyName, replyEmail, replyContent, comment }) {
       this.axios
-        .post(API.notRequireAuth.addComments, {
+        .post(API.addComments, {
           blog_id: this.blog._id,
           replyName,
           replyEmail,

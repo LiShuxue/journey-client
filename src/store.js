@@ -13,9 +13,6 @@ export default new Vuex.Store({
     isMobile: isMobile,
     isMenuOpen: false,
     isDirectoryOpen: false,
-    username: sessionStorage.getItem('username') || '', // sessionStorage是为了页面刷新时，重新赋值
-    access_token: sessionStorage.getItem('access_token') || '',
-    refresh_token: sessionStorage.getItem('refresh_token') || '',
     blogList: [],
     chooseBlog: {}
   },
@@ -53,15 +50,6 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    saveAccessTokenMutation(state, token) {
-      state.access_token = token;
-    },
-    saveRefreshTokenMutation(state, token) {
-      state.refresh_token = token;
-    },
-    saveUsernameMutation(state, username) {
-      state.username = username;
-    },
     saveBlogListMutation(state, blogList) {
       state.blogList = blogList;
     },
@@ -82,23 +70,11 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    saveAccessTokenAction({ commit }, payload) {
-      sessionStorage.setItem('access_token', payload);
-      commit('saveAccessTokenMutation', payload);
-    },
-    saveRefreshTokenAction({ commit }, payload) {
-      sessionStorage.setItem('refresh_token', payload);
-      commit('saveRefreshTokenMutation', payload);
-    },
-    saveUsernameAction({ commit }, payload) {
-      sessionStorage.setItem('username', payload);
-      commit('saveUsernameMutation', payload);
-    },
     chooseBlogAction({ commit }, payload) {
       sentry.addBreadcrumb('store.js --> action: chooseBlogAction');
       return new Promise((resolve, reject) => {
         axios
-          .get(`${API.notRequireAuth.blogDetail}?id=${payload._id}`)
+          .get(`${API.blogDetail}?id=${payload._id}`)
           .then(response => {
             let blog = response.data.blog;
             commit('chooseBlog', blog);

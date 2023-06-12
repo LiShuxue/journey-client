@@ -17,18 +17,7 @@
       <p class="item" v-if="this.nextBlog" @click.stop="clickNextBlog">下一篇：{{ this.nextBlog.title }}</p>
     </div>
 
-    <div class="edit-wrapper" v-if="isAdmin">
-      <el-form :inline="true">
-        <el-form-item>
-          <el-button type="primary" @click="editBlog">编辑</el-button>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="danger" @click="deleteBlog">删除</el-button>
-        </el-form-item>
-      </el-form>
-    </div>
-
-    <div class="tool-wrapper" v-if="!isAdmin && Object.keys(blog).length > 0">
+    <div class="tool-wrapper" v-if="Object.keys(blog).length > 0">
       <div @click.stop="backToTop" class="iconfont icon-top back-to-top"></div>
 
       <div class="time-info">
@@ -77,7 +66,7 @@
       </div>
     </div>
 
-    <article-comments :isAdmin="isAdmin" @refreshBlogFromChild="refreshBlog"></article-comments>
+    <article-comments @refreshBlogFromChild="refreshBlog"></article-comments>
   </div>
 </template>
 <script>
@@ -104,9 +93,6 @@ export default {
       blog: 'chooseBlog',
       blogList: 'blogList'
     }),
-    isAdmin() {
-      return this.$route.path === '/admin/view-blog' && !!this.$store.state.access_token;
-    },
     displayPublishTime() {
       return dayjs(this.blog.publishTime).format('YYYY-MM-DD');
     },
@@ -122,7 +108,7 @@ export default {
     },
 
     $route(to) {
-      this.axios.get(`${API.notRequireAuth.blogDetail}?id=${to.params.id}`).then(response => {
+      this.axios.get(`${API.blogDetail}?id=${to.params.id}`).then(response => {
         const blog = response.data.blog;
         window.scrollTo(0, 0);
         this.$store.commit('chooseBlog', blog);
@@ -144,19 +130,14 @@ export default {
 
   methods: {
     async refreshBlogList() {
-      const response = await this.axios.get(API.notRequireAuth.blogList);
+      const response = await this.axios.get(API.blogList);
       const blogList = response.data.blogList;
       this.$store.commit('saveBlogListMutation', blogList);
     },
 
     async refreshBlog() {
-      let id;
-      if (this.isAdmin) {
-        id = this.blog._id;
-      } else {
-        id = this.$route.params.id;
-      }
-      const response = await this.axios.get(`${API.notRequireAuth.blogDetail}?id=${id}`);
+      let id = this.$route.params.id;
+      const response = await this.axios.get(`${API.blogDetail}?id=${id}`);
       const blog = response.data.blog;
       this.$store.commit('chooseBlog', blog);
     },
@@ -183,27 +164,6 @@ export default {
         }
       });
     },
-    deleteBlog() {
-      this.sentry.addBreadcrumb('views/visitor/Blog.vue --> methods: deleteBlog');
-      this.$confirm('确认删除吗？', '提示', {
-        type: 'warning'
-      })
-        .then(() => {
-          let ids = [this.blog._id];
-          this.axios
-            .post(API.requireAuth.deleteBlog, { ids })
-            .then(() => {
-              // this.$router.back()
-              this.$router.push({
-                name: 'manage-blog'
-              });
-            })
-            .catch(err => {
-              this.handleError(err);
-            });
-        })
-        .catch(() => {});
-    },
 
     clickLike() {
       this.sentry.addBreadcrumb('components/BlogItem.vue --> method: clickLike');
@@ -218,7 +178,7 @@ export default {
       }
 
       this.axios
-        .post(API.notRequireAuth.likeBlog, {
+        .post(API.likeBlog, {
           id: this.blog._id,
           isLiked: this.isLiked
         })
@@ -296,21 +256,11 @@ export default {
     },
 
     clickPreBlog() {
-      if (this.isAdmin) {
-        window.scrollTo(0, 0);
-        this.$store.dispatch('chooseBlogAction', this.preBlog);
-      } else {
-        this.$router.push(`/blog/${this.preBlog._id}`);
-      }
+      this.$router.push(`/blog/${this.preBlog._id}`);
     },
 
     clickNextBlog() {
-      if (this.isAdmin) {
-        window.scrollTo(0, 0);
-        this.$store.dispatch('chooseBlogAction', this.nextBlog);
-      } else {
-        this.$router.push(`/blog/${this.nextBlog._id}`);
-      }
+      this.$router.push(`/blog/${this.nextBlog._id}`);
     }
   }
 };
@@ -348,8 +298,8 @@ export default {
     }
 
     .blog-content {
-      @import '../../assets/style/markdown';
-      @import '../../assets/style/highlight';
+      @import '../assets/style/markdown';
+      @import '../assets/style/highlight';
 
       .markdown-body {
         box-sizing: border-box;
@@ -390,10 +340,6 @@ export default {
         transition: all 0.25s;
       }
     }
-  }
-
-  .edit-wrapper {
-    margin-top: 20px;
   }
 
   .tool-wrapper {

@@ -29,7 +29,7 @@ export default {
 
   async created() {
     if (!this.blogList || this.blogList.length <= 0) {
-      const response = await this.axios.get(API.notRequireAuth.blogList);
+      const response = await this.axios.get(API.blogList);
       const blogList = response.data.blogList;
       this.$store.commit('saveBlogListMutation', blogList);
     }
