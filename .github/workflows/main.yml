@@ -60,6 +60,14 @@ jobs:
           source: 'dist,nginx'
           target: '/root/project/journey/journey-client'
 
+      - name: Nginx stop # 先停止 nginx
+        uses: garygrossgarten/github-action-ssh@release # 使用第三方action 远程执行命令
+        with:
+          command: nginx -s stop
+          username: root
+          host: ${{ secrets.SERVER_IP }}
+          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+
       - name: Nginx start # 启动 nginx
         uses: garygrossgarten/github-action-ssh@release # 使用第三方action 远程执行命令
         with:
