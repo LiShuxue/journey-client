@@ -21,6 +21,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+
+      - name: Show version # 查看版本，方便从log信息上确认
         run: node -v && npm -v && npm config set registry https://registry.npmmirror.com
 
       - name: install yarn
