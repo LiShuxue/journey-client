@@ -51,23 +51,14 @@ jobs:
           host: ${{ secrets.SERVER_IP }}
           privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
 
-      - name: Upload build file to server # 部署
+      - name: Upload build file to server # 上传dist和nginx文件
         uses: appleboy/scp-action@master # 使用第三方action 上传静态文件到服务器
         with:
           host: ${{ secrets.SERVER_IP }}
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: 'dist'
-          target: '/root/project/journey/journey-client' # 代码部署路径
-
-      - name: Upload nginx file to server # 修改 nginx 文件
-        uses: appleboy/scp-action@master # 使用第三方action 上传静态文件到服务器
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: root
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: 'nginx'
-          target: '/root/project/journey/journey-client' # nginx 路径
+          source: 'dist,nginx'
+          target: '/root/project/journey/journey-client'
 
       - name: Nginx start # 启动 nginx
         uses: garygrossgarten/github-action-ssh@release # 使用第三方action 远程执行命令
