@@ -12,7 +12,33 @@
 import SwipeBanner from '@/components/SwipeBanner.vue';
 import BlogItem from '@/components/BlogItem.vue';
 import API from '@/ajax/api.js';
-import mockdata from '../../mock/mock';
+
+const mockdata = [
+  {
+    title: '维护中',
+    subTitle: '维护中，等等再来吧...',
+    image: {
+      name: '维护中',
+      url: 'https://www.test.com/down.png'
+    },
+    content: '<p>维护中，等等再来吧...</p>',
+    isOriginal: true,
+    publishTime: Date.now(),
+    updateTime: Date.now(),
+    see: 100,
+    like: 100,
+    category: '维护',
+    tags: ['维护'],
+    comments: [
+      {
+        time: Date.now(),
+        content: '维护中',
+        arthur: '维护中'
+      }
+    ]
+  }
+];
+
 export default {
   data() {
     return {
@@ -48,8 +74,8 @@ export default {
             this.canGetMore = false;
           }
         } else {
-          this.$store.commit('saveBlogListMutation', mockdata.blogList);
-          this.allBlogList = mockdata.blogList;
+          this.$store.commit('saveBlogListMutation', mockdata);
+          this.allBlogList = mockdata;
           this.blogList = this.allBlogList.slice(this.startArrIndex, this.endArrIndex);
           this.msg = '没有更多了';
           this.cursor = '';
@@ -58,8 +84,9 @@ export default {
       })
       .catch(err => {
         this.handleError(err);
-        this.$store.commit('saveBlogListMutation', mockdata.blogList);
-        this.allBlogList = mockdata.blogList;
+        this.$store.commit('saveBlogListMutation', mockdata);
+        this.allBlogList = mockdata;
+
         this.blogList = this.allBlogList.slice(this.startArrIndex, this.endArrIndex);
         this.msg = '没有更多了';
         this.cursor = '';
