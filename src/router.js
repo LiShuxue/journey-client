@@ -18,6 +18,10 @@ const router = new Router({
         { path: '/blog/:id', name: 'blog', component: () => import('./views/Blog.vue') },
         { path: '/bloglist', name: 'bloglist', component: () => import('./views/BlogList.vue') }
       ]
+    },
+    {
+      path: '*',
+      redirect: '/'
     }
   ]
 });
