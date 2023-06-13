@@ -1,0 +1,73 @@
+name: Continuous Deploy # action名称
+
+on: # 在push代码的时候运行此action
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  auto_deploy_job:
+    name: build-deploy
+
+    runs-on: ubuntu-latest # 运行环境，最新ubuntu
+
+    strategy:
+      matrix:
+        node-version: [14.x] # 使用node
+
+    steps:
+      - name: setNpmEnv
+        run: npm config set registry https://registry.npmmirror.com # 设置npm源
+
+      - name: install yarn
+        run: npm i -g yarn # 安装yarn
+
+      - name: setYarnEnv
+        run: yarn config set registry https://registry.npmmirror.com # 设置npm源
+
+      - name: Checkout # check out the repository
+        uses: actions/checkout@v3 # 这里使用了github官方提供的action,checkout项目到虚拟机上
+
+      - name: Install Dependencies # 安装依赖
+        run: yarn
+
+      - name: Build # 构建
+        run: yarn build
+
+      - name: remove source map # 删除source map
+        run: rm -rf dist/js/*.map
+
+      - name: Clean remote folder # 删除远程的代码
+        uses: garygrossgarten/github-action-ssh@release # 使用第三方action 远程执行命令
+        with:
+          command: rm -rf /root/project/journey/journey-client/dist
+          username: root
+          host: ${{ secrets.SERVER_IP }}
+          privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
+
+      - name: Upload build file to server # 部署
+        uses: appleboy/scp-action@master # 使用第三方action 上传静态文件到服务器
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: 'dist'
+          target: '/root/project/journey/journey-client' # 代码部署路径
+
+      - name: Upload nginx file to server # 修改 nginx 文件
+        uses: appleboy/scp-action@master # 使用第三方action 上传静态文件到服务器
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: 'nginx'
+          target: '/etc/nginx' # nginx 路径
+
+      - name: Nginx start # 启动 nginx
+        uses: garygrossgarten/github-action-ssh@release # 使用第三方action 远程执行命令
+        with:
+          command: nginx -c /etc/nginx/nginx.conf
+          username: root
+          host: ${{ secrets.SERVER_IP }}
+          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
