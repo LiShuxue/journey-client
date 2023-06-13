@@ -46,7 +46,7 @@ jobs:
       - name: Clean remote folder # 删除远程的代码
         uses: garygrossgarten/github-action-ssh@release # 使用第三方action 远程执行命令
         with:
-          command: rm -rf /root/project/journey/journey-client/dist
+          command: rm -rf /root/project/journey/journey-client/dist /root/project/journey/journey-client/nginx
           username: root
           host: ${{ secrets.SERVER_IP }}
           privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
@@ -67,12 +67,12 @@ jobs:
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: 'nginx'
-          target: '/etc/nginx' # nginx 路径
+          target: '/root/project/journey/journey-client' # nginx 路径
 
       - name: Nginx start # 启动 nginx
         uses: garygrossgarten/github-action-ssh@release # 使用第三方action 远程执行命令
         with:
-          command: nginx -c /etc/nginx/nginx.conf
+          command: nginx -c /root/project/journey/journey-client/nginx/nginx.conf
           username: root
           host: ${{ secrets.SERVER_IP }}
           privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
