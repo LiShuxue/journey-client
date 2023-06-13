@@ -14,11 +14,14 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x] # 使用node
+        node-version: [14.x] # 设置node版本，可以是多个
 
     steps:
-      - name: setNpmEnv
-        run: npm config set registry https://registry.npmmirror.com # 设置npm源
+      - name: Use Node.js ${{ matrix.node-version }} # 使用 node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+        run: node -v && npm -v && npm config set registry https://registry.npmmirror.com
 
       - name: install yarn
         run: npm i -g yarn # 安装yarn
