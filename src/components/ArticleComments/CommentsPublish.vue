@@ -1,8 +1,8 @@
 <template>
   <div class="comments-publish">
     <div class="arthur-info">
-      <el-input placeholder="arthur" v-model="arthur" size="mini" style="margin-right: 5px;"> </el-input>
-      <el-input type="email" placeholder="email@example.com" v-model="email" size="mini"> </el-input>
+      <el-input placeholder="arthur" v-model="arthur" size="mini" style="margin-right: 5px;" maxLength="20"> </el-input>
+      <el-input type="email" placeholder="email@example.com" v-model="email" size="mini" maxLength="30"> </el-input>
     </div>
 
     <el-input type="textarea" :rows="3" placeholder="发表您的见解" v-model="content" class="comment-content">
