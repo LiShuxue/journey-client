@@ -6,6 +6,7 @@
       type="search"
       placeholder="请输入关键字查找"
       class="search-box"
+      maxlength="30"
     />
     <button class="search-icon" @click="searchBlog">
       <i class="iconfont icon-search"></i>
