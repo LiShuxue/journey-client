@@ -166,8 +166,6 @@ export default {
     },
 
     clickLike() {
-      this.sentry.addBreadcrumb('components/BlogItem.vue --> method: clickLike');
-
       // 点赞后存在本地，下次进来的时候显示点赞过
       if (!this.isLiked) {
         this.isLiked = true;

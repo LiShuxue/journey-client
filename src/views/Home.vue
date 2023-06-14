@@ -55,8 +55,6 @@ export default {
   },
 
   created() {
-    this.sentry.addBreadcrumb('views/Home.vue --> lifecycle: created');
-
     this.axios
       .get(API.blogList)
       .then(response => {

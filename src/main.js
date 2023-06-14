@@ -6,12 +6,10 @@ import 'normalize.css';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import axios from './ajax/config';
-import sentry from './utils/sentry';
 import handleError from './utils/handleError';
 
 Vue.use(ElementUI);
 
-Vue.prototype.sentry = sentry;
 Vue.config.productionTip = false;
 Vue.prototype.axios = axios;
 

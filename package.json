@@ -13,8 +13,6 @@
     }
   },
   "dependencies": {
-    "@sentry/browser": "^5.5.0",
-    "@sentry/integrations": "^5.5.0",
     "axios": "^1.4.0",
     "dayjs": "^1.11.8",
     "element-ui": "^2.15.13",
@@ -26,7 +24,6 @@
     "vuex": "^3.6.2"
   },
   "devDependencies": {
-    "@sentry/webpack-plugin": "^1.7.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",

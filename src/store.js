@@ -3,7 +3,6 @@ import Vuex from 'vuex';
 import { isMobile } from './utils/device';
 import axios from '@/ajax/config';
 import API from '@/ajax/api.js';
-import sentry from '@/utils/sentry';
 import handleError from '@/utils/handleError';
 
 Vue.use(Vuex);
@@ -71,7 +70,6 @@ export default new Vuex.Store({
   },
   actions: {
     chooseBlogAction({ commit }, payload) {
-      sentry.addBreadcrumb('store.js --> action: chooseBlogAction');
       return new Promise((resolve, reject) => {
         axios
           .get(`${API.blogDetail}?id=${payload._id}`)
