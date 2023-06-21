@@ -1,6 +1,6 @@
 <template>
   <nav class="nav">
-    <div v-if="this.$store.state.isMobile" class="logo"></div>
+    <div v-if="isMobile" class="logo"></div>
     <div v-for="(item, index) in navList" :key="index">
       <router-link v-bind:to="item.path" @click.native="closeMenu">
         <div class="nav-item">
@@ -12,26 +12,36 @@
   </nav>
 </template>
 
-<script>
+<script lang="ts">
+import { isMobile } from '../utils/device';
+import { useBlogStore } from '../store';
+
 export default {
+  setup() {
+    const store = useBlogStore();
+    return {
+      store,
+    };
+  },
   data() {
     return {
+      isMobile,
       navList: [
         { path: '/one', name: '发现', style: 'icon-eye' },
         { path: '/home', name: '博客', style: 'icon-home' },
         { path: '/category', name: '分类', style: 'icon-list' },
-        { path: '/about', name: '关于', style: 'icon-user' }
-      ]
+        { path: '/about', name: '关于', style: 'icon-user' },
+      ],
     };
   },
   methods: {
     closeMenu() {
-      if (this.$store.state.isMenuOpen) {
-        this.$store.commit('openOrCloseMenuMutation', false);
+      if (this.store.isMenuOpen) {
+        this.store.openOrCloseMenuMutation(false);
       }
       window.scrollTo(0, 0);
-    }
-  }
+    },
+  },
 };
 </script>
 

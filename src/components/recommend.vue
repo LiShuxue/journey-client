@@ -5,36 +5,46 @@
       <span>阅读排行</span>
     </p>
     <div class="article">
-      <p class="article-item" v-for="(item, index) in hotBlogList" :key="index" @click="showBlogDetail(item)">
+      <p
+        class="article-item"
+        v-for="(item, index) in store.hotBlogList"
+        :key="index"
+        @click="showBlogDetail(item)"
+      >
         {{ item.title }}
       </p>
     </div>
   </div>
 </template>
 
-<script>
-import { mapGetters } from 'vuex';
+<script lang="ts">
+import { useBlogStore } from '../store';
+
 export default {
+  setup() {
+    const store = useBlogStore();
+    return {
+      store,
+    };
+  },
+
   data() {
     return {
       offsetTop: 0,
-      stickyTop: false
+      stickyTop: false,
     };
-  },
-  computed: {
-    ...mapGetters(['hotBlogList'])
   },
   mounted() {
     setTimeout(() => {
       // 设置元素渲染之后的距离文档顶端的距离
-      this.offsetTop = this.$refs.stickyWrapper.offsetTop;
+      this.offsetTop = (this.$refs.stickyWrapper as any).offsetTop;
       // 设置滚动事件
       window.addEventListener('scroll', this.handleScroll);
     }, 1000);
   },
   methods: {
-    showBlogDetail(blog) {
-      this.$store.dispatch('chooseBlogAction', blog).then(() => {
+    showBlogDetail(blog: BlogType) {
+      this.store.chooseBlogAction(blog).then(() => {
         if (this.$route.name !== 'blog') {
           this.$router.push(`/blog/${blog._id}`);
         }
@@ -42,14 +52,15 @@ export default {
     },
 
     handleScroll() {
-      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      let scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
       if (scrollTop >= this.offsetTop - 70) {
         this.stickyTop = true;
       } else {
         this.stickyTop = false;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -10,7 +10,8 @@
       <div class="sub-title">{{ blog.subTitle }}</div>
       <div class="tool">
         <div class="time-zone">
-          <span class="iconfont icon-clock"></span><span class="content">{{ displayPublishTime }}</span>
+          <span class="iconfont icon-clock"></span>
+          <span class="content">{{ displayPublishTime }}</span>
         </div>
         <span class="iconfont icon-eye"></span><span class="content">{{ blog.see }}</span>
         <!-- Sample list not include comments -->
@@ -26,36 +27,46 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import dayjs from 'dayjs';
 import API from '@/ajax/api.js';
+import { useBlogStore } from '../store';
 
 export default {
+  setup() {
+    const store = useBlogStore();
+    return {
+      store,
+    };
+  },
   props: {
-    blog: Object
+    blog: Object,
   },
   data() {
     return {
-      isLiked: false
+      isLiked: false,
     };
   },
   computed: {
     displayPublishTime() {
-      return dayjs(this.blog.publishTime).format('YYYY-MM-DD');
-    }
+      return dayjs((this.blog as BlogType).publishTime).format('YYYY-MM-DD');
+    },
   },
   created() {
     // 将点赞过的文章显示出来
-    if (Object.keys(localStorage).includes(this.blog._id) && localStorage.getItem(this.blog._id) === 'true') {
+    if (
+      Object.keys(localStorage).includes((<BlogType>this.blog)._id) &&
+      localStorage.getItem(this.blog._id) === 'true'
+    ) {
       this.isLiked = true;
     }
   },
   methods: {
     showBlogDetail(blog) {
-      if (this.$store.state.isMenuOpen) {
-        this.$store.commit('openOrCloseMenuMutation', false);
+      if (this.store.isMenuOpen) {
+        this.store.openOrCloseMenuMutation(false);
       }
-      this.$store.dispatch('chooseBlogAction', blog).then(() => {
+      this.store.chooseBlogAction(blog).then(() => {
         if (this.$route.name !== 'blog') {
           this.$router.push(`/blog/${blog._id}`);
         }
@@ -75,7 +86,7 @@ export default {
       this.axios
         .post(API.likeBlog, {
           id: this.blog._id,
-          isLiked: this.isLiked
+          isLiked: this.isLiked,
         })
         .then(() => {
           // 刷新页面显示
@@ -85,14 +96,14 @@ export default {
             this.blog.like--;
           }
         })
-        .catch(err => {
+        .catch((err) => {
           this.handleError(err);
         });
     },
     clickCategory() {
       this.$router.push('/category');
-    }
-  }
+    },
+  },
 };
 </script>
 

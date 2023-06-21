@@ -3,10 +3,10 @@
     <div class="comments-list">
       <comments-publish @addComments="addComments"></comments-publish>
 
-      <div v-for="(comment, index) in blog.comments" :key="index">
+      <div v-for="(comment, index) in store.chooseBlog.comments" :key="index">
         <comments-item
           :comment="comment"
-          :blog="blog"
+          :blog="store.chooseBlog"
           @addComments="addComments"
           @refreshBlogFromChild="refreshBlogFromChild"
         >
@@ -15,7 +15,7 @@
               <comments-item
                 :parent="comment"
                 :comment="item"
-                :blog="blog"
+                :blog="store.chooseBlog"
                 @addComments="addComments"
                 @refreshBlogFromChild="refreshBlogFromChild"
               ></comments-item>
@@ -27,46 +27,47 @@
   </div>
 </template>
 
-<script>
-import { mapState } from 'vuex';
+<script lang="ts">
+import { useBlogStore } from '../../store';
 import API from '@/ajax/api.js';
 import CommentsPublish from './CommentsPublish.vue';
 import CommentsItem from './CommentsItem.vue';
 
 export default {
+  setup() {
+    const store = useBlogStore();
+    return {
+      store,
+    };
+  },
   components: {
     CommentsPublish,
-    CommentsItem
-  },
-  computed: {
-    ...mapState({
-      blog: 'chooseBlog'
-    })
+    CommentsItem,
   },
 
   methods: {
     addComments({ parentId, replyName, replyEmail, replyContent, comment }) {
       this.axios
         .post(API.addComments, {
-          blog_id: this.blog._id,
+          blog_id: this.store.chooseBlog._id,
           replyName,
           replyEmail,
           replyContent,
           parent_id: parentId,
-          comment
+          comment,
         })
         .then(() => {
           this.$emit('refreshBlogFromChild');
         })
-        .catch(err => {
+        .catch((err) => {
           this.handleError(err);
         });
     },
 
     refreshBlogFromChild() {
       this.$emit('refreshBlogFromChild');
-    }
-  }
+    },
+  },
 };
 </script>
 
