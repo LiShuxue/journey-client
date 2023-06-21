@@ -10,5 +10,5 @@ export default {
   blogDetail,
   likeBlog,
   addComments,
-  getHomeInfo
+  getHomeInfo,
 };
