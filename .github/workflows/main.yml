@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x] # 设置node版本，可以是多个
+        node-version: [18.x] # 设置node版本，可以是多个
 
     steps:
       - name: Use Node.js ${{ matrix.node-version }} # 使用 node
@@ -25,23 +25,17 @@ jobs:
       - name: Show version # 查看版本，方便从log信息上确认
         run: node -v && npm -v && npm config set registry https://registry.npmmirror.com
 
-      - name: install yarn
-        run: npm i -g yarn # 安装yarn
-
-      - name: setYarnEnv
-        run: yarn config set registry https://registry.npmmirror.com # 设置npm源
+      - name: setEnv # 开启yarn和pnpm，设置源
+        run: corepack enable && npm config set registry https://registry.npmmirror.com && yarn config set registry https://registry.npmmirror.com && pnpm config set registry https://registry.npmmirror.com
 
       - name: Checkout # check out the repository
         uses: actions/checkout@v3 # 这里使用了github官方提供的action,checkout项目到虚拟机上
 
       - name: Install Dependencies # 安装依赖
-        run: yarn
+        run: pnpm i
 
       - name: Build # 构建
-        run: yarn build
-
-      - name: remove source map # 删除source map
-        run: rm -rf dist/js/*.map
+        run: pnpm build
 
       - name: Clean remote folder # 删除远程的代码
         uses: garygrossgarten/github-action-ssh@release # 使用第三方action 远程执行命令
