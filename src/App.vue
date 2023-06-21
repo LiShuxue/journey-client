@@ -1,13 +1,15 @@
 <template>
-  <div class="app" v-bind:class="{ 'is-mobile': this.$store.state.isMobile }">
-    <transition name="router-fade" mode="out-in">
-      <router-view></router-view>
-    </transition>
+  <div class="app" :class="{ 'is-mobile': isMobile }">
+    <router-view v-slot="{ Component }">
+      <transition name="router-fade" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </div>
 </template>
 
-<script>
-export default {};
+<script setup lang="ts">
+import { isMobile } from './utils/device';
 </script>
 
 <style lang="scss">
