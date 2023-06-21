@@ -37,7 +37,7 @@ export default {
   mounted() {
     setTimeout(() => {
       // 设置元素渲染之后的距离文档顶端的距离
-      this.offsetTop = (this.$refs.stickyWrapper as any).offsetTop;
+      this.offsetTop = (this.$refs.stickyWrapper as any)?.offsetTop || 0;
       // 设置滚动事件
       window.addEventListener('scroll', this.handleScroll);
     }, 1000);
