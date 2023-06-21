@@ -17,7 +17,7 @@
         <!-- Sample list not include comments -->
         <!-- <div @click.stop="clickComments" style="display: inline"><span class="iconfont icon-comment"></span><span class="content">{{blog.comments.length}}</span></div> -->
         <div @click.stop="clickLike" style="display: inline" v-bind:class="[{ liked: isLiked }]">
-          <span class="iconfont icon-like"></span><span class="content">{{ blog.like }}</span>
+          <span class="iconfont icon-like"></span><span class="content">{{ like }}</span>
         </div>
         <div @click.stop="clickCategory" style="display: inline">
           <span class="iconfont icon-list"></span><span class="content">{{ blog.category }}</span>
@@ -45,6 +45,7 @@ export default {
   data() {
     return {
       isLiked: false,
+      like: 0,
     };
   },
   computed: {
@@ -55,11 +56,12 @@ export default {
   created() {
     // 将点赞过的文章显示出来
     if (
-      Object.keys(localStorage).includes((<BlogType>this.blog)._id) &&
-      localStorage.getItem((this.blog as BlogType)._id) === 'true'
+      Object.keys(localStorage).includes(this.blog._id) &&
+      localStorage.getItem(this.blog._id) === 'true'
     ) {
       this.isLiked = true;
     }
+    this.like = this.blog.like;
   },
   methods: {
     showBlogDetail(blog: BlogType) {
@@ -91,9 +93,9 @@ export default {
         .then(() => {
           // 刷新页面显示
           if (this.isLiked) {
-            this.blog.like++;
+            this.like++;
           } else {
-            this.blog.like--;
+            this.like--;
           }
         })
         .catch((err) => {

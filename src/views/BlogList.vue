@@ -1,5 +1,5 @@
 <template>
-  <div class="blog-list">
+  <div class="blog-list" v-if="blogList.length > 0">
     <blog-item v-for="(item, index) in blogList" :blog="item" :key="index"></blog-item>
     <div class="more" @click="getMore" :style="cursor">{{ msg }}</div>
   </div>

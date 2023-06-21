@@ -2,7 +2,7 @@
   <nav class="nav">
     <div v-if="isMobile" class="logo"></div>
     <div v-for="(item, index) in navList" :key="index">
-      <router-link v-bind:to="item.path" @click.native="closeMenu">
+      <router-link v-bind:to="item.path" @click="closeMenu">
         <div class="nav-item">
           <span class="nav-icon iconfont" v-bind:class="item.style"></span>
           <span class="nav-title">{{ item.name }}</span>
