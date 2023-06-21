@@ -1,23 +1,27 @@
 <template>
   <div class="blog">
-    <div class="blog-wrapper" v-if="Object.keys(blog).length > 0">
-      <div v-if="blog.isOriginal" class="blog-mark">原创</div>
+    <div class="blog-wrapper" v-if="store.chooseBlog && Object.keys(store.chooseBlog).length > 0">
+      <div v-if="store.chooseBlog.isOriginal" class="blog-mark">原创</div>
       <div v-else class="blog-mark">转载</div>
-      <h1 class="blog-title">{{ blog.title }}</h1>
+      <h1 class="blog-title">{{ store.chooseBlog.title }}</h1>
       <div class="blog-img">
-        <img :src="blog.image.url" :alt="blog.image.name" />
+        <img :src="store.chooseBlog.image.url" :alt="store.chooseBlog.image.name" />
       </div>
       <div class="blog-content">
-        <div class="markdown-body" v-html="blog.htmlContent"></div>
+        <MdPreview
+          :modelValue="store.chooseBlog.markdownContent"
+          previewTheme="github"
+          codeTheme="github"
+        />
       </div>
     </div>
 
     <div class="pre-next">
-      <p class="item" v-if="this.preBlog" @click.stop="clickPreBlog">上一篇：{{ this.preBlog.title }}</p>
-      <p class="item" v-if="this.nextBlog" @click.stop="clickNextBlog">下一篇：{{ this.nextBlog.title }}</p>
+      <p class="item" v-if="preBlog" @click.stop="clickPreBlog">上一篇：{{ preBlog.title }}</p>
+      <p class="item" v-if="nextBlog" @click.stop="clickNextBlog">下一篇：{{ nextBlog.title }}</p>
     </div>
 
-    <div class="tool-wrapper" v-if="Object.keys(blog).length > 0">
+    <div class="tool-wrapper" v-if="store.chooseBlog && Object.keys(store.chooseBlog).length > 0">
       <div @click.stop="backToTop" class="iconfont icon-top back-to-top"></div>
 
       <div class="time-info">
@@ -26,13 +30,13 @@
           ><u>{{ displayPublishTime }}</u></span
         >
         日发表在
-        <span @click.stop="clickCategory(blog.category)" style="cursor: pointer;"
+        <span @click.stop="clickCategory(store.chooseBlog.category)" style="cursor: pointer"
           ><u
-            ><b>{{ blog.category }}</b></u
+            ><b>{{ store.chooseBlog.category }}</b></u
           ></span
         >
         分类下
-        <span v-if="blog.updateTime !== blog.publishTime">
+        <span v-if="store.chooseBlog.updateTime !== store.chooseBlog.publishTime">
           ，修改于
           <u>{{ displayUpdateTime }}</u>
           日
@@ -41,86 +45,106 @@
 
       <div class="tags">
         相关标签：
-        <span class="tag-item" v-for="(item, index) in blog.tags" :key="index" @click="clickTag(item)">
+        <span
+          class="tag-item"
+          v-for="(item, index) in store.chooseBlog.tags"
+          :key="index"
+          @click="clickTag(item)"
+        >
           {{ item }}
         </span>
       </div>
 
       <div class="see-info">
         该文章已被阅读
-        <span
-          ><u>{{ blog.see }}</u></span
-        >
+        <span>
+          <u>{{ store.chooseBlog.see }}</u>
+        </span>
         次，共有
-        <span
-          ><u>{{ blog.like }}</u></span
-        >
+        <span>
+          <u>{{ store.chooseBlog.like }}</u>
+        </span>
         人喜欢！
       </div>
 
       <div class="dianzan">
         <span v-if="!isLiked" class="msg1">如果您觉得不错可以为我点赞哦！</span>
         <span v-else class="msg2">很高兴您能喜欢该文章！</span>
-        <span @click.stop="clickLike" class="iconfont icon-like like" v-bind:class="[{ liked: isLiked }]"></span>
-        <span v-bind:class="[{ liked: isLiked }]"> {{ blog.like }}</span>
+        <span
+          @click.stop="clickLike"
+          class="iconfont icon-like like"
+          v-bind:class="[{ liked: isLiked }]"
+        ></span>
+        <span v-bind:class="[{ liked: isLiked }]"> {{ store.chooseBlog.like }}</span>
       </div>
     </div>
 
-    <article-comments @refreshBlogFromChild="refreshBlog"></article-comments>
+    <article-comments
+      v-if="store.chooseBlog && Object.keys(store.chooseBlog).length > 0"
+      @refreshBlogFromChild="refreshBlog"
+    ></article-comments>
   </div>
 </template>
-<script>
-import { mapState } from 'vuex';
+
+<script lang="ts">
 import dayjs from 'dayjs';
 import API from '@/ajax/api.js';
-import ArticleComments from '@/components/ArticleComments';
+import ArticleComments from '@/components/ArticleComments/index.vue';
+import { useBlogStore } from '../store';
+import { MdPreview } from 'md-editor-v3';
+import 'md-editor-v3/lib/style.css';
 
 export default {
+  setup() {
+    const store = useBlogStore();
+    return {
+      store,
+    };
+  },
   components: {
-    ArticleComments
+    ArticleComments,
+    MdPreview,
   },
 
   data() {
     return {
       isLiked: false,
-      preBlog: {},
-      nextBlog: {}
+      preBlog: null,
+      nextBlog: null,
     };
   },
 
   computed: {
-    ...mapState({
-      blog: 'chooseBlog',
-      blogList: 'blogList'
-    }),
     displayPublishTime() {
-      return dayjs(this.blog.publishTime).format('YYYY-MM-DD');
+      return dayjs(this.store.chooseBlog.publishTime).format('YYYY-MM-DD');
     },
     displayUpdateTime() {
-      return dayjs(this.blog.updateTime).format('YYYY-MM-DD');
-    }
+      return dayjs(this.store.chooseBlog.updateTime).format('YYYY-MM-DD');
+    },
   },
 
   watch: {
-    blog() {
-      this.setLike();
-      this.getLastNextBlog();
+    'store.chooseBlog': {
+      handler() {
+        this.setLike();
+        this.getLastNextBlog();
+      },
     },
 
     $route(to) {
-      this.axios.get(`${API.blogDetail}?id=${to.params.id}`).then(response => {
+      this.axios.get(`${API.blogDetail}?id=${to.params.id}`).then((response) => {
         const blog = response.data.blog;
         window.scrollTo(0, 0);
-        this.$store.commit('chooseBlog', blog);
+        this.store.chooseBlogMutation(blog);
       });
-    }
+    },
   },
 
   async created() {
-    if (!this.blogList || this.blogList.length <= 0) {
+    if (!this.store.blogList || this.store.blogList.length <= 0) {
       await this.refreshBlogList();
     }
-    if (!this.blog || !this.blog._id) {
+    if (!this.store.chooseBlog || !this.store.chooseBlog._id) {
       await this.refreshBlog();
     }
 
@@ -131,20 +155,23 @@ export default {
   methods: {
     async refreshBlogList() {
       const response = await this.axios.get(API.blogList);
-      const blogList = response.data.blogList;
-      this.$store.commit('saveBlogListMutation', blogList);
+      const list = response.data.blogList;
+      this.store.saveBlogListMutation(list);
     },
 
     async refreshBlog() {
       let id = this.$route.params.id;
       const response = await this.axios.get(`${API.blogDetail}?id=${id}`);
       const blog = response.data.blog;
-      this.$store.commit('chooseBlog', blog);
+      this.store.chooseBlogMutation(blog);
     },
 
     setLike() {
       this.isLiked = false;
-      if (Object.keys(localStorage).includes(this.blog._id) && localStorage.getItem(this.blog._id) === 'true') {
+      if (
+        Object.keys(localStorage).includes(this.store.chooseBlog._id) &&
+        localStorage.getItem(this.store.chooseBlog._id) === 'true'
+      ) {
         this.isLiked = true;
       }
     },
@@ -153,15 +180,7 @@ export default {
       window.scroll({
         top: 0,
         left: 0,
-        behavior: 'smooth'
-      });
-    },
-    editBlog() {
-      this.$router.push({
-        name: 'edit-blog',
-        params: {
-          isEdit: true
-        }
+        behavior: 'smooth',
       });
     },
 
@@ -169,26 +188,26 @@ export default {
       // 点赞后存在本地，下次进来的时候显示点赞过
       if (!this.isLiked) {
         this.isLiked = true;
-        localStorage.setItem(this.blog._id, this.isLiked);
+        localStorage.setItem(this.store.chooseBlog._id, `${this.isLiked}`);
       } else {
         this.isLiked = false;
-        localStorage.removeItem(this.blog._id);
+        localStorage.removeItem(this.store.chooseBlog._id);
       }
 
       this.axios
         .post(API.likeBlog, {
-          id: this.blog._id,
-          isLiked: this.isLiked
+          id: this.store.chooseBlog._id,
+          isLiked: this.isLiked,
         })
         .then(() => {
           // 刷新页面显示
           if (this.isLiked) {
-            this.blog.like++;
+            this.store.chooseBlog.like++;
           } else {
-            this.blog.like--;
+            this.store.chooseBlog.like--;
           }
         })
-        .catch(err => {
+        .catch((err) => {
           this.handleError(err);
         });
     },
@@ -196,16 +215,16 @@ export default {
       this.$router.push({
         name: 'bloglist',
         query: {
-          category
-        }
+          category,
+        },
       });
     },
     clickTag(tag) {
       this.$router.push({
         name: 'bloglist',
         query: {
-          tag
-        }
+          tag,
+        },
       });
     },
 
@@ -218,13 +237,13 @@ export default {
     },
 
     getBlogFromCategoryList() {
-      let blogListWithSameCategory = this.blogList.filter(value => {
-        return value.category === this.blog.category;
+      let blogListWithSameCategory = this.store.blogList.filter((value) => {
+        return value.category === this.store.chooseBlog.category;
       });
       let searchList = blogListWithSameCategory;
       let currentIndex = 0;
       searchList.forEach((value, index) => {
-        if (value._id === this.blog._id) {
+        if (value._id === this.store.chooseBlog._id) {
           currentIndex = index;
         }
       });
@@ -237,10 +256,10 @@ export default {
       }
     },
     getBlogFromAll() {
-      let searchList = this.blogList;
+      let searchList = this.store.blogList;
       let currentIndex = 0;
       searchList.forEach((value, index) => {
-        if (value._id === this.blog._id) {
+        if (value._id === this.store.chooseBlog._id) {
           currentIndex = index;
         }
       });
@@ -259,8 +278,8 @@ export default {
 
     clickNextBlog() {
       this.$router.push(`/blog/${this.nextBlog._id}`);
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss">
@@ -296,18 +315,6 @@ export default {
     }
 
     .blog-content {
-      @import '../assets/style/markdown';
-      @import '../assets/style/highlight';
-
-      .markdown-body {
-        box-sizing: border-box;
-        margin: 0 auto;
-        padding: 20px 10px 0 10px;
-
-        .figure {
-          margin: 0 0 1em;
-        }
-      }
     }
 
     /*下面的方法实现长宽比*/

@@ -11,7 +11,10 @@
         <h2>联系我</h2>
         <p>Email： <a href="#">1149926505@qq.com</a></p>
         <p>Blog： <a href="https://lishuxue.site" target="_blank">https://lishuxue.site</a></p>
-        <p>Github： <a href="https://github.com/LiShuxue" target="_blank">https://github.com/LiShuxue</a></p>
+        <p>
+          Github：
+          <a href="https://github.com/LiShuxue" target="_blank">https://github.com/LiShuxue</a>
+        </p>
       </div>
     </div>
     <div class="others">
@@ -29,13 +32,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   methods: {
     getResume() {
       window.open('https://cdn.lishuxue.site/resume/李树雪-前端.pdf');
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -85,7 +88,7 @@ export default {
     .resume {
       width: 300px;
       padding: 10px;
-      background: #f8f8f8;
+      background: $hui-bai;
       border-radius: 10px;
       .title {
         height: 100px;

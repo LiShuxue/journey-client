@@ -3,7 +3,7 @@
   "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
-    "typeRoots": ["./src/types/"],
+    "typeRoots": ["./src/types/", "element-plus/global"],
     "composite": true,
     "baseUrl": ".",
     "paths": {
