@@ -8,6 +8,7 @@
       <MdCatalog
         editorId="my-editorid"
         :scrollElement="scrollElement"
+        :offsetTop="80"
         :scrollElementOffsetTop="80"
         :onClick="onCatalogClick"
       />
