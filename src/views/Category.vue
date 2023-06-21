@@ -45,7 +45,7 @@ export default {
 
   methods: {
     clickCategory(category: string) {
-      this.router.push({
+      this.$router.push({
         name: 'bloglist',
         query: {
           category,

@@ -132,11 +132,13 @@ export default {
     },
 
     $route(to) {
-      this.axios.get(`${API.blogDetail}?id=${to.params.id}`).then((response) => {
-        const blog = response.data.blog;
-        window.scrollTo(0, 0);
-        this.store.chooseBlogMutation(blog);
-      });
+      if (to.params.id) {
+        this.axios.get(`${API.blogDetail}?id=${to.params.id}`).then((response) => {
+          const blog = response.data.blog;
+          window.scrollTo(0, 0);
+          this.store.chooseBlogMutation(blog);
+        });
+      }
     },
   },
 

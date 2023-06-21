@@ -52,7 +52,7 @@ import SearchBox from '@/components/search.vue';
 import TagBox from '@/components/TagBox.vue';
 import RecommendBox from '@/components/recommend.vue';
 import MainFooter from '@/components/footer.vue';
-import { useBlogStore } from '../stores/store';
+import { useBlogStore } from '../store';
 
 export default {
   setup() {
