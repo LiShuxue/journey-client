@@ -29,7 +29,9 @@
 
       <aside v-if="$route.name !== 'about' && $route.name !== 'one'" class="right">
         <search-box></search-box>
-        <template v-if="$route.name === 'blog'"> </template>
+        <template v-if="$route.name === 'blog'">
+          <article-section></article-section>
+        </template>
         <template v-else>
           <keep-alive>
             <tag-box></tag-box>
@@ -52,6 +54,7 @@ import SearchBox from '@/components/search.vue';
 import TagBox from '@/components/TagBox.vue';
 import RecommendBox from '@/components/recommend.vue';
 import MainFooter from '@/components/footer.vue';
+import ArticleSection from '@/components/ArticleSection.vue';
 import { useBlogStore } from '../store';
 
 export default {
@@ -68,6 +71,7 @@ export default {
     TagBox,
     RecommendBox,
     MainFooter,
+    ArticleSection,
   },
 
   methods: {

@@ -9,6 +9,7 @@
       </div>
       <div class="blog-content">
         <MdPreview
+          editorId="my-editorid"
           :modelValue="store.chooseBlog.markdownContent"
           previewTheme="github"
           codeTheme="github"

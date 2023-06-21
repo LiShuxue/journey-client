@@ -56,13 +56,13 @@ export default {
     // 将点赞过的文章显示出来
     if (
       Object.keys(localStorage).includes((<BlogType>this.blog)._id) &&
-      localStorage.getItem(this.blog._id) === 'true'
+      localStorage.getItem((this.blog as BlogType)._id) === 'true'
     ) {
       this.isLiked = true;
     }
   },
   methods: {
-    showBlogDetail(blog) {
+    showBlogDetail(blog: BlogType) {
       if (this.store.isMenuOpen) {
         this.store.openOrCloseMenuMutation(false);
       }

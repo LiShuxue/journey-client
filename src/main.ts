@@ -17,5 +17,6 @@ app.use(ElementPlus);
 
 app.config.globalProperties.axios = axios;
 app.config.globalProperties.handleError = handleError;
+app.config.errorHandler = handleError;
 
 app.mount('#app');
