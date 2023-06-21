@@ -41,9 +41,9 @@ export default {
       imageUrl: '',
       text: '',
       date: new Date(),
-      timer: null,
-      wea: {},
-      address: {},
+      timer: null as number | null,
+      wea: {} as any,
+      address: {} as any,
     };
   },
 
@@ -55,7 +55,7 @@ export default {
       return dayjs(this.date).format('HH:mm:ss');
     },
     displayDay() {
-      const dayMap = {
+      const dayMap: any = {
         0: '星期天',
         1: '星期一',
         2: '星期二',
@@ -68,7 +68,7 @@ export default {
       return dayMap[day];
     },
     displayWind() {
-      const windMap = {
+      const windMap: any = {
         1: '东北风',
         2: '东风',
         3: '东南风',
@@ -83,9 +83,9 @@ export default {
   },
 
   created() {
-    this.axios
+    (this as any).axios
       .get(API.getHomeInfo)
-      .then((res) => {
+      .then((res: any) => {
         // 因为Chrome不支持http请求，所以直接请求图片连接被屏蔽。
         // 又因为one上的图片设置了防外链，所以我们通过反向代理+手动设置host referer来获取图片
         // 所以需要找一个前缀进行代理，所以再加/oneinfo/

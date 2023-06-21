@@ -19,15 +19,15 @@ export default {
   },
   data() {
     return {
-      filterBlogList: [],
+      filterBlogList: [] as BlogType[],
       msg: '',
-      blogList: [],
+      blogList: [] as BlogType[],
       startArrIndex: 0,
       endArrIndex: 6,
       getMoreList: 6,
       canGetMore: true,
       cursor: 'cursor: pointer;',
-      timer: null,
+      timer: null as number | null,
     };
   },
 
@@ -44,7 +44,7 @@ export default {
 
   async created() {
     if (!this.store.blogList || this.store.blogList.length <= 0) {
-      const response = await this.axios.get(API.blogList);
+      const response = await (this as any).axios.get(API.blogList);
       const list = response.data.blogList;
       this.store.saveBlogListMutation(list);
     }
@@ -56,7 +56,7 @@ export default {
   methods: {
     setFilterBlogList() {
       if (this.$route.query.keywords !== undefined) {
-        let keywords = this.$route.query.keywords;
+        let keywords: any = this.$route.query.keywords;
         let blogListWithKeywords = this.store.blogList.filter((value) => {
           // tags中包含 或者 category中包含 或者 title中包含 或者 subTitle中包含
           return (
@@ -70,7 +70,7 @@ export default {
       }
 
       if (this.$route.query.tag !== undefined) {
-        let tag = this.$route.query.tag;
+        let tag: any = this.$route.query.tag;
         let blogListWithSameTag = this.store.blogList.filter((value) => {
           return value.tags.includes(tag);
         });

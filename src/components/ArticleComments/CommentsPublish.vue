@@ -72,7 +72,7 @@ export default {
         !this.email.toString().trim() ||
         !this.content.toString().trim()
       ) {
-        this.$message.error('请正确填写相关信息');
+        (this as any).$message.error('请正确填写相关信息');
         return false;
       }
 
@@ -80,7 +80,7 @@ export default {
         /^([A-Za-z0-9_\-.\u4e00-\u9fa5])+@([A-Za-z0-9_\-.])+.([A-Za-z]{2,8})$/
       );
       if (!pattern.test(this.email)) {
-        this.$message.error('请正确填写邮件地址，如果有回复我们将以邮件通知您');
+        (this as any).$message.error('请正确填写邮件地址，如果有回复我们将以邮件通知您');
         return false;
       }
 

@@ -21,7 +21,6 @@
 
 <script lang="ts">
 import dayjs from 'dayjs';
-import API from '@/ajax/api.js';
 import CommentsPublish from './CommentsPublish.vue';
 
 export default {
@@ -59,7 +58,7 @@ export default {
       this.show = false;
     },
 
-    addComments({ comment }) {
+    addComments({ comment }: { comment: any }) {
       this.$emit('addComments', {
         comment,
         parentId: this.parent ? this.parent.id : this.comment.id,
@@ -68,28 +67,6 @@ export default {
         replyContent: this.comment.content,
       });
       this.show = false;
-    },
-
-    hideComments(commentId) {
-      this.axios
-        .post(API.requireAuth.hideComments, { blog_id: this.blog._id, commentId })
-        .then(() => {
-          this.$emit('refreshBlogFromChild');
-        })
-        .catch((err) => {
-          this.handleError(err);
-        });
-    },
-
-    deleteComments(commentId) {
-      this.axios
-        .post(API.requireAuth.deleteComments, { blog_id: this.blog._id, commentId })
-        .then(() => {
-          this.$emit('refreshBlogFromChild');
-        })
-        .catch((err) => {
-          this.handleError(err);
-        });
     },
   },
 };

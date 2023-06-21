@@ -1,5 +1,5 @@
 <template>
-  <div class="blog-item" @click="showBlogDetail(blog)">
+  <div class="blog-item" @click="showBlogDetail(blog as BlogType)">
     <div class="blog-image">
       <img :src="blog.image.url" :alt="blog.image.name" />
       <div v-if="blog.isOriginal" class="blog-mark">原创</div>
@@ -40,7 +40,10 @@ export default {
     };
   },
   props: {
-    blog: Object,
+    blog: {
+      type: Object,
+      required: true,
+    },
   },
   data() {
     return {
@@ -79,13 +82,13 @@ export default {
       // 点赞后存在本地，下次进来的时候显示点赞过
       if (!this.isLiked) {
         this.isLiked = true;
-        localStorage.setItem(this.blog._id, this.isLiked);
+        localStorage.setItem(this.blog._id, `${this.isLiked}`);
       } else {
         this.isLiked = false;
         localStorage.removeItem(this.blog._id);
       }
 
-      this.axios
+      (this as any).axios
         .post(API.likeBlog, {
           id: this.blog._id,
           isLiked: this.isLiked,
@@ -98,8 +101,8 @@ export default {
             this.like--;
           }
         })
-        .catch((err) => {
-          this.handleError(err);
+        .catch((err: any) => {
+          (this as any).handleError(err);
         });
     },
     clickCategory() {

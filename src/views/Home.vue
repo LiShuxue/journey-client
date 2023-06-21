@@ -51,21 +51,21 @@ export default {
   data() {
     return {
       msg: '',
-      blogList: [],
-      allBlogList: [],
+      blogList: [] as BlogType[],
+      allBlogList: [] as BlogType[],
       startArrIndex: 0,
       endArrIndex: 6,
       getMoreList: 6,
       canGetMore: true,
       cursor: 'cursor: pointer;',
-      timer: null,
+      timer: null as number | null,
     };
   },
 
   created() {
-    this.axios
+    (this as any).axios
       .get(API.blogList)
-      .then((response) => {
+      .then((response: any) => {
         if (response.data.blogList && response.data.blogList.length > 0) {
           this.allBlogList = response.data.blogList;
           this.store.saveBlogListMutation(this.allBlogList);
@@ -88,8 +88,8 @@ export default {
           this.canGetMore = false;
         }
       })
-      .catch((err) => {
-        this.handleError(err);
+      .catch((err: any) => {
+        (this as any).handleError(err);
         this.store.saveBlogListMutation(mockdata);
         this.allBlogList = mockdata;
 

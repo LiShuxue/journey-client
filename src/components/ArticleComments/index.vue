@@ -46,8 +46,20 @@ export default {
   },
 
   methods: {
-    addComments({ parentId, replyName, replyEmail, replyContent, comment }) {
-      this.axios
+    addComments({
+      parentId,
+      replyName,
+      replyEmail,
+      replyContent,
+      comment,
+    }: {
+      parentId: string;
+      replyName: string;
+      replyEmail: string;
+      replyContent: string;
+      comment: any;
+    }) {
+      (this as any).axios
         .post(API.addComments, {
           blog_id: this.store.chooseBlog._id,
           replyName,
@@ -59,8 +71,8 @@ export default {
         .then(() => {
           this.$emit('refreshBlogFromChild');
         })
-        .catch((err) => {
-          this.handleError(err);
+        .catch((err: any) => {
+          (this as any).handleError(err);
         });
     },
 

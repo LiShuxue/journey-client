@@ -110,8 +110,8 @@ export default {
   data() {
     return {
       isLiked: false,
-      preBlog: null,
-      nextBlog: null,
+      preBlog: null as any,
+      nextBlog: null as any,
     };
   },
 
@@ -134,7 +134,7 @@ export default {
 
     $route(to) {
       if (to.params.id) {
-        this.axios.get(`${API.blogDetail}?id=${to.params.id}`).then((response) => {
+        (this as any).axios.get(`${API.blogDetail}?id=${to.params.id}`).then((response: any) => {
           const blog = response.data.blog;
           window.scrollTo(0, 0);
           this.store.chooseBlogMutation(blog);
@@ -157,14 +157,14 @@ export default {
 
   methods: {
     async refreshBlogList() {
-      const response = await this.axios.get(API.blogList);
+      const response = await (this as any).axios.get(API.blogList);
       const list = response.data.blogList;
       this.store.saveBlogListMutation(list);
     },
 
     async refreshBlog() {
       let id = this.$route.params.id;
-      const response = await this.axios.get(`${API.blogDetail}?id=${id}`);
+      const response = await (this as any).axios.get(`${API.blogDetail}?id=${id}`);
       const blog = response.data.blog;
       this.store.chooseBlogMutation(blog);
     },
@@ -197,7 +197,7 @@ export default {
         localStorage.removeItem(this.store.chooseBlog._id);
       }
 
-      this.axios
+      (this as any).axios
         .post(API.likeBlog, {
           id: this.store.chooseBlog._id,
           isLiked: this.isLiked,
@@ -210,11 +210,11 @@ export default {
             this.store.chooseBlog.like--;
           }
         })
-        .catch((err) => {
-          this.handleError(err);
+        .catch((err: any) => {
+          (this as any).handleError(err);
         });
     },
-    clickCategory(category) {
+    clickCategory(category: string) {
       this.$router.push({
         name: 'bloglist',
         query: {
@@ -222,7 +222,7 @@ export default {
         },
       });
     },
-    clickTag(tag) {
+    clickTag(tag: string) {
       this.$router.push({
         name: 'bloglist',
         query: {
