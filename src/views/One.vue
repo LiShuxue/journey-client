@@ -23,9 +23,6 @@
       <div v-if="wea.observe && Object.keys(wea.observe).length > 0" class="temp">
         {{ wea.observe.degree }}<span>℃</span>
       </div>
-      <div v-if="wea.observe && Object.keys(wea.observe).length > 0" class="win">
-        {{ displayWind }}： {{ wea.observe.wind_power }}级
-      </div>
       <div v-if="wea.tips && wea.tips.observe" class="tips">{{ wea.tips.observe[0] }}</div>
     </div>
   </div>
@@ -66,19 +63,6 @@ export default {
       };
       const day = dayjs(this.date).format('d');
       return dayMap[day];
-    },
-    displayWind() {
-      const windMap: any = {
-        1: '东北风',
-        2: '东风',
-        3: '东南风',
-        4: '南风',
-        5: '西南风',
-        6: '西风',
-        7: '西北风',
-        8: '北风',
-      };
-      return windMap[this.wea.observe?.wind_direction];
     },
   },
 
