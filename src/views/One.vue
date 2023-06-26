@@ -79,7 +79,9 @@ export default {
         this.wea = res.data.wea;
         this.address = res.data.address;
       })
-      .catch(() => {});
+      .catch((err: any) => {
+        (this as any).handleError(err);
+      });
   },
 
   mounted() {

@@ -37,6 +37,9 @@ jobs:
       - name: Build # 构建
         run: pnpm build
 
+      - name: remove source map # 删除source map
+        run: rm -rf dist/**/*.map
+
       - name: Clean remote folder # 删除远程的代码
         uses: garygrossgarten/github-action-ssh@release # 使用第三方action 远程执行命令
         with:
