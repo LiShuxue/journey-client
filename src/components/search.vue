@@ -14,11 +14,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   data() {
     return {
-      keywords: ''
+      keywords: '',
     };
   },
   methods: {
@@ -26,11 +26,11 @@ export default {
       this.$router.push({
         name: 'bloglist',
         query: {
-          keywords: this.keywords
-        }
+          keywords: this.keywords,
+        },
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -1,53 +1,59 @@
 <template>
-  <div class="banner" :style="sizeStyle" @mouseenter="enter()" @mouseleave="leave()">
-    <swiper :options="swiperOption" ref="mySwiper">
-      <swiper-slide v-for="(blog, index) in newBlogList" :key="index">
-        <img :src="blog.image.url" :alt="blog.image.name" :style="sizeStyle" @click="showBlogDetail(blog)" />
+  <div class="banner" :style="sizeStyle">
+    <swiper
+      :modules="modules"
+      :space-between="20"
+      :pagination="{ clickable: true }"
+      :autoplay="{
+        delay: 4000,
+        disableOnInteraction: false,
+      }"
+    >
+      <swiper-slide v-for="(blog, index) in store.newBlogList" :key="index">
+        <img
+          :src="blog.image.url"
+          :alt="blog.image.name"
+          :style="sizeStyle"
+          @click="showBlogDetail(blog)"
+        />
       </swiper-slide>
-      <div class="swiper-pagination" slot="pagination"></div>
     </swiper>
   </div>
 </template>
 
-<script>
-import 'swiper/dist/css/swiper.css';
-import { swiper, swiperSlide } from 'vue-awesome-swiper';
-import { mapGetters } from 'vuex';
+<script lang="ts">
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/autoplay';
+import { Pagination, Autoplay } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { isMobile } from '../utils/device';
+import { useBlogStore } from '../store';
+
 export default {
-  data() {
+  setup() {
+    const store = useBlogStore();
     return {
-      swiperOption: {
-        spaceBetween: 20, // 切换图片时中间的白条
-        centeredSlides: true,
-        autoplay: {
-          delay: 4000,
-          disableOnInteraction: false
-        },
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true
-        }
-      },
-      sizeStyle: ''
+      store,
     };
   },
-  computed: {
-    swiper() {
-      return this.$refs.mySwiper.swiper;
-    },
-    ...mapGetters(['newBlogList'])
+  data() {
+    return {
+      sizeStyle: '',
+      modules: [Pagination, Autoplay],
+    };
   },
 
   components: {
-    swiper,
-    swiperSlide
+    Swiper,
+    SwiperSlide,
   },
 
   mounted() {
     // 首次渲染之后设置swiper宽度
     this.setStyle(this);
     const _self = this;
-    let timer = null;
+    let timer: number | null = null;
     // 屏幕宽度变化时重新设置swiper宽度
     window.onresize = () => {
       if (timer !== null) {
@@ -61,10 +67,10 @@ export default {
   },
 
   methods: {
-    setStyle(self) {
+    setStyle(self: any) {
       let imgWidth;
       let imgHeight;
-      if (this.$store.state.isMobile) {
+      if (isMobile) {
         imgWidth = document.body.clientWidth - 20;
         imgHeight = (300 / 800) * imgWidth;
       } else {
@@ -73,23 +79,16 @@ export default {
       }
       self.sizeStyle = `width: ${imgWidth}px; height: ${imgHeight}px`;
     },
-    enter() {
-      // this.swiper.autoplay.pause()
-    },
-    leave() {
-      // this.swiper.autoplay.run()
-    },
-    showBlogDetail(blog) {
-      if (this.$store.state.isMenuOpen) {
-        this.$store.commit('openOrCloseMenuMutation', false);
+    showBlogDetail(blog: BlogType) {
+      if (this.store.isMenuOpen) {
+        this.store.openOrCloseMenuMutation(false);
       }
-      this.$store.dispatch('chooseBlogAction', blog).then(() => {
-        if (this.$route.name !== 'blog') {
-          this.$router.push(`/blog/${blog._id}`);
-        }
-      });
-    }
-  }
+      this.store.chooseBlogAction(blog);
+      if (this.$route.name !== 'blog') {
+        this.$router.push(`/blog/${blog._id}`);
+      }
+    },
+  },
 };
 </script>
 

@@ -1,9 +1,9 @@
 <template>
   <header class="header">
-    <div class="nav-menu" v-if="this.$store.state.isMobile" @click="clickMenu">
+    <div class="nav-menu" v-if="isMobile" @click="clickMenu">
       <span class="iconfont icon-menu"></span>
     </div>
-    <div class="directory-btn" v-if="this.$store.state.isMobile && this.$route.name === 'blog'" @click="clickDirectory">
+    <div class="directory-btn" v-if="isMobile && $route.name === 'blog'" @click="clickDirectory">
       <span class="iconfont icon-tag"></span>
     </div>
     <!-- 为了解决在fixed定位下，flex不生效的问题，得在flex上面再包裹一层dom，并设置其宽高-->
@@ -20,8 +20,15 @@
   </header>
 </template>
 
-<script>
+<script lang="ts">
+import { isMobile } from '../utils/device';
+
 export default {
+  data() {
+    return {
+      isMobile,
+    };
+  },
   methods: {
     clickMenu() {
       this.$emit('clickMenu');
@@ -29,8 +36,8 @@ export default {
 
     clickDirectory() {
       this.$emit('clickDirectory');
-    }
-  }
+    },
+  },
 };
 </script>
 

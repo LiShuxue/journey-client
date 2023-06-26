@@ -2,26 +2,26 @@ import axios from 'axios';
 
 const instance = axios.create({
   baseURL: '/blog-api',
-  timeout: 60 * 1000
+  timeout: 60 * 1000,
 });
 
 instance.interceptors.request.use(
-  config => {
+  (config) => {
     return config;
   },
-  error => {
+  (error) => {
     return Promise.reject(error);
   }
 );
 
 instance.interceptors.response.use(
-  response => {
+  (response) => {
     if (response.status === 200 && response.data.errMsg) {
       return Promise.reject(response);
     }
     return response;
   },
-  error => {
+  (error) => {
     return Promise.reject(error.response);
   }
 );

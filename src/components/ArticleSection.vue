@@ -1,23 +1,24 @@
 <template>
-  <div :class="['recommend-wrapper', { 'sticky-top': stickyTop }]" ref="stickyWrapper">
+  <div :class="['article-section-list-wrapper', { 'sticky-top': stickyTop }]" ref="stickyWrapper">
     <p class="title">
       <span class="iconfont icon-top-ten"></span>
-      <span>阅读排行</span>
+      <span>文章目录</span>
     </p>
-    <div class="article">
-      <p
-        class="article-item"
-        v-for="(item, index) in store.hotBlogList"
-        :key="index"
-        @click="showBlogDetail(item)"
-      >
-        {{ item.title }}
-      </p>
+    <div class="title-list">
+      <MdCatalog
+        editorId="my-editorid"
+        :scrollElement="scrollElement"
+        :offsetTop="80"
+        :scrollElementOffsetTop="80"
+        :onClick="onCatalogClick"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import { MdCatalog } from 'md-editor-v3';
+import 'md-editor-v3/lib/style.css';
 import { useBlogStore } from '../store';
 
 export default {
@@ -27,13 +28,18 @@ export default {
       store,
     };
   },
-
   data() {
     return {
       offsetTop: 0,
       stickyTop: false,
+      scrollElement: document.documentElement,
     };
   },
+
+  components: {
+    MdCatalog,
+  },
+
   mounted() {
     setTimeout(() => {
       // 设置元素渲染之后的距离文档顶端的距离
@@ -42,22 +48,22 @@ export default {
       window.addEventListener('scroll', this.handleScroll);
     }, 1000);
   },
-  methods: {
-    showBlogDetail(blog: BlogType) {
-      this.store.chooseBlogAction(blog).then(() => {
-        if (this.$route.name !== 'blog') {
-          this.$router.push(`/blog/${blog._id}`);
-        }
-      });
-    },
 
+  methods: {
     handleScroll() {
-      let scrollTop =
-        window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
       if (scrollTop >= this.offsetTop - 70) {
         this.stickyTop = true;
       } else {
         this.stickyTop = false;
+      }
+    },
+
+    onCatalogClick() {
+      if (this.store.isDirectoryOpen) {
+        this.store.openOrCloseDirectoryMutation(false);
+      } else {
+        this.store.openOrCloseDirectoryMutation(true);
       }
     },
   },
@@ -73,7 +79,7 @@ export default {
   width: $right-width;
   box-sizing: border-box;
 }
-.recommend-wrapper {
+.article-section-list-wrapper {
   display: flex;
   flex-direction: column;
   margin-top: 15px;
@@ -81,6 +87,8 @@ export default {
   background: $hui-bai;
   border-radius: 5%;
   color: $hui-hei;
+  max-height: calc(100vh - 70px - 75px - 45px);
+  overflow: auto;
 }
 
 .title {
@@ -92,24 +100,17 @@ export default {
     margin-right: 5px;
   }
 }
-.article {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: no-wrap;
-  margin-top: 10px;
-  max-height: 500px;
-  overflow: scroll;
-}
-.article-item {
-  background: $qian-hui;
-  padding: 5px;
-  margin: 0 10px 10px 0;
-  border-radius: 10%;
-  cursor: pointer;
-  font-size: $mediu-size;
+
+.title-list {
+  :deep(.md-editor-catalog-active > span) {
+    color: #2192f5;
+  }
+  :deep(.md-editor-catalog-link > span):hover {
+    color: #2192f5;
+  }
 }
 
-.is-mobile .recommend-wrapper {
-  display: none;
+.is-mobile .article-section-list-wrapper {
+  margin-top: 0;
 }
 </style>

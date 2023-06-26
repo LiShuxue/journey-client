@@ -1,50 +1,58 @@
 <template>
   <div class="category">
     <h3>知识，要靠一点一滴的积累</h3>
-    <div :class="{ 'category-list': !this.$store.state.isMobile }">
-      <p v-for="(category, index) in categoryList" :key="index" @click="clickCategory(category)">
+    <div :class="{ 'category-list': !isMobile }">
+      <p
+        v-for="(category, index) in store.categoryList"
+        :key="index"
+        @click="clickCategory(category)"
+      >
         <span class="icon iconfont icon-category"></span>
         <span>{{ category }}</span>
-        <span
-          >（{{
-            blogList.filter(value => {
+        <span>
+          {{
+            store.blogList.filter((value) => {
               return value.category === category;
             }).length
-          }}）</span
-        >
+          }}
+        </span>
       </p>
     </div>
   </div>
 </template>
 
-<script>
-import { mapState, mapGetters } from 'vuex';
+<script lang="ts">
 import API from '@/ajax/api.js';
+import { useBlogStore } from '../store';
+import { isMobile } from '../utils/device';
 
 export default {
-  computed: {
-    ...mapState(['blogList']),
-    ...mapGetters(['categoryList'])
+  setup() {
+    const store = useBlogStore();
+    return {
+      store,
+      isMobile,
+    };
   },
 
   async created() {
-    if (!this.blogList || this.blogList.length <= 0) {
-      const response = await this.axios.get(API.blogList);
-      const blogList = response.data.blogList;
-      this.$store.commit('saveBlogListMutation', blogList);
+    if (!this.store.blogList || this.store.blogList.length <= 0) {
+      const response = await (this as any).axios.get(API.blogList);
+      const list = response.data.blogList;
+      this.store.saveBlogListMutation(list);
     }
   },
 
   methods: {
-    clickCategory(category) {
+    clickCategory(category: string) {
       this.$router.push({
         name: 'bloglist',
         query: {
-          category
-        }
+          category,
+        },
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

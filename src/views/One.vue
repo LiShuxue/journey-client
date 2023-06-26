@@ -14,7 +14,9 @@
         <span>{{ displayDay }}</span>
       </div>
       <div class="time">{{ displayTime }}</div>
-      <div v-if="Object.keys(address).length > 0" class="address">{{ `${address.city} ${address.district}` }}</div>
+      <div v-if="Object.keys(address).length > 0" class="address">
+        {{ `${address.city} ${address.district}` }}
+      </div>
       <div v-if="wea.observe && Object.keys(wea.observe).length > 0" class="wea">
         今日天气：{{ wea.observe.weather }}
       </div>
@@ -29,8 +31,8 @@
   </div>
 </template>
 
-<script>
-import API from '@/ajax/api.js';
+<script lang="ts">
+import API from '@/ajax/api';
 import dayjs from 'dayjs';
 
 export default {
@@ -39,9 +41,9 @@ export default {
       imageUrl: '',
       text: '',
       date: new Date(),
-      timer: null,
-      wea: {},
-      address: {}
+      timer: null as number | null,
+      wea: {} as any,
+      address: {} as any,
     };
   },
 
@@ -53,20 +55,20 @@ export default {
       return dayjs(this.date).format('HH:mm:ss');
     },
     displayDay() {
-      const dayMap = {
+      const dayMap: any = {
         0: '星期天',
         1: '星期一',
         2: '星期二',
         3: '星期三',
         4: '星期四',
         5: '星期五',
-        6: '星期六'
+        6: '星期六',
       };
       const day = dayjs(this.date).format('d');
       return dayMap[day];
     },
     displayWind() {
-      const windMap = {
+      const windMap: any = {
         1: '东北风',
         2: '东风',
         3: '东南风',
@@ -74,16 +76,16 @@ export default {
         5: '西南风',
         6: '西风',
         7: '西北风',
-        8: '北风'
+        8: '北风',
       };
       return windMap[this.wea.observe?.wind_direction];
-    }
+    },
   },
 
   created() {
-    this.axios
+    (this as any).axios
       .get(API.getHomeInfo)
-      .then(res => {
+      .then((res: any) => {
         // 因为Chrome不支持http请求，所以直接请求图片连接被屏蔽。
         // 又因为one上的图片设置了防外链，所以我们通过反向代理+手动设置host referer来获取图片
         // 所以需要找一个前缀进行代理，所以再加/oneinfo/
@@ -103,11 +105,11 @@ export default {
     }, 1000);
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     if (this.timer) {
       clearInterval(this.timer); // 页面销毁前，清除定时器
     }
-  }
+  },
 };
 </script>
 

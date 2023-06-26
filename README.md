@@ -5,25 +5,25 @@ This blog can be visited at <a href="https://lishuxue.site" target="_blank">http
 ## Project setup
 
 ```
-yarn install
+pnpm install
 ```
 
 ### Compiles and hot-reloads for development
 
 ```
-yarn serve
+pnpm dev
 ```
 
 ### Compiles and minifies for production
 
 ```
-yarn build
+pnpm build
 ```
 
 ### Lints and fixes files
 
 ```
-yarn lint
+pnpm lint
 ```
 
 task:

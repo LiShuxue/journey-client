@@ -5,29 +5,38 @@
       <span>标签</span>
     </p>
     <p class="tag">
-      <span class="tag-item" v-for="(item, index) in tagList" :key="index" @click="clickTag(item)">
+      <span
+        class="tag-item"
+        v-for="(item, index) in store.tagList"
+        :key="index"
+        @click="clickTag(item)"
+      >
         {{ item }}
       </span>
     </p>
   </div>
 </template>
 
-<script>
-import { mapGetters } from 'vuex';
+<script lang="ts">
+import { useBlogStore } from '../store';
+
 export default {
-  computed: {
-    ...mapGetters(['tagList'])
+  setup() {
+    const store = useBlogStore();
+    return {
+      store,
+    };
   },
   methods: {
-    clickTag(tag) {
+    clickTag(tag: string) {
       this.$router.push({
         name: 'bloglist',
         query: {
-          tag
-        }
+          tag,
+        },
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

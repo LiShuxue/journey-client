@@ -1,5 +1,5 @@
 <template>
-  <div class="blog-item" @click="showBlogDetail(blog)">
+  <div class="blog-item" @click="showBlogDetail(blog as BlogType)">
     <div class="blog-image">
       <img :src="blog.image.url" :alt="blog.image.name" />
       <div v-if="blog.isOriginal" class="blog-mark">原创</div>
@@ -10,13 +10,14 @@
       <div class="sub-title">{{ blog.subTitle }}</div>
       <div class="tool">
         <div class="time-zone">
-          <span class="iconfont icon-clock"></span><span class="content">{{ displayPublishTime }}</span>
+          <span class="iconfont icon-clock"></span>
+          <span class="content">{{ displayPublishTime }}</span>
         </div>
         <span class="iconfont icon-eye"></span><span class="content">{{ blog.see }}</span>
         <!-- Sample list not include comments -->
         <!-- <div @click.stop="clickComments" style="display: inline"><span class="iconfont icon-comment"></span><span class="content">{{blog.comments.length}}</span></div> -->
         <div @click.stop="clickLike" style="display: inline" v-bind:class="[{ liked: isLiked }]">
-          <span class="iconfont icon-like"></span><span class="content">{{ blog.like }}</span>
+          <span class="iconfont icon-like"></span><span class="content">{{ like }}</span>
         </div>
         <div @click.stop="clickCategory" style="display: inline">
           <span class="iconfont icon-list"></span><span class="content">{{ blog.category }}</span>
@@ -26,36 +27,51 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import dayjs from 'dayjs';
 import API from '@/ajax/api.js';
+import { useBlogStore } from '../store';
 
 export default {
+  setup() {
+    const store = useBlogStore();
+    return {
+      store,
+    };
+  },
   props: {
-    blog: Object
+    blog: {
+      type: Object,
+      required: true,
+    },
   },
   data() {
     return {
-      isLiked: false
+      isLiked: false,
+      like: 0,
     };
   },
   computed: {
     displayPublishTime() {
-      return dayjs(this.blog.publishTime).format('YYYY-MM-DD');
-    }
+      return dayjs((this.blog as BlogType).publishTime).format('YYYY-MM-DD');
+    },
   },
   created() {
     // 将点赞过的文章显示出来
-    if (Object.keys(localStorage).includes(this.blog._id) && localStorage.getItem(this.blog._id) === 'true') {
+    if (
+      Object.keys(localStorage).includes(this.blog._id) &&
+      localStorage.getItem(this.blog._id) === 'true'
+    ) {
       this.isLiked = true;
     }
+    this.like = this.blog.like;
   },
   methods: {
-    showBlogDetail(blog) {
-      if (this.$store.state.isMenuOpen) {
-        this.$store.commit('openOrCloseMenuMutation', false);
+    showBlogDetail(blog: BlogType) {
+      if (this.store.isMenuOpen) {
+        this.store.openOrCloseMenuMutation(false);
       }
-      this.$store.dispatch('chooseBlogAction', blog).then(() => {
+      this.store.chooseBlogAction(blog).then(() => {
         if (this.$route.name !== 'blog') {
           this.$router.push(`/blog/${blog._id}`);
         }
@@ -66,33 +82,33 @@ export default {
       // 点赞后存在本地，下次进来的时候显示点赞过
       if (!this.isLiked) {
         this.isLiked = true;
-        localStorage.setItem(this.blog._id, this.isLiked);
+        localStorage.setItem(this.blog._id, `${this.isLiked}`);
       } else {
         this.isLiked = false;
         localStorage.removeItem(this.blog._id);
       }
 
-      this.axios
+      (this as any).axios
         .post(API.likeBlog, {
           id: this.blog._id,
-          isLiked: this.isLiked
+          isLiked: this.isLiked,
         })
         .then(() => {
           // 刷新页面显示
           if (this.isLiked) {
-            this.blog.like++;
+            this.like++;
           } else {
-            this.blog.like--;
+            this.like--;
           }
         })
-        .catch(err => {
-          this.handleError(err);
+        .catch((err: any) => {
+          (this as any).handleError(err);
         });
     },
     clickCategory() {
       this.$router.push('/category');
-    }
-  }
+    },
+  },
 };
 </script>
 

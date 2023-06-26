@@ -1,7 +1,7 @@
 <template>
   <footer class="footer">
     <div class="ft"></div>
-    <div v-if="this.$store.state.isMobile" class="content">
+    <div v-if="isMobile" class="content">
       <span class="name">进阶之路</span>
       <span class="power">Powered by Vue</span>
     </div>
@@ -13,6 +13,10 @@
     <div class="fr"></div>
   </footer>
 </template>
+
+<script setup lang="ts">
+import { isMobile } from '../utils/device';
+</script>
 
 <style lang="scss" scoped>
 .footer {

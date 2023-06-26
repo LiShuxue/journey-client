@@ -1,29 +1,36 @@
 <template>
   <div
     class="wrapper"
-    v-bind:class="{ 'menu-open': this.$store.state.isMenuOpen, 'directory-open': this.$store.state.isDirectoryOpen }"
+    v-bind:class="{
+      'menu-open': store.isMenuOpen,
+      'directory-open': store.isDirectoryOpen,
+    }"
   >
-    <!-- <div v-if="!this.$store.state.isMobile" class="global-background"></div> -->
+    <!-- <div v-if="isMobile" class="global-background"></div> -->
     <main-header @clickMenu="clickMenu" @clickDirectory="clickDirectory"></main-header>
 
     <div class="content">
       <div class="left">
         <nav-bar></nav-bar>
       </div>
+
       <div class="center">
-        <transition name="router-fade" mode="out-in">
-          <keep-alive>
-            <router-view v-if="$route.meta.keepAlive"></router-view>
-          </keep-alive>
-        </transition>
-        <transition name="router-fade" mode="out-in">
-          <router-view v-if="!$route.meta.keepAlive"></router-view>
-        </transition>
+        <router-view v-slot="{ Component }">
+          <transition name="router-fade" mode="out-in">
+            <keep-alive>
+              <component :is="Component" :key="$route.name" v-if="$route.meta.keepAlive" />
+            </keep-alive>
+          </transition>
+          <transition name="router-fade" mode="out-in">
+            <component :is="Component" :key="$route.name" v-if="!$route.meta.keepAlive" />
+          </transition>
+        </router-view>
       </div>
-      <aside v-if="this.$route.name !== 'about' && this.$route.name !== 'one'" class="right">
+
+      <aside v-if="$route.name !== 'about' && $route.name !== 'one'" class="right">
         <search-box></search-box>
-        <template v-if="this.$route.name === 'blog'">
-          <article-section-list></article-section-list>
+        <template v-if="$route.name === 'blog'">
+          <article-section></article-section>
         </template>
         <template v-else>
           <keep-alive>
@@ -40,16 +47,23 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import NavBar from '@/components/NavBar.vue';
 import MainHeader from '@/components/header.vue';
 import SearchBox from '@/components/search.vue';
 import TagBox from '@/components/TagBox.vue';
 import RecommendBox from '@/components/recommend.vue';
 import MainFooter from '@/components/footer.vue';
-import ArticleSectionList from '@/components/ArticleSectionList';
+import ArticleSection from '@/components/ArticleSection.vue';
+import { useBlogStore } from '../store';
 
 export default {
+  setup() {
+    const store = useBlogStore();
+    return {
+      store,
+    };
+  },
   components: {
     NavBar,
     MainHeader,
@@ -57,26 +71,26 @@ export default {
     TagBox,
     RecommendBox,
     MainFooter,
-    ArticleSectionList
+    ArticleSection,
   },
 
   methods: {
     clickMenu() {
-      if (this.$store.state.isMenuOpen) {
-        this.$store.commit('openOrCloseMenuMutation', false);
+      if (this.store.isMenuOpen) {
+        this.store.openOrCloseMenuMutation(false);
       } else {
-        this.$store.commit('openOrCloseMenuMutation', true);
+        this.store.openOrCloseMenuMutation(true);
       }
     },
 
     clickDirectory() {
-      if (this.$store.state.isDirectoryOpen) {
-        this.$store.commit('openOrCloseDirectoryMutation', false);
+      if (this.store.isDirectoryOpen) {
+        this.store.openOrCloseDirectoryMutation(false);
       } else {
-        this.$store.commit('openOrCloseDirectoryMutation', true);
+        this.store.openOrCloseDirectoryMutation(true);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

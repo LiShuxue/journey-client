@@ -1,10 +1,10 @@
-import { Message } from 'element-ui';
+import { ElMessage } from 'element-plus';
 
-export default function(err) {
+export default function (err: any) {
   if (err) {
     // 后台返回的异常
     if (err.data && err.data.errMsg) {
-      Message.error(err.data.errMsg);
+      ElMessage.error(err.data.errMsg);
       return;
     }
 

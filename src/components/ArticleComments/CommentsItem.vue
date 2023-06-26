@@ -7,7 +7,7 @@
     <div class="content">{{ comment.content }}</div>
     <div class="comment-tool-wrapper">
       <div class="date">{{ dayjs(comment.date).format('YYYY-MM-DD HH:mm:ss') }}</div>
-      <div @click="showAddComments" style="cursor: pointer;">回复</div>
+      <div @click="showAddComments" style="cursor: pointer">回复</div>
     </div>
     <comments-publish
       :showCancle="true"
@@ -19,35 +19,34 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import dayjs from 'dayjs';
-import API from '@/ajax/api.js';
 import CommentsPublish from './CommentsPublish.vue';
 
 export default {
   components: {
-    CommentsPublish
+    CommentsPublish,
   },
 
   props: {
     parent: {
       type: Object,
-      required: false
+      required: false,
     },
     comment: {
       type: Object,
-      required: true
+      required: true,
     },
     blog: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
 
   data() {
     return {
       show: false,
-      dayjs
+      dayjs,
     };
   },
 
@@ -59,39 +58,17 @@ export default {
       this.show = false;
     },
 
-    addComments({ comment }) {
+    addComments({ comment }: { comment: any }) {
       this.$emit('addComments', {
         comment,
         parentId: this.parent ? this.parent.id : this.comment.id,
         replyName: this.comment.arthur,
         replyEmail: this.comment.email,
-        replyContent: this.comment.content
+        replyContent: this.comment.content,
       });
       this.show = false;
     },
-
-    hideComments(commentId) {
-      this.axios
-        .post(API.requireAuth.hideComments, { blog_id: this.blog._id, commentId })
-        .then(() => {
-          this.$emit('refreshBlogFromChild');
-        })
-        .catch(err => {
-          this.handleError(err);
-        });
-    },
-
-    deleteComments(commentId) {
-      this.axios
-        .post(API.requireAuth.deleteComments, { blog_id: this.blog._id, commentId })
-        .then(() => {
-          this.$emit('refreshBlogFromChild');
-        })
-        .catch(err => {
-          this.handleError(err);
-        });
-    }
-  }
+  },
 };
 </script>
 

@@ -1,27 +1,29 @@
 <template>
   <div class="home">
     <swipe-banner></swipe-banner>
-    <div class="blog-list">
+    <div class="blog-list" v-if="blogList.length > 0">
       <blog-item v-for="(item, index) in blogList" :blog="item" :key="index"></blog-item>
     </div>
     <div class="more" @click="getMore" :style="cursor">{{ msg }}</div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import SwipeBanner from '@/components/SwipeBanner.vue';
 import BlogItem from '@/components/BlogItem.vue';
 import API from '@/ajax/api.js';
+import { useBlogStore } from '../store';
 
-const mockdata = [
+const mockdata: BlogType[] = [
   {
+    _id: '1',
     title: '维护中',
     subTitle: '维护中，等等再来吧...',
     image: {
       name: '维护中',
-      url: 'https://www.test.com/down.png'
+      url: 'https://www.test.com/down.png',
     },
-    content: '<p>维护中，等等再来吧...</p>',
+    htmlContent: '<p>维护中，等等再来吧...</p>',
     isOriginal: true,
     publishTime: Date.now(),
     updateTime: Date.now(),
@@ -31,36 +33,42 @@ const mockdata = [
     tags: ['维护'],
     comments: [
       {
-        time: Date.now(),
+        date: Date.now(),
         content: '维护中',
-        arthur: '维护中'
-      }
-    ]
-  }
+        arthur: '维护中',
+      },
+    ],
+  },
 ];
 
 export default {
+  setup() {
+    const store = useBlogStore();
+    return {
+      store,
+    };
+  },
   data() {
     return {
       msg: '',
-      blogList: [],
-      allBlogList: [],
+      blogList: [] as BlogType[],
+      allBlogList: [] as BlogType[],
       startArrIndex: 0,
       endArrIndex: 6,
       getMoreList: 6,
       canGetMore: true,
       cursor: 'cursor: pointer;',
-      timer: null
+      timer: null as number | null,
     };
   },
 
   created() {
-    this.axios
+    (this as any).axios
       .get(API.blogList)
-      .then(response => {
+      .then((response: any) => {
         if (response.data.blogList && response.data.blogList.length > 0) {
           this.allBlogList = response.data.blogList;
-          this.$store.commit('saveBlogListMutation', this.allBlogList);
+          this.store.saveBlogListMutation(this.allBlogList);
           this.blogList = this.allBlogList.slice(this.startArrIndex, this.endArrIndex);
           if (this.blogList.length < this.allBlogList.length) {
             this.msg = '点击加载更多';
@@ -72,7 +80,7 @@ export default {
             this.canGetMore = false;
           }
         } else {
-          this.$store.commit('saveBlogListMutation', mockdata);
+          this.store.saveBlogListMutation(mockdata);
           this.allBlogList = mockdata;
           this.blogList = this.allBlogList.slice(this.startArrIndex, this.endArrIndex);
           this.msg = '没有更多了';
@@ -80,9 +88,9 @@ export default {
           this.canGetMore = false;
         }
       })
-      .catch(err => {
-        this.handleError(err);
-        this.$store.commit('saveBlogListMutation', mockdata);
+      .catch((err: any) => {
+        (this as any).handleError(err);
+        this.store.saveBlogListMutation(mockdata);
         this.allBlogList = mockdata;
 
         this.blogList = this.allBlogList.slice(this.startArrIndex, this.endArrIndex);
@@ -94,13 +102,11 @@ export default {
 
   components: {
     SwipeBanner,
-    BlogItem
+    BlogItem,
   },
 
   mounted() {
-    // eslint-disable-next-line
     console.clear();
-    // eslint-disable-next-line
     console.log('%c'.concat('这是一个彩蛋'), 'color:#666;font-size:3em');
   },
 
@@ -128,8 +134,8 @@ export default {
           }
         }, 1000);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -1,52 +1,52 @@
 <template>
-  <div class="blog-list">
+  <div class="blog-list" v-if="blogList.length > 0">
     <blog-item v-for="(item, index) in blogList" :blog="item" :key="index"></blog-item>
     <div class="more" @click="getMore" :style="cursor">{{ msg }}</div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import BlogItem from '@/components/BlogItem.vue';
-import { mapState } from 'vuex';
 import API from '@/ajax/api.js';
+import { useBlogStore } from '../store';
 
 export default {
+  setup() {
+    const store = useBlogStore();
+    return {
+      store,
+    };
+  },
   data() {
     return {
-      filterBlogList: [],
+      filterBlogList: [] as BlogType[],
       msg: '',
-      blogList: [],
+      blogList: [] as BlogType[],
       startArrIndex: 0,
       endArrIndex: 6,
       getMoreList: 6,
       canGetMore: true,
       cursor: 'cursor: pointer;',
-      timer: null
+      timer: null as number | null,
     };
-  },
-
-  computed: {
-    ...mapState({
-      allBlogList: 'blogList'
-    })
   },
 
   watch: {
     $route() {
       this.setFilterBlogList();
       this.setBlogList();
-    }
+    },
   },
 
   components: {
-    BlogItem
+    BlogItem,
   },
 
   async created() {
-    if (!this.allBlogList || this.allBlogList.length <= 0) {
-      const response = await this.axios.get(API.blogList);
-      const blogList = response.data.blogList;
-      this.$store.commit('saveBlogListMutation', blogList);
+    if (!this.store.blogList || this.store.blogList.length <= 0) {
+      const response = await (this as any).axios.get(API.blogList);
+      const list = response.data.blogList;
+      this.store.saveBlogListMutation(list);
     }
 
     this.setFilterBlogList();
@@ -56,14 +56,11 @@ export default {
   methods: {
     setFilterBlogList() {
       if (this.$route.query.keywords !== undefined) {
-        let keywords = this.$route.query.keywords;
-        let blogListWithKeywords = this.allBlogList.filter(value => {
+        let keywords: any = this.$route.query.keywords;
+        let blogListWithKeywords = this.store.blogList.filter((value) => {
           // tags中包含 或者 category中包含 或者 title中包含 或者 subTitle中包含
           return (
-            value.tags
-              .join('')
-              .toUpperCase()
-              .indexOf(keywords.toUpperCase()) > -1 ||
+            value.tags.join('').toUpperCase().indexOf(keywords.toUpperCase()) > -1 ||
             value.category.toUpperCase().indexOf(keywords.toUpperCase()) > -1 ||
             value.title.toUpperCase().indexOf(keywords.toUpperCase()) > -1 ||
             value.subTitle.toUpperCase().indexOf(keywords.toUpperCase()) > -1
@@ -73,8 +70,8 @@ export default {
       }
 
       if (this.$route.query.tag !== undefined) {
-        let tag = this.$route.query.tag;
-        let blogListWithSameTag = this.allBlogList.filter(value => {
+        let tag: any = this.$route.query.tag;
+        let blogListWithSameTag = this.store.blogList.filter((value) => {
           return value.tags.includes(tag);
         });
         this.filterBlogList = blogListWithSameTag;
@@ -82,7 +79,7 @@ export default {
 
       if (this.$route.query.category !== undefined) {
         let category = this.$route.query.category;
-        let blogListWithSameCategory = this.allBlogList.filter(value => {
+        let blogListWithSameCategory = this.store.blogList.filter((value) => {
           return value.category === category;
         });
         this.filterBlogList = blogListWithSameCategory;
@@ -124,8 +121,8 @@ export default {
           }
         }, 1000);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
