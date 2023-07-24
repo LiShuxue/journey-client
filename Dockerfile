@@ -23,5 +23,5 @@ VOLUME /journey-client/dist
 # 不需要暴露端口，因为前面有单独的nginx反向代理
 
 # 可以通过 docker build -t lishuxue/journey-client . 来创建本地镜像
-# 通过 docker run -d --name journey-client lishuxue/journey-client 来运行此镜像
+# 通过 docker run -d --rm --name journey-client lishuxue/journey-client 来运行此镜像
 # 通过 docker exec -it fdba3 sh 进入容器内部
