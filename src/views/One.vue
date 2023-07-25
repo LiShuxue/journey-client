@@ -2,7 +2,7 @@
   <div class="one">
     <div class="main">
       <div class="image">
-        <img :src="imageUrl" alt="图片加载中..." />
+        <img :src="imageUrl" :alt="alt" />
       </div>
       <div class="line"></div>
       <div class="text">{{ text }}</div>
@@ -41,6 +41,7 @@ export default {
       timer: null as number | null,
       wea: {} as any,
       address: {} as any,
+      alt: '',
     };
   },
 
@@ -81,6 +82,8 @@ export default {
       })
       .catch((err: any) => {
         (this as any).handleError(err);
+        this.alt = '维护中...';
+        this.text = '维护中...';
       });
   },
 
