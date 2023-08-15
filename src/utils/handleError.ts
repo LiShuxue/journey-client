@@ -3,7 +3,9 @@ import * as Sentry from '@sentry/vue';
 
 export default function (err: any) {
   if (err) {
-    Sentry.captureException(err);
+    if (process.env.NODE_ENV === 'production') {
+      Sentry.captureException(err);
+    }
 
     // 后台返回的异常
     if (err.data && err.data.errMsg) {

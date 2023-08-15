@@ -10,6 +10,8 @@ declare module 'element-plus' {
 
 declare module 'swiper';
 
+declare const process: any;
+
 type BlogType = {
   title: string;
   subTitle: string;
