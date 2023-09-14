@@ -66,13 +66,13 @@ export default defineConfig({
       },
       // 因为one上的图片设置了防外链，所以我们通过反向代理+手动设置host referer来获取图片
       '/oneinfo': {
-        target: 'http://image.wufazhuce.com',
+        target: 'https://image.wufazhuce.com',
         rewrite: (path) => path.replace(/^\/oneinfo/, ''),
         secure: false,
         changeOrigin: true,
         headers: {
-          host: 'http://image.wufazhuce.com',
-          referer: 'http://image.wufazhuce.com',
+          host: 'https://image.wufazhuce.com',
+          referer: 'https://image.wufazhuce.com',
         },
       },
     },

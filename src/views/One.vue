@@ -74,7 +74,7 @@ export default {
         // 因为Chrome不支持http请求，所以直接请求图片连接被屏蔽。
         // 又因为one上的图片设置了防外链，所以我们通过反向代理+手动设置host referer来获取图片
         // 所以需要找一个前缀进行代理，所以再加/oneinfo/
-        const url = res.data.one.imageUrl.replace('http://image.wufazhuce.com/', '/oneinfo/');
+        const url = res.data.one.imageUrl.replace('https://image.wufazhuce.com/', '/oneinfo/');
         this.imageUrl = url;
         this.text = res.data.one.text;
         this.wea = res.data.wea;
