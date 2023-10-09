@@ -318,6 +318,19 @@ export default {
     }
 
     .blog-content {
+      /* 覆盖一些css样式 */
+      blockquote {
+        margin: 0;
+      }
+      .github-theme pre {
+        font-size: 85%;
+      }
+      .github-theme pre code {
+        padding: 16px;
+      }
+      .github-theme pre code > * {
+        line-height: 1.45;
+      }
     }
 
     /*下面的方法实现长宽比*/
