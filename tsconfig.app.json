@@ -5,6 +5,7 @@
   "compilerOptions": {
     "typeRoots": ["./src/types/", "element-plus/global"],
     "composite": true,
+    "allowJs": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
