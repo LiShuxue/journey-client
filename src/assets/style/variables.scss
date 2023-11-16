@@ -10,12 +10,11 @@ $hei: #000000;
 /*主题宽高*/
 $left-width: 200px;
 $right-width: 250px;
-$center-width: 800px;
-$total-width: 1270px;
+$center-width: 850px; // 调整宽度需要调整SwiperBanner中的setStyle方法的值
+$total-width: $left-width + $right-width + $center-width + 20px; // 20是中间center部位的两侧margin
 $blog-item-height: 120px;
 $blog-item-image-width: 175px;
 $blog-item-intro-width: 490px;
-$center-right: 1060px;
 
 /*字体大小*/
 $super-large-size: 20px;

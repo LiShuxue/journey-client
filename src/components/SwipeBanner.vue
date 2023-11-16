@@ -72,9 +72,9 @@ export default {
       let imgHeight;
       if (isMobile) {
         imgWidth = document.body.clientWidth - 20;
-        imgHeight = (300 / 800) * imgWidth;
+        imgHeight = (300 / 850) * imgWidth;
       } else {
-        imgWidth = 800;
+        imgWidth = 850;
         imgHeight = 300;
       }
       self.sizeStyle = `width: ${imgWidth}px; height: ${imgHeight}px`;

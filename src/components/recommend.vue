@@ -17,8 +17,9 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { useBlogStore } from '../store';
+import debounce from 'lodash-es/debounce';
 
 export default {
   setup() {
@@ -37,13 +38,13 @@ export default {
   mounted() {
     setTimeout(() => {
       // 设置元素渲染之后的距离文档顶端的距离
-      this.offsetTop = (this.$refs.stickyWrapper as any)?.offsetTop || 0;
+      this.offsetTop = this.$refs.stickyWrapper?.offsetTop || 0;
       // 设置滚动事件
-      window.addEventListener('scroll', this.handleScroll);
+      window.addEventListener('scroll', debounce(this.handleScroll.bind(this), 300));
     }, 1000);
   },
   methods: {
-    showBlogDetail(blog: BlogType) {
+    showBlogDetail(blog) {
       this.store.chooseBlogAction(blog).then(() => {
         if (this.$route.name !== 'blog') {
           this.$router.push(`/blog/${blog._id}`);
@@ -52,8 +53,7 @@ export default {
     },
 
     handleScroll() {
-      let scrollTop =
-        window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
       if (scrollTop >= this.offsetTop - 70) {
         this.stickyTop = true;
       } else {
@@ -81,6 +81,7 @@ export default {
   background: $hui-bai;
   border-radius: 5%;
   color: $hui-hei;
+  margin-bottom: 45px;
 }
 
 .title {
@@ -95,9 +96,9 @@ export default {
 .article {
   display: flex;
   flex-direction: column;
-  flex-wrap: no-wrap;
+  flex-wrap: nowrap;
   margin-top: 10px;
-  max-height: 500px;
+  max-height: 220px;
   overflow: scroll;
 }
 .article-item {

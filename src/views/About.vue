@@ -45,19 +45,19 @@ export default {
 <style lang="scss">
 .about {
   display: flex;
-  width: $center-right;
   height: calc(100vh - 70px - 10px - 36px - 15px - 60px);
   box-sizing: border-box;
   border-radius: 10px;
   color: $hui-hei;
 
   .intro {
-    width: 740px;
+    width: $center-width;
     box-sizing: border-box;
     margin-right: 10px;
     background: $hui-bai;
     border-radius: 10px;
     padding: 20px;
+    flex-shrink: 0;
 
     .about-me {
       margin-bottom: 50px;
@@ -73,8 +73,9 @@ export default {
   }
 
   .others {
+    flex-shrink: 0;
+    width: $right-width;
     .qrcode {
-      width: 300px;
       padding: 10px;
       margin-bottom: 20px;
       background: $hui-bai;
@@ -86,7 +87,6 @@ export default {
     }
 
     .resume {
-      width: 300px;
       padding: 10px;
       background: $hui-bai;
       border-radius: 10px;
@@ -116,6 +116,9 @@ export default {
   .intro {
     width: auto;
     margin: 0 0 20px 0;
+  }
+  .others {
+    width: auto;
   }
 
   .qrcode,

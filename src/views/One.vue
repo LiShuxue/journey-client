@@ -105,11 +105,10 @@ export default {
 <style lang="scss" scoped>
 .one {
   display: flex;
-  width: $center-right;
-
   .main {
     width: $center-width;
     margin-right: 10px;
+    flex-shrink: 0;
     // 实现长宽比
     .image {
       position: relative; /*容器所有子元素需要绝对定位*/
@@ -127,7 +126,7 @@ export default {
       color: $hui-hei;
     }
     .line {
-      height: 35px;
+      height: 30px;
       width: 100%;
       background: $hui-hei;
     }
@@ -137,8 +136,8 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      // 100vh - header - header和内容的空隙 - 本页面的margin-top - 本页图片高 - 上下黑线 - 更多的占位 - 下方空隙 - footer
-      height: calc(100vh - 70px - 10px - 5px - 523px - 70px - 35px - 15px - 60px);
+      // 100vh - header 60 - header和内容的空隙 10 - 本页面的margin-top 5 - 本页图片高，宽度*宽高比 - 上下黑线 70 - 更多的占位 45 - footer的margin-top 15 - footer 60
+      height: calc(100vh - 60px - 10px - 5px - 0.6666 * $center-width - 60px - 45px - 15px - 60px);
       background: $shen-hui;
       line-height: 1.5;
     }
@@ -153,6 +152,8 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
 
     .day {
       span {

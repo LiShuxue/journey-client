@@ -147,10 +147,10 @@ export default {
   display: inline-block;
   text-align: center;
   font-size: $mediu-size;
-  line-height: $mediu-size;
+  height: 35px;
+  line-height: 35px;
   color: $hui-hei;
   width: 100%;
-  padding: 10px 0;
   margin-top: 10px;
   background: $shen-hui;
 }

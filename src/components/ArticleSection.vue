@@ -16,10 +16,11 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { MdCatalog } from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 import { useBlogStore } from '../store';
+import debounce from 'lodash-es/debounce';
 
 export default {
   setup() {
@@ -43,9 +44,9 @@ export default {
   mounted() {
     setTimeout(() => {
       // 设置元素渲染之后的距离文档顶端的距离
-      this.offsetTop = (this.$refs.stickyWrapper as any)?.offsetTop || 0;
+      this.offsetTop = this.$refs.stickyWrapper?.offsetTop || 0;
       // 设置滚动事件
-      window.addEventListener('scroll', this.handleScroll);
+      window.addEventListener('scroll', debounce(this.handleScroll.bind(this), 300));
     }, 1000);
   },
 

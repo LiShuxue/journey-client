@@ -64,7 +64,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   margin-top: 10px;
-  max-height: 400px;
+  max-height: 200px;
   overflow: scroll;
 }
 .tag-item {

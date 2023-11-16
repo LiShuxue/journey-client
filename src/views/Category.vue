@@ -62,7 +62,7 @@ export default {
   overflow: scroll;
   width: $center-width;
   /*总高度 - 内容padding-top - more button margin-top - more button height - more button margin-bottom - footer height*/
-  height: calc(100vh - 70px - 10px - 36px - 15px - 60px);
+  height: calc(100vh - 70px - 10px - 35px - 15px - 60px);
   box-sizing: border-box;
   border-radius: 10px;
   padding: 20px;

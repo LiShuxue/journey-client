@@ -287,6 +287,7 @@ export default {
 </script>
 <style lang="scss">
 .blog {
+  padding-bottom: 45px;
   .blog-wrapper {
     position: relative;
     overflow: hidden;
@@ -449,5 +450,9 @@ export default {
 .is-mobile .back-to-top {
   bottom: 85px !important;
   right: 20px !important;
+}
+
+.is-mobile .blog {
+  padding-bottom: 0;
 }
 </style>
