@@ -320,7 +320,7 @@ export default {
 
     .blog-content {
       /* 覆盖一些css样式 */
-      blockquote {
+      :deep(blockquote) {
         margin: 0;
       }
       .github-theme pre {
@@ -332,10 +332,9 @@ export default {
       .github-theme pre code > * {
         line-height: 1.45;
       }
-    }
-
-    :deep(.md-editor-preview-wrapper) {
-      padding: 5px;
+      :deep(.md-editor-preview-wrapper) {
+        padding: 5px;
+      }
     }
 
     /*下面的方法实现长宽比*/
