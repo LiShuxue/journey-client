@@ -285,7 +285,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .blog {
   padding-bottom: 45px;
   .blog-wrapper {
@@ -294,7 +294,7 @@ export default {
     box-sizing: border-box;
     border-radius: 10px;
     padding: 0 20px 40px 20px;
-    background: $hui-bai;
+    background: white;
 
     .blog-mark {
       position: absolute;
@@ -334,6 +334,10 @@ export default {
       }
     }
 
+    :deep(.md-editor-preview-wrapper) {
+      padding: 5px;
+    }
+
     /*下面的方法实现长宽比*/
     .blog-img {
       position: relative;
@@ -343,8 +347,7 @@ export default {
       padding-top: 37.5%;
       /* 300 / 800 = 0.375 */
       margin-bottom: 15px;
-      border: 5px solid $shen-hui;
-      border-radius: 5px;
+      border: 1px solid $shen-hui;
     }
 
     .blog-img > img {
