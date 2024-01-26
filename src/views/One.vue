@@ -208,7 +208,7 @@ export default {
 
   .others {
     order: 1;
-    width: calc(100vw - 40px);
+    width: calc(100vw - 20px);
 
     .day,
     .time {
