@@ -7,7 +7,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    return config;
+    return Promise.resolve(config);
   },
   (error) => {
     return Promise.reject(error);
@@ -16,13 +16,10 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (response) => {
-    if (response.status === 200 && response.data.errMsg) {
-      return Promise.reject(response);
-    }
-    return response;
+    return Promise.resolve(response.data?.data);
   },
   (error) => {
-    return Promise.reject(error.response);
+    return Promise.reject(error.response?.data);
   }
 );
 

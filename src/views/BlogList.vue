@@ -44,8 +44,7 @@ export default {
 
   async created() {
     if (!this.store.blogList || this.store.blogList.length <= 0) {
-      const response = await (this as any).axios.get(API.blogList);
-      const list = response.data.blogList;
+      const list = await (this as any).axios.get(API.blogList);
       this.store.saveBlogListMutation(list);
     }
 
@@ -130,9 +129,11 @@ export default {
 .blog-list {
   box-sizing: border-box;
 }
+
 .blog-item:first-child {
   margin-top: 0px;
 }
+
 .more {
   display: inline-block;
   text-align: center;

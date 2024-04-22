@@ -3,12 +3,14 @@ const blogList = `blog/list`;
 const blogDetail = `blog/detail`;
 const likeBlog = `blog/like`;
 const addComments = `blog/comment/add`;
-const getHomeInfo = `common/homeinfo`;
+const replyComments = `blog/comment/reply`;
+const getHomeInfo = `common/homeInfo`;
 
 export default {
   blogList,
   blogDetail,
   likeBlog,
   addComments,
+  replyComments,
   getHomeInfo,
 };

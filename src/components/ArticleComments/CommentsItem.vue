@@ -2,7 +2,10 @@
   <div v-if="!comment.isHide" class="comment-item">
     <div class="arthur">
       {{ comment.arthur }}
-      <span v-if="comment.replyName">回复&nbsp;{{ comment.replyName }}</span>
+      <span v-if="!comment.isReplyParent && comment.replyArthur"
+        >回复&nbsp;{{ comment.replyArthur }}</span
+      >
+      <span v-else-if="comment.isReplyParent">回复&nbsp;楼主</span>
     </div>
     <div class="content">{{ comment.content }}</div>
     <div class="comment-tool-wrapper">
@@ -10,20 +13,39 @@
       <div @click="showAddComments" style="cursor: pointer">回复</div>
     </div>
     <comments-publish
-      :showCancle="true"
-      @addComments="addComments"
-      @hide="hideAddComments"
       v-if="show"
-    ></comments-publish>
-    <slot></slot>
+      :showCancle="true"
+      @addComments="(val) => replyComments({ comment: val.comment, replyId: comment.id })"
+      @hide="hideAddComments"
+    >
+    </comments-publish>
+
+    <div class="comment-reply">
+      <div v-for="(item, index) in comment.reply" :key="index">
+        <comments-item
+          :parent="comment"
+          :comment="item"
+          @replyComments="replyComments"
+          @refreshBlogFromChild="refreshBlogFromChild"
+        ></comments-item>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import dayjs from 'dayjs';
 import CommentsPublish from './CommentsPublish.vue';
+import { useBlogStore } from '../../store';
 
 export default {
+  setup() {
+    const store = useBlogStore();
+    return {
+      store,
+    };
+  },
+
   components: {
     CommentsPublish,
   },
@@ -34,10 +56,6 @@ export default {
       required: false,
     },
     comment: {
-      type: Object,
-      required: true,
-    },
-    blog: {
       type: Object,
       required: true,
     },
@@ -58,15 +76,17 @@ export default {
       this.show = false;
     },
 
-    addComments({ comment }: { comment: any }) {
-      this.$emit('addComments', {
+    replyComments({ comment, replyId }: any) {
+      this.$emit('replyComments', {
         comment,
         parentId: this.parent ? this.parent.id : this.comment.id,
-        replyName: this.comment.arthur,
-        replyEmail: this.comment.email,
-        replyContent: this.comment.content,
+        replyId,
       });
       this.show = false;
+    },
+
+    refreshBlogFromChild() {
+      this.$emit('refreshBlogFromChild');
     },
   },
 };
@@ -76,13 +96,16 @@ export default {
 .comment-item {
   margin-bottom: 5px;
   border-bottom: 1px $qian-hui solid;
+
   .arthur {
     color: $hui-hei;
     padding: 5px;
   }
+
   .content {
     padding: 5px;
   }
+
   .comment-tool-wrapper {
     display: flex;
     justify-content: space-between;
@@ -90,6 +113,7 @@ export default {
     color: $hui-hei;
     padding: 5px;
     display: flex;
+
     .date {
       margin-right: 10px;
     }

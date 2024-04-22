@@ -8,9 +8,8 @@ export default function (err: any) {
     }
 
     // 后台返回的异常
-    if (err.data && err.data.errMsg) {
-      ElMessage.error(err.data.errMsg);
-      return;
+    if (err.message) {
+      ElMessage.error(err.message);
     }
 
     // 先输出到控制台

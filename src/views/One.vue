@@ -74,11 +74,11 @@ export default {
         // 因为Chrome不支持http请求，所以直接请求图片连接被屏蔽。
         // 又因为one上的图片设置了防外链，所以我们通过反向代理+手动设置host referer来获取图片
         // 所以需要找一个前缀进行代理，所以再加/oneinfo/
-        const url = res.data.one.imageUrl.replace('https://image.wufazhuce.com/', '/oneinfo/');
+        const url = res.one.imageUrl.replace('https://image.wufazhuce.com/', '/oneinfo/');
         this.imageUrl = url;
-        this.text = res.data.one.text;
-        this.wea = res.data.wea;
-        this.address = res.data.address;
+        this.text = res.one.text;
+        this.wea = res.weather;
+        this.address = res.address;
       })
       .catch((err: any) => {
         (this as any).handleError(err);
@@ -105,17 +105,23 @@ export default {
 <style lang="scss" scoped>
 .one {
   display: flex;
+
   .main {
     width: $center-width;
     margin-right: 10px;
     flex-shrink: 0;
+
     // 实现长宽比
     .image {
-      position: relative; /*容器所有子元素需要绝对定位*/
-      height: 0; /*容器高度是由padding来控制*/
-      padding-top: 66.667%; /* 480 / 720 = 0.66666 */
+      position: relative;
+      /*容器所有子元素需要绝对定位*/
+      height: 0;
+      /*容器高度是由padding来控制*/
+      padding-top: 66.667%;
+      /* 480 / 720 = 0.66666 */
       margin-top: 5px;
     }
+
     .image > img {
       /*子元素的宽高和容器一样*/
       position: absolute;
@@ -125,11 +131,13 @@ export default {
       height: 100%;
       color: $hui-hei;
     }
+
     .line {
       height: 30px;
       width: 100%;
       background: $hui-hei;
     }
+
     .text {
       padding: 0 12px;
       color: $hui-hei;
@@ -178,6 +186,7 @@ export default {
 
     .temp {
       font-size: 40px;
+
       span {
         position: relative;
         top: -20px;
@@ -192,15 +201,19 @@ export default {
     display: flex;
     flex-direction: column;
   }
+
   .main {
     order: 2;
     width: calc(100vw - 20px);
+
     .image {
       margin-top: 0;
     }
+
     .line {
       height: 10px;
     }
+
     .text {
       height: 100px;
     }

@@ -67,8 +67,7 @@ export const useBlogStore = defineStore('blog', () => {
     return new Promise((resolve, reject) => {
       axios
         .get(`${API.blogDetail}?id=${payload._id}`)
-        .then((response) => {
-          const blog: BlogType = response.data.blog;
+        .then((blog: any) => {
           chooseBlog.value = blog;
           resolve(blog);
         })

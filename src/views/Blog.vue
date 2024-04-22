@@ -27,20 +27,18 @@
 
       <div class="time-info">
         本文于
-        <span
-          ><u>{{ displayPublishTime }}</u></span
-        >
+        <span>
+          <u>{{ displayPublishTime }}</u>
+        </span>
         日发表在
-        <span @click.stop="clickCategory(store.chooseBlog.category)" style="cursor: pointer"
-          ><u
-            ><b>{{ store.chooseBlog.category }}</b></u
-          ></span
-        >
-        分类下
+        <span @click.stop="clickCategory(store.chooseBlog.category)" style="cursor: pointer">
+          <u>
+            <b>{{ store.chooseBlog.category }}</b>
+          </u>
+        </span>
+        分类下，
         <span v-if="store.chooseBlog.updateTime !== store.chooseBlog.publishTime">
-          ，修改于
-          <u>{{ displayUpdateTime }}</u>
-          日
+          修改于 <u>{{ displayUpdateTime }}</u> 日
         </span>
       </div>
 
@@ -83,7 +81,8 @@
     <article-comments
       v-if="store.chooseBlog && Object.keys(store.chooseBlog).length > 0"
       @refreshBlogFromChild="refreshBlog"
-    ></article-comments>
+    >
+    </article-comments>
   </div>
 </template>
 
@@ -134,8 +133,7 @@ export default {
 
     $route(to) {
       if (to.params.id) {
-        (this as any).axios.get(`${API.blogDetail}?id=${to.params.id}`).then((response: any) => {
-          const blog = response.data.blog;
+        (this as any).axios.get(`${API.blogDetail}?id=${to.params.id}`).then((blog: any) => {
           window.scrollTo(0, 0);
           this.store.chooseBlogMutation(blog);
         });
@@ -157,15 +155,13 @@ export default {
 
   methods: {
     async refreshBlogList() {
-      const response = await (this as any).axios.get(API.blogList);
-      const list = response.data.blogList;
+      const list = await (this as any).axios.get(API.blogList);
       this.store.saveBlogListMutation(list);
     },
 
     async refreshBlog() {
       let id = this.$route.params.id;
-      const response = await (this as any).axios.get(`${API.blogDetail}?id=${id}`);
-      const blog = response.data.blog;
+      const blog = await (this as any).axios.get(`${API.blogDetail}?id=${id}`);
       this.store.chooseBlogMutation(blog);
     },
 
@@ -288,6 +284,7 @@ export default {
 <style lang="scss" scoped>
 .blog {
   padding-bottom: 45px;
+
   .blog-wrapper {
     position: relative;
     overflow: hidden;
@@ -323,15 +320,19 @@ export default {
       :deep(blockquote) {
         margin: 0;
       }
+
       .github-theme pre {
         font-size: 85%;
       }
+
       .github-theme pre code {
         padding: 16px;
       }
+
       .github-theme pre code > * {
         line-height: 1.45;
       }
+
       :deep(.md-editor-preview-wrapper) {
         padding: 5px;
       }

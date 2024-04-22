@@ -10,11 +10,7 @@
         <span class="icon iconfont icon-category"></span>
         <span>{{ category }}</span>
         <span>
-          {{
-            store.blogList.filter((value) => {
-              return value.category === category;
-            }).length
-          }}
+          {{ store.blogList.filter((value) => value.category === category).length }}
         </span>
       </p>
     </div>
@@ -37,8 +33,7 @@ export default {
 
   async created() {
     if (!this.store.blogList || this.store.blogList.length <= 0) {
-      const response = await (this as any).axios.get(API.blogList);
-      const list = response.data.blogList;
+      const list = await (this as any).axios.get(API.blogList);
       this.store.saveBlogListMutation(list);
     }
   },
@@ -79,17 +74,21 @@ export default {
     border-radius: 10px;
     cursor: pointer;
     font-size: $mediu-size;
+
     &:hover {
       background: $shen-hui;
     }
+
     .icon {
       width: 20px;
       margin-right: 5px;
     }
+
     :nth-child(2) {
       margin-right: 5px;
     }
   }
+
   .category-list {
     display: flex;
     flex-direction: column;

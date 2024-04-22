@@ -1,28 +1,16 @@
 <template>
   <div class="comments-wrapper">
-    <div class="comments-list">
-      <comments-publish @addComments="addComments"></comments-publish>
+    <comments-publish @addComments="addComments"></comments-publish>
 
-      <div v-for="(comment, index) in store.chooseBlog.comments" :key="index">
-        <comments-item
-          :comment="comment"
-          :blog="store.chooseBlog"
-          @addComments="addComments"
-          @refreshBlogFromChild="refreshBlogFromChild"
-        >
-          <div class="comment-reply">
-            <div v-for="(item, index) in comment.reply" :key="index">
-              <comments-item
-                :parent="comment"
-                :comment="item"
-                :blog="store.chooseBlog"
-                @addComments="addComments"
-                @refreshBlogFromChild="refreshBlogFromChild"
-              ></comments-item>
-            </div>
-          </div>
-        </comments-item>
-      </div>
+    <div class="comments-list">
+      <comments-item
+        v-for="(comment, index) in store.chooseBlog.comments"
+        :key="index"
+        :comment="comment"
+        @replyComments="replyComments"
+        @refreshBlogFromChild="refreshBlogFromChild"
+      >
+      </comments-item>
     </div>
   </div>
 </template>
@@ -46,26 +34,26 @@ export default {
   },
 
   methods: {
-    addComments({
-      parentId,
-      replyName,
-      replyEmail,
-      replyContent,
-      comment,
-    }: {
-      parentId: string;
-      replyName: string;
-      replyEmail: string;
-      replyContent: string;
-      comment: any;
-    }) {
+    addComments({ comment }: any) {
       (this as any).axios
         .post(API.addComments, {
-          blog_id: this.store.chooseBlog._id,
-          replyName,
-          replyEmail,
-          replyContent,
-          parent_id: parentId,
+          blogId: this.store.chooseBlog._id,
+          comment,
+        })
+        .then(() => {
+          this.$emit('refreshBlogFromChild');
+        })
+        .catch((err: any) => {
+          (this as any).handleError(err);
+        });
+    },
+
+    replyComments({ parentId, replyId, comment }: any) {
+      (this as any).axios
+        .post(API.replyComments, {
+          blogId: this.store.chooseBlog._id,
+          parentId,
+          replyId,
           comment,
         })
         .then(() => {

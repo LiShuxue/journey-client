@@ -66,8 +66,8 @@ export default {
     (this as any).axios
       .get(API.blogList)
       .then((response: any) => {
-        if (response.data.blogList && response.data.blogList.length > 0) {
-          this.allBlogList = response.data.blogList;
+        if (response && response.length > 0) {
+          this.allBlogList = response;
           this.store.saveBlogListMutation(this.allBlogList);
           this.blogList = this.allBlogList.slice(this.startArrIndex, this.endArrIndex);
           if (this.blogList.length < this.allBlogList.length) {
@@ -143,6 +143,7 @@ export default {
 .home {
   box-sizing: border-box;
 }
+
 .more {
   display: inline-block;
   text-align: center;
