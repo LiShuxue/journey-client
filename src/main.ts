@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import * as Sentry from '@sentry/vue';
+import VueGtag from 'vue-gtag';
 
 import 'normalize.css';
 import ElementPlus from 'element-plus';
@@ -35,5 +36,13 @@ app.use(ElementPlus as any);
 app.config.globalProperties.axios = axios;
 app.config.globalProperties.handleError = handleError;
 app.config.errorHandler = handleError;
+
+app.use(
+  VueGtag,
+  {
+    config: { id: 'G-Q3QSPMH38N' },
+  },
+  router
+);
 
 app.mount('#app');
